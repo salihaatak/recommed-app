@@ -62,26 +62,78 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Fullname</label>
-    <input class="form-control bg-transparent" type="text" name="fullname" formControlName="fullname"
-      placeholder="Fullname" autocomplete="off" [ngClass]="{
-        'is-invalid': registrationForm.controls['fullname'].invalid,
-        'is-valid': registrationForm.controls['fullname'].valid
+    <label class="form-label fw-bolder text-dark fs-6">Adınız</label>
+    <input class="form-control bg-transparent" type="text" name="firstName" formControlName="firstName"
+      placeholder="Adınız" autocomplete="off" [ngClass]="{
+        'is-invalid': registrationForm.controls['firstName'].invalid,
+        'is-valid': registrationForm.controls['firstName'].valid
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Fullname is required',
-        control: registrationForm.controls['fullname']
+        message: 'Ad gerekli',
+        control: registrationForm.controls['firstName']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Fullname should have at least 3 symbols',
-        control: registrationForm.controls['fullname']
+        message: 'Adınız en az 3 harf olmalı',
+        control: registrationForm.controls['firstName']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Fullname should have maximum 100 symbols',
-        control: registrationForm.controls['fullname']
+        message: 'Adınız en fazla 100 harf olmalı',
+        control: registrationForm.controls['firstName']
+      }"></ng-container>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <label class="form-label fw-bolder text-dark fs-6">Soyadınız</label>
+    <input class="form-control bg-transparent" type="text" name="lastName" formControlName="lastName"
+      placeholder="Soyadınız" autocomplete="off" [ngClass]="{
+        'is-invalid': registrationForm.controls['lastName'].invalid,
+        'is-valid': registrationForm.controls['lastName'].valid
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Soyad gerekli',
+        control: registrationForm.controls['lastName']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'Soyad en az 3 harfli olmalı',
+        control: registrationForm.controls['lastName']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'maxLength',
+        message: 'Soyad en fazla 100 harfli olmalı',
+        control: registrationForm.controls['lastName']
+      }"></ng-container>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <label class="form-label fw-bolder text-dark fs-6">Şağlık Kuruluşu Adı (İşletme)</label>
+    <input class="form-control bg-transparent" type="text" name="accountName" formControlName="accountName"
+      placeholder="Sağlık kuruluşu / işletme" autocomplete="off" [ngClass]="{
+        'is-invalid': registrationForm.controls['accountName'].invalid,
+        'is-valid': registrationForm.controls['accountName'].valid
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'İşletme adı gerekli',
+        control: registrationForm.controls['accountName']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'İşletme adı en az 3 harfli olmalı',
+        control: registrationForm.controls['accountName']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'maxLength',
+        message: 'İşletme adı en fazla 100 harfli olmalı',
+        control: registrationForm.controls['accountName']
       }"></ng-container>
   </div>
   <!--end::Form group-->
@@ -96,22 +148,22 @@
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Email is required',
+        message: 'E-posta gerekli',
         control: registrationForm.controls['email']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'email',
-        message: 'Email is invalid',
+        message: 'E-posta geçersiz',
         control: registrationForm.controls['email']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Email should have at least 3 symbols',
+        message: 'E-posta en az 3 karakterli olmalı',
         control: registrationForm.controls['email']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Email should have maximum 360 symbols',
+        message: 'E-posta en fazla 360 karakterli olmalı',
         control: registrationForm.controls['email']
       }"></ng-container>
   </div>
@@ -127,17 +179,17 @@
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Password is required',
+        message: 'Parola gerekli',
         control: registrationForm.controls['password']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Password should have at least 3 symbols',
+        message: 'Parola en az 6 karakterli olmalı',
         control: registrationForm.controls['password']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Password should have maximum 100 symbols',
+        message: 'Parola en fazla 100 karakterli olmalı',
         control: registrationForm.controls['password']
       }"></ng-container>
   </div>
@@ -145,7 +197,7 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
+    <label class="form-label fw-bolder text-dark fs-6">Parola (Doğrulama)</label>
     <input class="form-control bg-transparent" type="password" placeholder="Confirm password" name="cPassword"
       autocomplete="off" formControlName="cPassword" [ngClass]="{
         'is-invalid': registrationForm.controls['cPassword'].invalid,
@@ -153,17 +205,17 @@
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Confirm Password is required',
+        message: 'Parola doğrulaması gerekli',
         control: registrationForm.controls['cPassword']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Confirm Password should have at least 3 symbols',
+        message: 'Parola doğrulama en az 6 karakterli olmalı',
         control: registrationForm.controls['cPassword']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Confirm Password should have maximum 100 symbols',
+        message: 'Parola doğrulaması en fazla 100 karakterli olmalı',
         control: registrationForm.controls['cPassword']
       }"></ng-container>
     <ng-container *ngIf="
@@ -172,7 +224,7 @@
       ">
       <div class="fv-plugins-message-container">
         <div class="fv-help-block">
-          'Passsword' and 'Confirm Password' didn't match.
+          Parola ve parola doğrulama uyuşmuyor
         </div>
       </div>
     </ng-container>
@@ -184,8 +236,19 @@
     <label class="form-check form-check-inline">
       <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
       <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-        I Accept the&nbsp;<a href="https://keenthemes.com/metronic/?page=faq" target="_blank"
-          class="ms-1 link-primary">Terms</a>.
+        Kaydolarak <a href="https://keenthemes.com/metronic/?page=faq" target="_blank"
+          class="ms-1 link-primary">Kullanım Koşulları</a>'nı kabul ediyorum
+      </span>
+    </label>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <label class="form-check form-check-inline">
+      <input id="kt_login_optin_agree" type="checkbox" formControlName="agreeOptin" name="agreeOptin" class="form-check-input" />
+      <span for="kt_login_optin_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+        Fırsatlardan ve gelişmelerden haberdar edilmek istiyorum
       </span>
     </label>
   </div>

@@ -44,7 +44,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   initForm() {
     this.registrationForm = this.fb.group(
       {
-        fullname: [
+        firstName: [
+          '',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100),
+          ]),
+        ],
+        lastName: [
+          '',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100),
+          ]),
+        ],
+        accountName: [
           '',
           Validators.compose([
             Validators.required,
@@ -65,7 +81,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           '',
           Validators.compose([
             Validators.required,
-            Validators.minLength(3),
+            Validators.minLength(6),
             Validators.maxLength(100),
           ]),
         ],
@@ -73,11 +89,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           '',
           Validators.compose([
             Validators.required,
-            Validators.minLength(3),
+            Validators.minLength(6),
             Validators.maxLength(100),
           ]),
         ],
         agree: [false, Validators.compose([Validators.required])],
+        agreeOptin: [false, Validators.compose([Validators.required])],
       },
       {
         validator: ConfirmPasswordValidator.MatchPassword,
@@ -96,7 +113,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const newUser = new UserModel();
     newUser.setUser(result);
     const registrationSubscr = this.authService
-      .registration(newUser)
+      .register(newUser)
       .pipe(first())
       .subscribe((user: UserModel) => {
         if (user) {
