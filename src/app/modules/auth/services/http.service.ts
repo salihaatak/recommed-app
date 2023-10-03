@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,17 +17,17 @@ export class HTTPService {
   constructor(private http: HttpClient) {}
 
   post(url: string, payload: any, addAuth: boolean = true): Observable<any> {
-
-    let options: any;
+    let headers: HttpHeaders = new HttpHeaders();
     if (addAuth){
-      options.headers.Authorization = "Bearer " + "tokennn";
+      headers = headers.set("Authorization", "Bearer " + localStorage.getItem("token"));
     }
-
     return this.http.post(
-      environment.apiUrl + url,
+      "https://localhost/api/" + url,
       payload,
-      options
-    );
+      {
+        headers: headers
+      }
+    )
   }
 
   createUser(user: UserModel): Observable<any> {
