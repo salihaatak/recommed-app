@@ -103,8 +103,59 @@ export class AuthService implements OnDestroy {
     return this.httpService.post("account/register", user, false).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
+        localStorage.setItem("accountEmail", user.email)
+        localStorage.setItem("accountPhone", user.phoneNumber)
+        return true;
       }),
-      switchMap(() => this.login(user.email, user.password)),
+      //switchMap(() => this.login(user.email, user.password)),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  verifyEmail(verificationCode: string): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.httpService.post("account/verify-email", {email: localStorage.getItem("accountEmail"), code: verificationCode}, false).pipe(
+      map(() => {
+        this.isLoadingSubject.next(false);
+        return true;
+      }),
+      //switchMap(() => this.login(user.email, user.password)),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  sendPhoneVerificationCode(): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.httpService.post("account/send-phone-verification-code", {phoneNumber: localStorage.getItem("accountPhone")}, false).pipe(
+      map(() => {
+        this.isLoadingSubject.next(false);
+        return true;
+      }),
+      //switchMap(() => this.login(user.email, user.password)),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  verifyPhone(verificationCode: string): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.httpService.post("account/verify-phone", {phoneNumber: localStorage.getItem("accountPhone"), code: verificationCode}, false).pipe(
+      map(() => {
+        this.isLoadingSubject.next(false);
+        return true;
+      }),
+      //switchMap(() => this.login(user.email, user.password)),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);

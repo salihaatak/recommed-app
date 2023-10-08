@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registrationForm = this.fb.group(
       {
         firstName: [
-          '',
+          'qwe',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -53,7 +53,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         lastName: [
-          '',
+          'qwe',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -61,7 +61,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         accountName: [
-          '',
+          'qwe',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -69,7 +69,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         email: [
-          'qwe@qwe.qwe',
+          'esrefatak+' + Math.random() * 10000 + '@gmail.com',
           Validators.compose([
             Validators.required,
             Validators.email,
@@ -77,8 +77,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
           ]),
         ],
+        phoneNumber: [
+          '5335053495',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(10),
+          ]),
+        ],
         password: [
-          '',
+          'qweqwe',
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
@@ -86,14 +93,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         cPassword: [
-          '',
+          'qweqwe',
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(100),
           ]),
         ],
-        agree: [false, Validators.compose([Validators.required])],
+        agree: [true, Validators.compose([Validators.required])],
         agreeOptin: [false, Validators.compose([Validators.required])],
       },
       {
@@ -117,7 +124,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe((user: UserModel) => {
         if (user) {
-          this.router.navigate(['/']);
+          this.router.navigate(['auth/registration-email-verification']);
         } else {
           this.hasError = true;
         }

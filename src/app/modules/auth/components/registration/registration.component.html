@@ -140,7 +140,7 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Email</label>
+    <label class="form-label fw-bolder text-dark fs-6">E-posta</label>
     <input class="form-control bg-transparent" type="email" placeholder="Email" name="email" formControlName="email"
       autocomplete="off" [ngClass]="{
         'is-invalid': registrationForm.controls['email'].invalid,
@@ -165,6 +165,27 @@
         validation: 'maxLength',
         message: 'E-posta en fazla 360 karakterli olmalı',
         control: registrationForm.controls['email']
+      }"></ng-container>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <label class="form-label fw-bolder text-dark fs-6">Cep Telefonu</label>
+    <input class="form-control bg-transparent" type="text" placeholder="Cep telefonu numarası" name="phoneNumber" formControlName="phoneNumber"
+      autocomplete="off" [ngClass]="{
+        'is-invalid': registrationForm.controls['phoneNumber'].invalid,
+        'is-valid': registrationForm.controls['phoneNumber'].valid
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Cep telefonu gerekli',
+        control: registrationForm.controls['phoneNumber']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'Cep telefonu en az 10 haneli olmalı',
+        control: registrationForm.controls['phoneNumber']
       }"></ng-container>
   </div>
   <!--end::Form group-->
@@ -260,7 +281,7 @@
         registrationForm.invalid || !registrationForm.controls['agree'].value
       " class="btn btn-primary">
       <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">Submit</span>
+        <span class="indicator-label">Devam</span>
       </ng-container>
       <ng-container *ngIf="isLoading$ | async">
         <span class="indicator-progress" [style.display]="'block'">

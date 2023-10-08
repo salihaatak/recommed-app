@@ -11,7 +11,7 @@ export class UserModel extends AuthModel {
   roles: number[] = [];
   occupation: string;
   accountName: string;
-  phone: string;
+  phoneNumber: string;
   address?: AddressModel;
   socialNetworks?: SocialNetworksModel;
   // personal information
@@ -59,7 +59,7 @@ export class UserModel extends AuthModel {
     this.roles = user.roles || [];
     this.occupation = user.occupation || '';
     this.accountName = user.accountName || '';
-    this.phone = user.phone || '';
+    this.phoneNumber = user.phoneNumber || '';
     this.address = user.address;
     this.socialNetworks = user.socialNetworks;
   }

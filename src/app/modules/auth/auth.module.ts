@@ -9,11 +9,15 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthComponent } from './auth.component';
 import { TranslationModule } from '../i18n/translation.module';
+import { RegistrationEmailVerificationComponent } from './components/registration-email-verification/email-verification.component';
+import { RegistrationPhoneVerificationComponent } from './components/registration-phone-verification/phone-verification.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
+    RegistrationEmailVerificationComponent,
+    RegistrationPhoneVerificationComponent,
     ForgotPasswordComponent,
     LogoutComponent,
     AuthComponent,
