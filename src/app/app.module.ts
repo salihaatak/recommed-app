@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,6 +13,7 @@ import { AuthService } from './modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
+import { ActivatedRoute } from '@angular/router';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -49,9 +50,21 @@ function appInitializer(authService: AuthService) {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,
       multi: true,
-      deps: [AuthService],
-    },
+      deps: [AuthService]
+    }
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private route: ActivatedRoute
+  ) {
+      const urlParameters = new URLSearchParams(window.location.search);
+      if (urlParameters.get("firebase_token")){
+        localStorage.setItem("firebase_token", urlParameters.get("firebase_token") || "");
+      }
+      if (urlParameters.get("device_id")){
+        localStorage.setItem("device_id", urlParameters.get("device_id") || "");
+      }
+  }
+}

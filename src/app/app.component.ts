@@ -18,6 +18,7 @@ import {ThemeModeService} from './_metronic/partials/layout/theme-mode-switcher/
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+  orderby: any;
   constructor(
     private translationService: TranslationService,
     private modeService: ThemeModeService
