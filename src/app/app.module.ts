@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
 import { ActivatedRoute } from '@angular/router';
+import { JavascriptChannelServiceService } from './javascript-channel-service.service';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -51,7 +52,8 @@ function appInitializer(authService: AuthService) {
       useFactory: appInitializer,
       multi: true,
       deps: [AuthService]
-    }
+    },
+    JavascriptChannelServiceService
   ],
   bootstrap: [AppComponent],
 })
@@ -66,5 +68,7 @@ export class AppModule {
       if (urlParameters.get("device_id")){
         localStorage.setItem("device_id", urlParameters.get("device_id") || "");
       }
+
+
   }
 }

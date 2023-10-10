@@ -33,6 +33,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem("token");
     this.initForm();
   }
 
@@ -124,6 +125,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe((user: UserModel) => {
         if (user) {
+          this.authService.email = this.registrationForm.controls["email"].value
           this.router.navigate(['auth/registration-email-verification']);
         } else {
           this.hasError = true;

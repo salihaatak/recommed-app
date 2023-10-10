@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   appVersion: 'v8.1.8',
-  USERDATA_KEY: 'authf649fc9a5f55',
+  USERDATA_KEY: 'token',
   isMockEnabled: true,
   apiUrl: 'https://localhost/api/',
   appThemeName: 'Metronic',

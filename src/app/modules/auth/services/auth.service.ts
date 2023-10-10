@@ -24,6 +24,8 @@ export class AuthService implements OnDestroy {
   currentUserSubject: BehaviorSubject<UserType>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
+  email: string;
+
   get currentUserValue(): UserType {
     return this.currentUserSubject.value;
   }
@@ -71,7 +73,7 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem(this.authLocalStorageToken);
+    localStorage.removeItem("token");
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
@@ -84,14 +86,14 @@ export class AuthService implements OnDestroy {
 
     this.isLoadingSubject.next(true);
 
-    return this.httpService.post("user/me", null, true).pipe(
-      map((user: UserType) => {
-        if (user) {
-          this.currentUserSubject.next(user);
+    return this.httpService.post("user/me", {}, true).pipe(
+      map((result: any) => {
+        if (result) {
+          this.currentUserSubject.next(result.data.user);
         } else {
           this.logout();
         }
-        return user;
+        return result;
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -116,9 +118,9 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  verifyEmail(verificationCode: string): Observable<any> {
+  verifyEmail(email:string, verificationCode: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("account/verify-email", {email: localStorage.getItem("accountEmail"), code: verificationCode}, false).pipe(
+    return this.httpService.post("account/verify-email", {email: email, code: verificationCode}, false).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
         return true;
@@ -132,9 +134,9 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  sendPhoneVerificationCode(): Observable<any> {
+  sendPhoneVerificationCode(email: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("account/send-phone-verification-code", {phoneNumber: localStorage.getItem("accountPhone")}, false).pipe(
+    return this.httpService.post("account/send-phone-verification-code", {email: email}, false).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
         return true;
@@ -150,8 +152,10 @@ export class AuthService implements OnDestroy {
 
   verifyPhone(verificationCode: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("account/verify-phone", {phoneNumber: localStorage.getItem("accountPhone"), code: verificationCode}, false).pipe(
-      map(() => {
+    return this.httpService.post("account/verify-phone", {email: this.email, code: verificationCode}, false).pipe(
+      map((result) => {
+        localStorage.setItem("token", result.data.token);
+        this.currentUserValue = result.data;
         this.isLoadingSubject.next(false);
         return true;
       }),

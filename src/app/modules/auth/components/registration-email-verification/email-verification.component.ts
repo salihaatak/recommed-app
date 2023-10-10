@@ -66,7 +66,7 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
     const newUser = new UserModel();
     newUser.setUser(result);
     const registrationSubscr = this.authService
-      .verifyEmail(this.f["emailVerificationCode"].value)
+      .verifyEmail(this.authService.email, this.f["emailVerificationCode"].value)
       .pipe(first())
       .subscribe((user: UserModel) => {
         if (user) {

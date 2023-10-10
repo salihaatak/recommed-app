@@ -36,7 +36,7 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
     this.initForm();
 
     const registrationSubscr = this.authService
-      .sendPhoneVerificationCode()
+      .sendPhoneVerificationCode(this.authService.email)
       .pipe(first())
       .subscribe((user: UserModel) => {
         this.hasError = true;
@@ -77,9 +77,12 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
     const registrationSubscr = this.authService
       .verifyPhone(this.f["phoneVerificationCode"].value)
       .pipe(first())
-      .subscribe((user: UserModel) => {
-        if (user) {
-          this.router.navigate(['/']);
+      .subscribe((result: any) => {
+        if (result) {
+          this.authService.getUserByToken().subscribe(()=>{
+            this.router.navigate(['/']);
+          })
+
         } else {
           this.hasError = true;
         }
