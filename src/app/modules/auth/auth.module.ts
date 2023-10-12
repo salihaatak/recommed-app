@@ -11,6 +11,7 @@ import { AuthComponent } from './auth.component';
 import { TranslationModule } from '../i18n/translation.module';
 import { RegistrationEmailVerificationComponent } from './components/registration-email-verification/email-verification.component';
 import { RegistrationPhoneVerificationComponent } from './components/registration-phone-verification/phone-verification.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RegistrationPhoneVerificationComponent } from './components/registratio
     RegistrationEmailVerificationComponent,
     RegistrationPhoneVerificationComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
     LogoutComponent,
     AuthComponent,
   ],

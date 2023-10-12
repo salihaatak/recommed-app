@@ -12,11 +12,11 @@ enum ErrorStates {
 }
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss'],
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss'],
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
   form1: FormGroup;
   errorState: ErrorStates = ErrorStates.NotSubmitted;
   errorStates = ErrorStates;
@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
     ) {
     this.isLoading$ = this.authService.isLoading$;
   }
@@ -43,26 +43,40 @@ export class ForgotPasswordComponent implements OnInit {
 
   initForm() {
     this.form1 = this.fb.group({
-      email: [
+      code: [
         null,
         Validators.compose([
           Validators.required,
-          Validators.email,
-          Validators.minLength(10),
-          Validators.maxLength(320),
+          Validators.minLength(6),
+          Validators.maxLength(6),
         ]),
       ],
-    });
+      password: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(100),
+        ]),
+      ],
+      cPassword: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(100),
+        ]),
+      ],
+  });
   }
 
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
     const forgotPasswordSubscr = this.authService
-      .forgotPassword(this.f.email.value)
+      .resetPassword(this.authService.email, this.form1.controls.code.value, this.form1.controls.password.value)
       .pipe(first())
       .subscribe((result: boolean) => {
-        this.authService.email = this.form1.controls.email.value;
-        this.router.navigate(['auth/reset-password']);
+        alert("oldu");
         this.errorState = result ? ErrorStates.NoError : ErrorStates.HasError;
       });
     this.unsubscribe.push(forgotPasswordSubscr);

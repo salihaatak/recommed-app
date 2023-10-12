@@ -12,11 +12,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  // KeenThemes mock, change it to:
-  defaultAuth: any = {
-    email: 'admin@demo.com',
-    password: 'demo',
-  };
   loginForm: FormGroup;
   hasError: boolean;
   returnUrl: string;
@@ -45,27 +40,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.loginForm.controls;
-  }
-
   initForm() {
     this.loginForm = this.fb.group({
-      email: [
-        this.defaultAuth.email,
+      contact: [
+        null,
         Validators.compose([
           Validators.required,
-          Validators.email,
-          Validators.minLength(3),
-          Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+          Validators.minLength(9),
+          Validators.maxLength(320),
         ]),
       ],
       password: [
-        this.defaultAuth.password,
+        null,
         Validators.compose([
           Validators.required,
-          Validators.minLength(3),
+          Validators.minLength(6),
           Validators.maxLength(100),
         ]),
       ],
@@ -75,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submit() {
     this.hasError = false;
     const loginSubscr = this.authService
-      .login(this.f.email.value, this.f.password.value)
+      .login(this.loginForm.controls.contact.value, this.loginForm.controls.password.value)
       .pipe(first())
       .subscribe((user: UserModel | undefined) => {
         if (user) {

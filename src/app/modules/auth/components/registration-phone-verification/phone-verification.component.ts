@@ -39,7 +39,6 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
       .sendPhoneVerificationCode(this.authService.email)
       .pipe(first())
       .subscribe((user: UserModel) => {
-        this.hasError = true;
       });
     this.unsubscribe.push(registrationSubscr);
 

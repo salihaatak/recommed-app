@@ -54,16 +54,20 @@
 
   <!--begin::Separator-->
   <div class="separator separator-content my-14">
-    <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
+    <span class="w-125px text-gray-500 fw-semibold fs-7">Or <a href="https://recommed.co/key.php">Webview</a></span>
   </div>
   <!--end::Separator-->
+
+  <!--begin::Separator-->
+  <div class="separator separator-content my-14">
+    <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
+  </div>
 
   <!-- begin::Alert info-->
   <ng-container *ngIf="!hasError">
     <div class="mb-10 bg-light-info p-8 rounded">
       <div class="text-info">
-        Use account <strong>{{ defaultAuth.email }}</strong> and password
-        <strong>{{ defaultAuth.password }}</strong> to continue.
+       Cep telefonu veya e-posta adresi giriniz
       </div>
     </div>
   </ng-container>
@@ -82,31 +86,26 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fs-6 fw-bolder text-dark">Email</label>
-    <input class="form-control bg-transparent" type="email" name="email" formControlName="email" autocomplete="off"
+    <label class="form-label fs-6 fw-bolder text-dark">E-posta veya Cep telefonu</label>
+    <input class="form-control bg-transparent" type="text" name="contact" formControlName="contact" autocomplete="off"
       [ngClass]="{
-        'is-invalid': loginForm.controls['email'].invalid,
-        'is-valid': loginForm.controls['email'].valid
+        'is-invalid': loginForm.controls['contact'].invalid,
+        'is-valid': loginForm.controls['contact'].valid
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Email is required',
-        control: loginForm.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'email',
-        message: 'Email is invalid',
-        control: loginForm.controls['email']
+        message: 'Email or phone is required',
+        control: loginForm.controls['contact']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minLength',
-        message: 'Email should have at least 3 symbols',
-        control: loginForm.controls['email']
+        message: 'Should have at least 9 symbols',
+        control: loginForm.controls['contact']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Email should have maximum 360 symbols',
-        control: loginForm.controls['email']
+        message: 'Should have maximum 360 symbols',
+        control: loginForm.controls['contact']
       }"></ng-container>
   </div>
   <!--end::Form group-->

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { HostListener, Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
@@ -46,10 +46,27 @@ export class AuthService implements OnDestroy {
     this.unsubscribe.push(subscr);
   }
 
+  @HostListener('document:payment.success', ['$event'])
+  onPaymentSuccess(event: any): void {
+      debugger;
+      console.log(JSON.stringify(event));
+      /*
+      this.paymentService.updateOrder(event.detail).subscribe(
+      data => {
+          this.paymentId = event.detail.razorpay_payment_id;
+      }
+      ,
+      err => {
+          this.error = err.error.message;
+      }
+      );
+      */
+  }
+
   // public methods
-  login(email: string, password: string): Observable<UserType> {
+  login(contact: string, password: string): Observable<UserType> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("user/login", {contact: email, password: password}, false).pipe(
+    return this.httpService.post("user/login", {contact: contact, password: password}, false).pipe(
       map(
         (result: ResultModel) => {
           if (result.success){
@@ -168,12 +185,38 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  forgotPassword(email: string): Observable<boolean> {
+  forgotPassword(email: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.httpService
-      .forgotPassword(email)
-      .pipe(finalize(() => this.isLoadingSubject.next(false)));
+    return this.httpService.post("user/forgotPassword", {email: email}, false).pipe(
+      map((result) => {
+        this.isLoadingSubject.next(false);
+        return true;
+      }),
+      //switchMap(() => this.login(user.email, user.password)),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
   }
+
+  resetPassword(email: string, code: string, password: string): Observable<any> {
+    this.isLoadingSubject.next(true);
+    return this.httpService.post("user/resetPassword", {email: email, code: code, password: password}, false).pipe(
+      map((result) => {
+        this.isLoadingSubject.next(false);
+        return true;
+      }),
+      //switchMap(() => this.login(user.email, user.password)),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
 
   private getAuthFromLocalStorage(): AuthModel | undefined {
     try {
