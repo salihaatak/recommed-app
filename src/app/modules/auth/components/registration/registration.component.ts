@@ -113,11 +113,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   submit() {
     this.hasError = false;
     const result: {
-      [key: string]: string;
+      [key: string]: string | null;
     } = {};
     Object.keys(this.f).forEach((key) => {
       result[key] = this.f[key].value;
     });
+    result.firebaseToken = localStorage.getItem("firebase_token")
+    result.deviceId = localStorage.getItem("device_id")
     const newUser = new UserModel();
     newUser.setUser(result);
     const registrationSubscr = this.authService

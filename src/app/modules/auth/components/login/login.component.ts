@@ -79,4 +79,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+
+  aaaa(){
+    return localStorage.getItem("firebase_token")
+  }
 }
