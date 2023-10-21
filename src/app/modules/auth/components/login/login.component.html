@@ -63,20 +63,20 @@
     <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
   </div>
 
-  <!-- begin::Alert info-->
+  <!--
   <ng-container *ngIf="!hasError">
     <div class="mb-10 bg-light-info p-8 rounded">
       <div class="text-info">
        Cep telefonu veya e-posta adresi giriniz
 
+          <button (click)="this.reloadPage()">YENİLE</button>
        <div>
-          {{this.aaaa()}}
+          Firebase Token: {{this.getFirebaseToken()}}
        </div>
       </div>
     </div>
   </ng-container>
-  <!-- end::Alert info-->
-
+  -->
 
   <!-- begin::Alert error-->
   <ng-container *ngIf="hasError">

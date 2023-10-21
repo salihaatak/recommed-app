@@ -22,7 +22,7 @@ export class HTTPService {
       headers = headers.set("Authorization", "Bearer " + localStorage.getItem("token"));
     }
     return this.http.post(
-      "https://localhost/api/" + url,
+      "https://alb-recommed-1454511849.eu-west-1.elb.amazonaws.com/api/" + url,
       payload,
       {
         headers: headers

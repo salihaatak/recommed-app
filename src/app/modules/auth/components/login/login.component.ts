@@ -80,7 +80,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  aaaa(){
+  getFirebaseToken(){
     return localStorage.getItem("firebase_token")
+  }
+
+  reloadPage(){
+    window.location.reload()
   }
 }
