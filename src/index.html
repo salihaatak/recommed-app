@@ -16,15 +16,10 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <script>
-    function handdler (response){
-        var event = new CustomEvent("payment.success",
-            {
-                detail: "ccc",
-                bubbles: true,
-                cancelable: true
-            }
-        );
-        window.dispatchEvent(event);
+
+
+    function selectContactsCallback (params){
+      window.selectContactsCallbackJS.zone.run(() => {window.selectContactsCallbackJS.componentFn(params);})
     }
   </script>
 </head>
