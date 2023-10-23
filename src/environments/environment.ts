@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v8.1.8',
   USERDATA_KEY: 'token',
   isMockEnabled: true,
-  apiUrl: 'https://alb-recommed-1454511849.eu-west-1.elb.amazonaws.com/api/',
+  apiUrl: 'https://localhost/api/',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',
   appHTMLIntegration:

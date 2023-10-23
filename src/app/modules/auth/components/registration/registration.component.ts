@@ -128,6 +128,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .subscribe((user: UserModel) => {
         if (user) {
           this.authService.email = this.registrationForm.controls["email"].value
+          this.authService.phoneNumber = this.registrationForm.controls["phoneNumber"].value
           this.router.navigate(['auth/registration-email-verification']);
         } else {
           this.hasError = true;

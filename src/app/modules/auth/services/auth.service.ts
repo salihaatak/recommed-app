@@ -25,6 +25,7 @@ export class AuthService implements OnDestroy {
   isLoadingSubject: BehaviorSubject<boolean>;
 
   email: string;
+  phoneNumber: string;
 
   get currentUserValue(): UserType {
     return this.currentUserSubject.value;

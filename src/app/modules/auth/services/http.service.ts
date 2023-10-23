@@ -17,7 +17,7 @@ export class HTTPService {
       headers = headers.set("Authorization", "Bearer " + localStorage.getItem("token"));
     }
     return this.http.post(
-      "https://api.recommed.co/api/" + url,
+      environment.apiUrl + url,
       payload,
       {
         headers: headers
