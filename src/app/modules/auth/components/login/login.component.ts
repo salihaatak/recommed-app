@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 declare global {
   interface Window { selectContactsCallbackJS: any; }
+  interface Window { selectContactsJS: any; }
 }
 
 declare function btnOpenContactList(): void;
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   returnUrl: string;
   isLoading$: Observable<boolean>;
 
+  public contacts: string;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -47,14 +49,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
 
-      window.selectContactsCallbackJS = {
-        zone: this.zone,
-        componentFn: (val: any) => {
-          //rehberden numaralar geldi. Logic buraya.
-          window.alert('selectContactsCallbackJS: ' + JSON.stringify(val));
-        },
-        component: this
-      }
+
+    window.selectContactsCallbackJS = {
+      zone: this.zone,
+      componentFn: (val: any) => {
+        //rehberden numaralar geldi. Logic buraya.
+        window.alert("TS function executed");
+
+        this.contacts = "oldu bilene";
+      },
+      component: this
+    }
+
   }
 
   initForm() {
@@ -79,9 +85,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    /*btnOpenContactList();
-
-    return;*/
     this.hasError = false;
     const loginSubscr = this.authService
       .login(this.loginForm.controls.contact.value, this.loginForm.controls.password.value)
@@ -94,6 +97,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       });
     this.unsubscribe.push(loginSubscr);
+  }
+
+  btnOpenContactsClick(){
+    window.selectContactsJS();
   }
 
   ngOnDestroy() {

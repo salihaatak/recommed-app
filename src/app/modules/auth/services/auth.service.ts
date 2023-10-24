@@ -47,23 +47,6 @@ export class AuthService implements OnDestroy {
     this.unsubscribe.push(subscr);
   }
 
-  @HostListener('document:payment.success', ['$event'])
-  onPaymentSuccess(event: any): void {
-      debugger;
-      console.log(JSON.stringify(event));
-      /*
-      this.paymentService.updateOrder(event.detail).subscribe(
-      data => {
-          this.paymentId = event.detail.razorpay_payment_id;
-      }
-      ,
-      err => {
-          this.error = err.error.message;
-      }
-      );
-      */
-  }
-
   // public methods
   login(contact: string, password: string): Observable<UserType> {
     this.isLoadingSubject.next(true);

@@ -40,7 +40,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/script.js"
+              "src/script.js"
             ]
           },
           "configurations": {
