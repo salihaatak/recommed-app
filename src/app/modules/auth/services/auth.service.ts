@@ -7,6 +7,7 @@ import { HTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ResultModel } from '../models/result.model';
+import { ApiResultModel } from '../models/api-result.mode';
 
 export type UserType = UserModel | undefined;
 
@@ -119,12 +120,12 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  verifyEmail(email:string, verificationCode: string): Observable<any> {
+  verifyEmail(email:string, verificationCode: string): Observable<ApiResultModel | undefined> {
     this.isLoadingSubject.next(true);
     return this.httpService.post("account/verify-email", {email: email, code: verificationCode}, false).pipe(
-      map(() => {
+      map((result: ApiResultModel) => {
         this.isLoadingSubject.next(false);
-        return true;
+        return result;
       }),
       //switchMap(() => this.login(user.email, user.password)),
       catchError((err) => {
@@ -151,14 +152,14 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  verifyPhone(verificationCode: string): Observable<any> {
+  verifyPhone(verificationCode: string): Observable<ApiResultModel | undefined> {
     this.isLoadingSubject.next(true);
     return this.httpService.post("account/verify-phone", {email: this.email, code: verificationCode}, false).pipe(
-      map((result) => {
+      map((result: ApiResultModel) => {
         localStorage.setItem("token", result.data.token);
         this.currentUserValue = result.data;
         this.isLoadingSubject.next(false);
-        return true;
+        return result;
       }),
       //switchMap(() => this.login(user.email, user.password)),
       catchError((err) => {
@@ -187,10 +188,12 @@ export class AuthService implements OnDestroy {
 
   resetPassword(email: string, code: string, password: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("user/resetPassword", {email: email, code: code, password: password}, false).pipe(
-      map((result) => {
+    return this.httpService.post("user/setNewPassword", {email: email, code: code, password: password, firebaseToken: localStorage.getItem("firebase_token")}, false).pipe(
+      map((result: ApiResultModel) => {
+        localStorage.setItem("token", result.data.token);
+        this.currentUserValue = result.data;
         this.isLoadingSubject.next(false);
-        return true;
+        return result;
       }),
       //switchMap(() => this.login(user.email, user.password)),
       catchError((err) => {

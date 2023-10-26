@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
+import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
   selector: 'app-registration-phone-verification',
@@ -76,12 +77,11 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
     const registrationSubscr = this.authService
       .verifyPhone(this.f["phoneVerificationCode"].value)
       .pipe(first())
-      .subscribe((result: any) => {
-        if (result) {
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
           this.authService.getUserByToken().subscribe(()=>{
-            this.router.navigate(['/']);
+            this.router.navigate(['dashboard']);
           })
-
         } else {
           this.hasError = true;
         }

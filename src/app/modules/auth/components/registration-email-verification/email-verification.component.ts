@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
+import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
   selector: 'app-registration-email-verification',
@@ -36,11 +37,6 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
     this.initForm();
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.form1.controls;
-  }
-
   initForm() {
     this.form1 = this.fb.group(
       {
@@ -60,16 +56,16 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
     const result: {
       [key: string]: string;
     } = {};
-    Object.keys(this.f).forEach((key) => {
-      result[key] = this.f[key].value;
+    Object.keys(this.form1.controls).forEach((key) => {
+      result[key] = this.form1.controls[key].value;
     });
     const newUser = new UserModel();
     newUser.setUser(result);
     const registrationSubscr = this.authService
-      .verifyEmail(this.authService.email, this.f["emailVerificationCode"].value)
+      .verifyEmail(this.authService.email, this.form1.controls["emailVerificationCode"].value)
       .pipe(first())
-      .subscribe((user: UserModel) => {
-        if (user) {
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
           this.router.navigate(['auth/registration-phone-verification']);
         } else {
           this.hasError = true;
