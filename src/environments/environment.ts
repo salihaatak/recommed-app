@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v8.1.8',
   USERDATA_KEY: 'token',
   isMockEnabled: true,
-  apiUrl: 'https://localhost/api/',
+  apiUrl: 'https://api.recommed.co/api/',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',
   appHTMLIntegration:
@@ -160,6 +160,8 @@ export const environment = {
     },
   },
 };
+
+export default environment;
 
 /*
  * For easier debugging in development mode, you can import the following file

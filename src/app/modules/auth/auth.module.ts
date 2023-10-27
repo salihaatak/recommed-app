@@ -12,6 +12,7 @@ import { TranslationModule } from '../i18n/translation.module';
 import { RegistrationEmailVerificationComponent } from './components/registration-email-verification/email-verification.component';
 import { RegistrationPhoneVerificationComponent } from './components/registration-phone-verification/phone-verification.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { SocialLoginModule, GoogleSigninButtonModule, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,28 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '162200197336-g3elt1qvgq6cqk3dkfkt5g3vdfd3t7be.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (err) => {
+          console.log(err);
+        },
+      } as SocialAuthServiceConfig
+    }
+
+  ]
 })
 export class AuthModule {}
