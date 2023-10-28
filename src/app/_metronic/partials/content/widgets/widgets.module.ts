@@ -85,6 +85,13 @@ import { TablesWidget16Component } from './_new/tables/tables-widget16/tables-wi
 import { NewChartsWidget8Component } from './_new/charts/new-charts-widget8/new-charts-widget8.component';
 import { CardsWidget18Component } from './_new/cards/cards-widget18/cards-widget18.component';
 import { SharedModule } from "../../../shared/shared.module";
+
+
+//recommed
+
+import { RecommendationsLatestComponent } from './tables/tables-recommendations/recommendations-latest.component'
+
+
 @NgModule({
   declarations: [
     // Advanced Tables
@@ -166,6 +173,8 @@ import { SharedModule } from "../../../shared/shared.module";
     TablesWidget16Component,
     NewChartsWidget8Component,
     CardsWidget18Component,
+
+    RecommendationsLatestComponent
   ],
   imports: [
     CommonModule,
@@ -256,7 +265,9 @@ import { SharedModule } from "../../../shared/shared.module";
     TablesWidget16Component,
     NewChartsWidget8Component,
     TablesWidget16Component,
-    CardsWidget18Component
+    CardsWidget18Component,
+
+    RecommendationsLatestComponent
   ],
 })
 export class WidgetsModule {}
