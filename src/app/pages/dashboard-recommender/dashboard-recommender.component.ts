@@ -3,10 +3,10 @@ import { ModalConfig, ModalComponent } from '../../_metronic/partials';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  templateUrl: './dashboard-recommender.component.html',
+  styleUrls: ['./dashboard-recommender.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardRecommenderComponent {
   modalConfig: ModalConfig = {
     modalTitle: 'Modal title',
     dismissButtonLabel: 'Submit',
