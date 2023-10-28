@@ -61,9 +61,9 @@ export const DarkSidebarConfig: ILayout = {
         },
         minimize: {
           desktop: {
-            enabled: true,
+            enabled: false,
             default: false,
-            hoverable: true,
+            hoverable: false,
           },
         },
         menu: {
@@ -129,7 +129,7 @@ export const DarkSidebarConfig: ILayout = {
   engage: {
     componentName: 'engage',
     demos: {
-      enabled: true,
+      enabled: false,
     },
     purchase: {
       enabled: false,
