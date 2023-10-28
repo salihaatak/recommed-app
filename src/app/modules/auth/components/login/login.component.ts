@@ -98,10 +98,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe((user: UserModel | undefined) => {
         if (user) {
-          this.router.navigate([this.returnUrl]);
+          this.authService.getUserByToken().subscribe(()=>{
+            this.router.navigate(['dashboard']);
+          })
         } else {
           this.hasError = true;
         }
+
       });
     this.unsubscribe.push(loginSubscr);
   }
