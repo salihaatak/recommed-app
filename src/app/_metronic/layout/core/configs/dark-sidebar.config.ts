@@ -25,11 +25,11 @@ export const DarkSidebarConfig: ILayout = {
         containerClass: 'd-flex align-items-stretch justify-content-between',
         fixed: {
           desktop: true,
-          mobile: false,
+          mobile: true,
         },
         content: 'menu',
         menu: {
-          display: true,
+          display: false,
           iconType: 'svg',
         },
       },

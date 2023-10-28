@@ -166,21 +166,6 @@ export class LayoutService {
   }
 
   getLayoutConfig(layoutType: LayoutType): ILayout {
-    const storedLayoutType = this.getBaseLayoutTypeFromLocalStorage();
-    if (layoutType && storedLayoutType) {
-      const configInString = localStorage.getItem(
-        `${layoutType}-${LAYOUT_CONFIG_LOCAL_STORAGE_KEY}`
-      );
-
-      if (configInString) {
-        try {
-          return JSON.parse(configInString) as ILayout;
-        } catch (ex) {
-          console.log('reading config exception', ex);
-        }
-      }
-    }
-
     return this.getLayoutByType(layoutType);
   }
 
