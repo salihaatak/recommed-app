@@ -4,6 +4,7 @@ export const locale = {
   data: {
     TRANSLATOR: {
       SELECT: 'Select your language',
+      HELLO: 'Hi!',
     },
     MENU: {
       NEW: 'new',

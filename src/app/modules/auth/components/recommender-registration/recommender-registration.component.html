@@ -11,13 +11,13 @@
   <div class="text-center mb-11">
     <!--begin::Title-->
     <h1 class="text-dark fw-bolder mb-3">
-      Sağlık Kuruluşu Kaydı
+      {{accountName}}
     </h1>
     <!--end::Title-->
 
     <!--begin::Subtitle-->
     <div class="text-gray-500 fw-semibold fs-6">
-      Müşterilerinize dijital tavsiye yolu sunarak yeni müşteri kazanın
+      Sağlık kuruluşunu çevrenizdekilere tavsiye ederek kolayca ek gelir elde edin
     </div>
     <!--end::Subtitle--->
   </div>
@@ -31,7 +31,7 @@
       <a href="#"
         class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
         <img alt="Logo" src="./assets/media/svg/brand-logos/google-icon.svg" class="h-15px me-3" />
-        Google ile giriş
+        Google ile katılın
       </a>
       <!--end::Google link--->
     </div>
@@ -57,33 +57,6 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Şağlık Kuruluşu Adı</label>
-    <input class="form-control bg-transparent" type="text" name="accountName" formControlName="accountName"
-      placeholder="Sağlık kuruluşu / işletme" autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['accountName'].invalid,
-        'is-valid': form1.controls['accountName'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'İşletme adı gerekli',
-        control: form1.controls['accountName']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'İşletme adı en az 3 harfli olmalı',
-        control: form1.controls['accountName']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'İşletme adı en fazla 100 harfli olmalı',
-        control: form1.controls['accountName']
-      }"></ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Adınız</label>
     <input class="form-control bg-transparent" type="text" name="firstName" formControlName="firstName"
       placeholder="Adınız" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['firstName'].invalid,
@@ -109,7 +82,6 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Soyadınız</label>
     <input class="form-control bg-transparent" type="text" name="lastName" formControlName="lastName"
       placeholder="Soyadınız" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['lastName'].invalid,
@@ -135,38 +107,6 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">E-posta</label>
-    <input class="form-control bg-transparent" type="email" placeholder="Email" name="email" formControlName="email"
-      autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['email'].invalid,
-        'is-valid': form1.controls['email'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'E-posta gerekli',
-        control: form1.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'email',
-        message: 'E-posta geçersiz',
-        control: form1.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'E-posta en az 3 karakterli olmalı',
-        control: form1.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'E-posta en fazla 360 karakterli olmalı',
-        control: form1.controls['email']
-      }"></ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Cep Telefonu</label>
     <input class="form-control bg-transparent" type="text" placeholder="Cep telefonu numarası" name="phoneNumber" formControlName="phoneNumber"
       autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['phoneNumber'].invalid,
@@ -187,7 +127,6 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Password</label>
     <input class="form-control bg-transparent" type="password" placeholder="Password" name="password"
       formControlName="password" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['password'].invalid,
@@ -213,7 +152,6 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Parola (Doğrulama)</label>
     <input class="form-control bg-transparent" type="password" placeholder="Confirm password" name="cPassword"
       autocomplete="off" formControlName="cPassword" [ngClass]="{
         'is-invalid': form1.controls['cPassword'].invalid,

@@ -13,9 +13,15 @@ import { RegistrationEmailVerificationComponent } from './components/registratio
 import { RegistrationPhoneVerificationComponent } from './components/registration-phone-verification/phone-verification.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SocialLoginModule, GoogleSigninButtonModule, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { InvitationComponent } from './components/invitation/invitation.component';
+import { IntroComponent } from './components/intro/intro.component';
+import { RecommenderRegistrationComponent } from './components/recommender-registration/recommender-registration.component';
 
 @NgModule({
   declarations: [
+    RecommenderRegistrationComponent,
+    IntroComponent,
+    InvitationComponent,
     LoginComponent,
     RegistrationComponent,
     RegistrationEmailVerificationComponent,

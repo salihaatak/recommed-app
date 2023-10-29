@@ -8,6 +8,9 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { RegistrationEmailVerificationComponent } from './components/registration-email-verification/email-verification.component';
 import { RegistrationPhoneVerificationComponent } from './components/registration-phone-verification/phone-verification.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { IntroComponent } from './components/intro/intro.component';
+import { InvitationComponent } from './components/invitation/invitation.component';
+import { RecommenderRegistrationComponent } from './components/recommender-registration/recommender-registration.component';
 
 const routes: Routes = [
   {
@@ -16,25 +19,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
+        component: IntroComponent,
+        data: { returnUrl: window.location.pathname },
       },
       {
         path: 'login',
         component: LoginComponent,
         data: { returnUrl: window.location.pathname },
-      },
-      {
-        path: 'registration',
-        component: RegistrationComponent,
-      },
-      {
-        path: 'registration-email-verification',
-        component: RegistrationEmailVerificationComponent,
-      },
-      {
-        path: 'registration-phone-verification',
-        component: RegistrationPhoneVerificationComponent,
       },
       {
         path: 'forgot-password',
@@ -48,8 +39,32 @@ const routes: Routes = [
         path: 'logout',
         component: LogoutComponent,
       },
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' },
+      {
+        path: 'recommender/invitation',
+        component: InvitationComponent,
+      },
+      {
+        path: 'recommender/registration',
+        component: RecommenderRegistrationComponent,
+      },
+      {
+        path: 'recommender/registration/:invitationCode',
+        component: RecommenderRegistrationComponent,
+      },
+      {
+        path: 'account/registration',
+        component: RegistrationComponent,
+      },
+      {
+        path: 'account/registration-email-verification',
+        component: RegistrationEmailVerificationComponent,
+      },
+      {
+        path: 'account/registration-phone-verification',
+        component: RegistrationPhoneVerificationComponent,
+      },
+      //{ path: '', redirectTo: 'login', pathMatch: 'full' },
+      //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
     ],
   },
 ];

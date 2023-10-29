@@ -1,0 +1,94 @@
+
+<div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+  <a routerLink="/auth" class="link-primary">
+    Geri
+  </a>
+</div>
+
+<form class="form w-100" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="form1"
+  (ngSubmit)="submit()">
+  <!--begin::Heading-->
+  <div class="text-center mb-11">
+    <!--begin::Title-->
+    <h1 class="text-dark fw-bolder mb-3">
+      Davet Kodu
+    </h1>
+    <!--end::Title-->
+
+    <!--begin::Subtitle-->
+    <div class="text-gray-500 fw-semibold fs-6">
+      Lütfen hizmet aldığınız sağlık kuruluşu tarafından paylaşılan 4 haneli davet kodunu giriniz
+    </div>
+    <!--end::Subtitle--->
+  </div>
+  <!--begin::Heading-->
+
+  <!-- begin::Alert error-->
+  <ng-container *ngIf="hasError">
+    <div class="mb-lg-15 alert alert-danger">
+      <div class="alert-text font-weight-bold">
+        Davet kodu doğrulanamadı
+      </div>
+    </div>
+  </ng-container>
+  <!-- end::Alert error-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <label class="form-label fw-bolder text-dark fs-6">Davet Kodu</label>
+    <input class="form-control bg-transparent" type="text" name="invitationCode" formControlName="invitationCode"
+      placeholder="Davet Kodu" autocomplete="off" [ngClass]="{
+        'is-invalid': form1.controls['invitationCode'].invalid,
+        'is-valid': form1.controls['invitationCode'].valid
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Davet kodu gerekli',
+        control: form1.controls['invitationCode']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'Davt kodu en az 4 haneli olmalı',
+        control: form1.controls['invitationCode']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'maxLength',
+        message: 'Davet kodu en fazla 4 haneli',
+        control: form1.controls['invitationCode']
+      }"></ng-container>
+  </div>
+  <!--end::Form group-->
+
+
+  <!--begin::Form group-->
+  <div class="d-grid mb-10">
+    <button type="submit" id="kt_sign_up_submit" [disabled]="
+        form1.invalid
+      " class="btn btn-primary">
+      <ng-container *ngIf="(isLoading$ | async) === false">
+        <span class="indicator-label">Devam</span>
+      </ng-container>
+      <ng-container *ngIf="isLoading$ | async">
+        <span class="indicator-progress" [style.display]="'block'">
+          Lütfen bekleyin...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+    </button>
+  </div>
+  <!--end::Form group-->
+
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

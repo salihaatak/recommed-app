@@ -3,17 +3,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
-  selector: 'app-registration-email-verification',
-  templateUrl: './email-verification.component.html',
-  styleUrls: ['./email-verification.component.scss'],
+  selector: 'app-invitation',
+  templateUrl: './invitation.component.html',
+  styleUrls: ['./invitation.component.scss'],
 })
-export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy {
+export class InvitationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   isLoading$: Observable<boolean>;
@@ -23,7 +22,7 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
 
   constructor(
     private fb: FormBuilder,
-    public authService: AuthService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.isLoading$ = this.authService.isLoading$;
@@ -34,13 +33,14 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
+    localStorage.removeItem("token");
     this.initForm();
   }
 
   initForm() {
     this.form1 = this.fb.group(
       {
-        emailVerificationCode: [
+        invitationCode: [
           '',
           Validators.compose([
             Validators.required,
@@ -53,25 +53,16 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
 
   submit() {
     this.hasError = false;
-    const result: {
-      [key: string]: string;
-    } = {};
-    Object.keys(this.form1.controls).forEach((key) => {
-      result[key] = this.form1.controls[key].value;
-    });
-    const newUser = new UserModel();
-    newUser.setUser(result);
-    const registrationSubscr = this.authService
-      .verifyEmail(this.authService.email, this.form1.controls["emailVerificationCode"].value)
-      .pipe(first())
+    const subscr = this.authService
+      .post("user/verify-invitation", {invitationCode: this.form1.controls["invitationCode"].value})
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.router.navigate(['/auth/account/registration-phone-verification']);
+          this.router.navigate(['/auth/recommender/registration/', result?.data.invitationCode]);
         } else {
           this.hasError = true;
         }
       });
-    this.unsubscribe.push(registrationSubscr);
+    this.unsubscribe.push(subscr);
   }
 
   ngOnDestroy() {

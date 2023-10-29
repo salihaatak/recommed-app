@@ -18,7 +18,7 @@ declare global {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
+  form1: FormGroup;
   hasError: boolean;
   returnUrl: string;
   isLoading$: Observable<boolean>;
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.loginForm = this.fb.group({
+    this.form1 = this.fb.group({
       contact: [
         null,
         Validators.compose([
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submit() {
     this.hasError = false;
     const loginSubscr = this.authService
-      .login(this.loginForm.controls.contact.value, this.loginForm.controls.password.value)
+      .login(this.form1.controls.contact.value, this.form1.controls.password.value)
       .pipe(first())
       .subscribe((user: UserModel | undefined) => {
         if (user) {

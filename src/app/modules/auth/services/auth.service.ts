@@ -76,7 +76,7 @@ export class AuthService implements OnDestroy {
 
   logout() {
     localStorage.removeItem("token");
-    this.router.navigate(['/auth/login'], {
+    this.router.navigate(['/auth'], {
       queryParams: {},
     });
   }
@@ -196,6 +196,21 @@ export class AuthService implements OnDestroy {
         return result;
       }),
       //switchMap(() => this.login(user.email, user.password)),
+      catchError((err) => {
+        console.error('err', err);
+        return of(undefined);
+      }),
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  post(endpoint: string, data: any): Observable<ApiResultModel | undefined> {
+    this.isLoadingSubject.next(true);
+    return this.httpService.post(endpoint, data, false).pipe(
+      map((result: ApiResultModel | undefined) => {
+        this.isLoadingSubject.next(false);
+        return result;
+      }),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);

@@ -1,21 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
+import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
+  selector: 'app-recommender-registration',
+  templateUrl: './recommender-registration.component.html',
+  styleUrls: ['./recommender-registration.component.scss'],
 })
-export class RegistrationComponent implements OnInit, OnDestroy {
+export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   isLoading$: Observable<boolean>;
+  accountName: string;
+  invitationCode: string | null;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -23,7 +26,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
@@ -34,6 +38,22 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     localStorage.removeItem("token");
+
+    this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
+    if (this.invitationCode){
+
+      const subscr = this.authService
+      .post("user/verify-invitation", {invitationCode: this.invitationCode})
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          this.accountName = result.data.name;
+        } else {
+          this.router.navigate(['/auth/recommender/invitation']);
+        }
+      });
+      this.unsubscribe.push(subscr);
+
+    }
     this.initForm();
   }
 
@@ -45,6 +65,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   initForm() {
     this.form1 = this.fb.group(
       {
+        verificationCode: [
+          'qwe',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100),
+          ]),
+        ],
         firstName: [
           'qwe',
           Validators.compose([
@@ -59,23 +87,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             Validators.required,
             Validators.minLength(3),
             Validators.maxLength(100),
-          ]),
-        ],
-        accountName: [
-          'qwe',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100),
-          ]),
-        ],
-        email: [
-          'esrefatak+' + Math.random() * 10000 + '@gmail.com',
-          Validators.compose([
-            Validators.required,
-            Validators.email,
-            Validators.minLength(3),
-            Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
           ]),
         ],
         phoneNumber: [
@@ -112,29 +123,30 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const result: {
-      [key: string]: string | null;
-    } = {};
-    Object.keys(this.f).forEach((key) => {
-      result[key] = this.f[key].value;
-    });
-    result.firebaseToken = localStorage.getItem("firebase_token")
-    result.deviceId = localStorage.getItem("device_id")
-    const newUser = new UserModel();
-    newUser.setUser(result);
-    const registrationSubscr = this.authService
-      .register(newUser)
-      .pipe(first())
-      .subscribe((user: UserModel) => {
-        if (user) {
-          this.authService.email = this.form1.controls["email"].value
-          this.authService.phoneNumber = this.form1.controls["phoneNumber"].value
-          this.router.navigate(['/auth/account/registration-email-verification']);
+    const s = this.authService
+      .post(
+        "user/recommender-join",
+        {
+          firebaseToken: localStorage.getItem("firebase_token"),
+          deviceId: localStorage.getItem("device_id"),
+          invitationCode: this.invitationCode,
+          firstName: this.form1.controls["firstName"].value,
+          lastName: this.form1.controls["lastName"].value,
+          phoneNumber: this.form1.controls["phoneNumber"].value,
+          password: this.form1.controls["password"].value,
+          optin: this.form1.controls["optin"].value
+        }
+      )
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          localStorage.setItem("token", result.data.token);
+          this.authService.currentUserValue = result.data.user;
+          this.router.navigate(['/dashboard']);
         } else {
           this.hasError = true;
         }
       });
-    this.unsubscribe.push(registrationSubscr);
+    this.unsubscribe.push(s);
   }
 
   ngOnDestroy() {
