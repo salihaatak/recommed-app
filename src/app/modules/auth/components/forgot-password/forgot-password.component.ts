@@ -36,11 +36,6 @@ export class ForgotPasswordComponent implements OnInit {
     this.initForm();
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.form1.controls;
-  }
-
   initForm() {
     this.form1 = this.fb.group({
       email: [
@@ -58,7 +53,7 @@ export class ForgotPasswordComponent implements OnInit {
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
     const forgotPasswordSubscr = this.authService
-      .forgotPassword(this.f.email.value)
+      .forgotPassword(this.form1.controls.email.value)
       .pipe(first())
       .subscribe((result: boolean) => {
         this.authService.email = this.form1.controls.email.value;

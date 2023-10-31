@@ -9,11 +9,11 @@ import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
-  selector: 'app-registration-phone-verification',
-  templateUrl: './phone-verification.component.html',
-  styleUrls: ['./phone-verification.component.scss'],
+  selector: 'app-recommender-phone-verification',
+  templateUrl: './recommender-phone-verification.component.html',
+  styleUrls: ['./recommender-phone-verification.component.scss'],
 })
-export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy {
+export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   isLoading$: Observable<boolean>;
@@ -36,12 +36,13 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.initForm();
 
-    const registrationSubscr = this.authService
-      .sendPhoneVerificationCode(this.authService.email)
-      .pipe(first())
-      .subscribe((user: UserModel) => {
+    const subscr = this.authService.post(
+          'user/send-phone-verification-code',
+          {phoneNumber: this.authService.phoneNumber}
+        )
+      .subscribe((result: ApiResultModel | undefined) => {
       });
-    this.unsubscribe.push(registrationSubscr);
+    this.unsubscribe.push(subscr);
 
   }
 
@@ -62,10 +63,16 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
   submit() {
     this.hasError = false;
     const registrationSubscr = this.authService
-      .verifyPhone(this.form1.controls["phoneVerificationCode"].value)
-      .pipe(first())
+      .post(
+        'user/verify-phone',
+        {
+          phoneNumber: this.authService.phoneNumber,
+          verificationCode: this.form1.controls["phoneVerificationCode"].value
+        }
+        )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
+          localStorage.setItem("firebase_token", result?.data.token);
           this.authService.getUserByToken().subscribe(()=>{
             this.router.navigate(['dashboard']);
           })

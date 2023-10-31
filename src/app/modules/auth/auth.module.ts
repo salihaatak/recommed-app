@@ -16,9 +16,11 @@ import { SocialLoginModule, GoogleSigninButtonModule, GoogleLoginProvider, Socia
 import { InvitationComponent } from './components/invitation/invitation.component';
 import { IntroComponent } from './components/intro/intro.component';
 import { RecommenderRegistrationComponent } from './components/recommender-registration/recommender-registration.component';
+import { RecommenderPhoneVerificationComponent } from './components/recommender-phone-verification/recommender-phone-verification.component';
 
 @NgModule({
   declarations: [
+    RecommenderPhoneVerificationComponent,
     RecommenderRegistrationComponent,
     IntroComponent,
     InvitationComponent,

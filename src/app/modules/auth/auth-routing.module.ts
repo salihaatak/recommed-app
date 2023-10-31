@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { IntroComponent } from './components/intro/intro.component';
 import { InvitationComponent } from './components/invitation/invitation.component';
 import { RecommenderRegistrationComponent } from './components/recommender-registration/recommender-registration.component';
+import { RecommenderPhoneVerificationComponent } from './components/recommender-phone-verification/recommender-phone-verification.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
       {
         path: 'recommender/registration/:invitationCode',
         component: RecommenderRegistrationComponent,
+      },
+      {
+        path: 'recommender/phone-verification',
+        component: RecommenderPhoneVerificationComponent,
       },
       {
         path: 'account/registration',

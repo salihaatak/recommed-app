@@ -40,26 +40,23 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
     localStorage.removeItem("token");
 
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
+    /*
     if (this.invitationCode){
 
       const subscr = this.authService
-      .post("user/verify-invitation", {invitationCode: this.invitationCode})
+      .post("user/send-phone-verification-code", {invitationCode: this.invitationCode})
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;
-        } else {
           this.router.navigate(['/auth/recommender/invitation']);
+        } else {
+          this.hasError = true;
         }
       });
       this.unsubscribe.push(subscr);
-
     }
+    */
     this.initForm();
-  }
-
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.form1.controls;
   }
 
   initForm() {
@@ -113,7 +110,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         agree: [true, Validators.compose([Validators.required])],
-        agreeOptin: [false, Validators.compose([Validators.required])],
+        optin: [false, Validators.compose([Validators.required])],
       },
       {
         validator: ConfirmPasswordValidator.MatchPassword,
@@ -125,7 +122,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
     this.hasError = false;
     const s = this.authService
       .post(
-        "user/recommender-join",
+        "user/join",
         {
           firebaseToken: localStorage.getItem("firebase_token"),
           deviceId: localStorage.getItem("device_id"),
@@ -139,9 +136,8 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          localStorage.setItem("token", result.data.token);
-          this.authService.currentUserValue = result.data.user;
-          this.router.navigate(['/dashboard']);
+          this.authService.phoneNumber = this.form1.controls["phoneNumber"].value;
+          this.router.navigate(['/auth/recommender/phone-verification']);
         } else {
           this.hasError = true;
         }
