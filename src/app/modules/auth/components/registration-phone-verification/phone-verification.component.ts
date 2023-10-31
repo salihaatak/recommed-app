@@ -66,7 +66,7 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
       .pipe(first())
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.authService.getUserByToken().subscribe(()=>{
+          this.authService.me().subscribe(()=>{
             this.router.navigate(['dashboard']);
           })
         } else {

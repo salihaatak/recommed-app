@@ -3,6 +3,13 @@ import { AddressModel } from './address.model';
 import { SocialNetworksModel } from './social-networks.model';
 
 export class UserModel extends AuthModel {
+  account: {
+    name: string;
+  };
+  provider: {
+    name: string;
+  }
+  type: 'user' | 'recommender';
   firebaseToken: string | null;
   deviceId: string | null;
   id: number;
@@ -51,6 +58,10 @@ export class UserModel extends AuthModel {
 
   setUser(_user: unknown) {
     const user = _user as UserModel;
+
+    this.type = user.type;
+    this.account.name = user.account?.name;
+    this.provider.name = user.provider?.name;
     this.firebaseToken = user.firebaseToken;
     this.deviceId = user.deviceId;
     this.id = user.id;

@@ -72,8 +72,8 @@ export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy 
         )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          localStorage.setItem("firebase_token", result?.data.token);
-          this.authService.getUserByToken().subscribe(()=>{
+          localStorage.setItem("token", result?.data.token);
+          this.authService.me().subscribe(()=>{
             this.router.navigate(['dashboard']);
           })
         } else {

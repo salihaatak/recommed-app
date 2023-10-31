@@ -44,7 +44,7 @@ export class AuthService implements OnDestroy {
     this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
-    const subscr = this.getUserByToken().subscribe();
+    const subscr = this.me().subscribe();
     this.unsubscribe.push(subscr);
   }
 
@@ -56,8 +56,6 @@ export class AuthService implements OnDestroy {
         (result: ResultModel) => {
           if (result.success){
             localStorage.setItem("token", result.data.token);
-            this.currentUserValue = result.data;
-            this.getUserByToken()
             return result.data;
           }
           return false
@@ -74,14 +72,7 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  logout() {
-    localStorage.removeItem("token");
-    this.router.navigate(['/auth'], {
-      queryParams: {},
-    });
-  }
-
-  getUserByToken(): Observable<UserType> {
+  me(): Observable<UserType> {
     if (!localStorage.getItem("token")) {
       return of(undefined);
     }
@@ -99,6 +90,13 @@ export class AuthService implements OnDestroy {
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
+  }
+
+  logout() {
+    localStorage.removeItem("token");
+    this.router.navigate(['/auth'], {
+      queryParams: {},
+    });
   }
 
   // need create new user then login
@@ -157,7 +155,6 @@ export class AuthService implements OnDestroy {
     return this.httpService.post("account/verify-phone", {email: this.email, code: verificationCode}, false).pipe(
       map((result: ApiResultModel) => {
         localStorage.setItem("token", result.data.token);
-        this.currentUserValue = result.data;
         this.isLoadingSubject.next(false);
         return result;
       }),
@@ -191,7 +188,6 @@ export class AuthService implements OnDestroy {
     return this.httpService.post("user/setNewPassword", {email: email, code: code, password: password, firebaseToken: localStorage.getItem("firebase_token")}, false).pipe(
       map((result: ApiResultModel) => {
         localStorage.setItem("token", result.data.token);
-        this.currentUserValue = result.data;
         this.isLoadingSubject.next(false);
         return result;
       }),

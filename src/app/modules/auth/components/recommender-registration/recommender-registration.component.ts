@@ -37,25 +37,19 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    localStorage.removeItem("token");
-
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
-    /*
     if (this.invitationCode){
-
       const subscr = this.authService
-      .post("user/send-phone-verification-code", {invitationCode: this.invitationCode})
+      .post("user/verify-invitation", {invitationCode: this.invitationCode})
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;
-          this.router.navigate(['/auth/recommender/invitation']);
         } else {
           this.hasError = true;
         }
       });
       this.unsubscribe.push(subscr);
     }
-    */
     this.initForm();
   }
 

@@ -57,7 +57,7 @@ export class InvitationComponent implements OnInit, OnDestroy {
       .post("user/verify-invitation", {invitationCode: this.form1.controls["invitationCode"].value})
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.router.navigate(['/auth/recommender/registration', result?.data.invitationCode]);
+          this.router.navigate(['/auth/recommender/registration/', result?.data.invitationCode]);
         } else {
           this.hasError = true;
         }

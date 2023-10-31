@@ -30,7 +30,7 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (localStorage.getItem("firebase_token")){
-      this.authService.getUserByToken().subscribe(()=>{
+      this.authService.me().subscribe(()=>{
         if (this.route.snapshot.queryParams['returnUrl']){
           this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
         } else {

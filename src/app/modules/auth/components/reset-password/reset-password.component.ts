@@ -78,7 +78,7 @@ export class ResetPasswordComponent implements OnInit {
       .pipe(first())
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.authService.getUserByToken().subscribe(()=>{
+          this.authService.me().subscribe(()=>{
             this.router.navigate(['dashboard']);
           })
         } else {
