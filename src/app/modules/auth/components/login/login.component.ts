@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   btnNativeShareClick(){
     window.WebView.postMessage(JSON.stringify({
         type: "nativeShare",
-        text: "Bu sağlık kuruluşundan hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
+        text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
         link: "https://recommed.co/login.php",
         image: "https://recommed.co/media/putbell/lock.png"
     }));
@@ -137,7 +137,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   btnWhatsappShareClick(){
     window.WebView.postMessage(JSON.stringify({
         type: "whatsappShare",
-        text: "Bu sağlık kuruluşundan hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
+        text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
         link: "https://recommed.co/login.php",
         image: "https://recommed.co/media/putbell/lock.png"
     }));
