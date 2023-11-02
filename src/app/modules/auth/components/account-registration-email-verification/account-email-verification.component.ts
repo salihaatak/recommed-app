@@ -3,17 +3,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
+import { ConfirmPasswordValidator } from '../account-registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
-  selector: 'app-registration-phone-verification',
-  templateUrl: './phone-verification.component.html',
-  styleUrls: ['./phone-verification.component.scss'],
+  selector: 'app-account-registration-email-verification',
+  templateUrl: './account-email-verification.component.html',
+  styleUrls: ['./account-email-verification.component.scss'],
 })
-export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy {
+export class AccountRegistrationEmailVerificationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   isLoading$: Observable<boolean>;
@@ -35,20 +35,12 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
 
   ngOnInit(): void {
     this.initForm();
-
-    const registrationSubscr = this.authService
-      .sendPhoneVerificationCode(this.authService.email)
-      .pipe(first())
-      .subscribe((user: UserModel) => {
-      });
-    this.unsubscribe.push(registrationSubscr);
-
   }
 
   initForm() {
     this.form1 = this.fb.group(
       {
-        phoneVerificationCode: [
+        emailVerificationCode: [
           '',
           Validators.compose([
             Validators.required,
@@ -62,13 +54,16 @@ export class RegistrationPhoneVerificationComponent implements OnInit, OnDestroy
   submit() {
     this.hasError = false;
     const registrationSubscr = this.authService
-      .verifyPhone(this.form1.controls["phoneVerificationCode"].value)
-      .pipe(first())
+      .post(
+        'account/verify-email',
+        {
+          email: this.authService.email,
+          code: this.form1.controls["emailVerificationCode"].value
+        }
+      )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.authService.me().subscribe(()=>{
-            this.router.navigate(['dashboard']);
-          })
+          this.router.navigate(['/auth/account/registration-phone-verification']);
         } else {
           this.hasError = true;
         }

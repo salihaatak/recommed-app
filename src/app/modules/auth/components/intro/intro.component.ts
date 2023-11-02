@@ -34,7 +34,7 @@ export class IntroComponent implements OnInit, OnDestroy {
         if (this.route.snapshot.queryParams['returnUrl']){
           this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
         } else {
-          this.router.navigate(['dashboard']);
+          this.router.navigate([this.authService.getDashboardRoute()]);
         }
       })
     }

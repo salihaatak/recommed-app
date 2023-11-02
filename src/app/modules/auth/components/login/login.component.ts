@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe((user: UserModel | undefined) => {
         if (user) {
           this.authService.me().subscribe(()=>{
-            this.router.navigate(['dashboard']);
+            this.router.navigate([this.authService.getDashboardRoute()]);
           })
         } else {
           this.hasError = true;

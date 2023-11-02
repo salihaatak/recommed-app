@@ -9,6 +9,7 @@ import {locale as deLang} from './modules/i18n/vocabs/de';
 import {locale as frLang} from './modules/i18n/vocabs/fr';
 import {locale as trLang} from './modules/i18n/vocabs/tr';
 import {ThemeModeService} from './_metronic/partials/layout/theme-mode-switcher/theme-mode.service';
+import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit {
   orderby: any;
   constructor(
     private translationService: TranslationService,
-    private modeService: ThemeModeService
+    private modeService: ThemeModeService,
+    private router: Router
   ) {
     // register translations
     this.translationService.loadTranslations(
@@ -38,5 +40,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.modeService.init();
+    switch (localStorage.getItem('type')){
+      case 'u':
+        this.router.navigate(['/dashboard/account']);
+        break;
+      case 'r':
+        this.router.navigate(['/dashboard/recommender']);
+        break;
+    }
   }
 }

@@ -9,7 +9,7 @@ export class UserModel extends AuthModel {
   provider: {
     name: string;
   }
-  type: 'user' | 'recommender';
+  type: 'u' | 'r';
   firebaseToken: string | null;
   deviceId: string | null;
   id: number;

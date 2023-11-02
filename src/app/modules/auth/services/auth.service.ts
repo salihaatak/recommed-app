@@ -82,6 +82,7 @@ export class AuthService implements OnDestroy {
     return this.httpService.post("user/me", {}, true).pipe(
       map((result: any) => {
         if (result) {
+          localStorage.setItem('type', result.data.user.type)
           this.currentUserSubject.next(result.data.user);
         } else {
           this.logout();
@@ -99,39 +100,12 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  // need create new user then login
-  register(user: UserModel): Observable<any> {
-    this.isLoadingSubject.next(true);
-    return this.httpService.post("account/register", user, false).pipe(
-      map(() => {
-        this.isLoadingSubject.next(false);
-        localStorage.setItem("accountEmail", user.email)
-        localStorage.setItem("accountPhone", user.phoneNumber)
-        return true;
-      }),
-      //switchMap(() => this.login(user.email, user.password)),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
-
-  verifyEmail(email:string, verificationCode: string): Observable<ApiResultModel | undefined> {
-    this.isLoadingSubject.next(true);
-    return this.httpService.post("account/verify-email", {email: email, code: verificationCode}, false).pipe(
-      map((result: ApiResultModel) => {
-        this.isLoadingSubject.next(false);
-        return result;
-      }),
-      //switchMap(() => this.login(user.email, user.password)),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+  getDashboardRoute(){
+    switch (this.currentUserValue?.type) {
+      case "r": return '/dashboard/recommender'; break;
+      case "u": return  '/dashboard/account'; break;
+      default: return  '/dashboard/admin'; break;
+    }
   }
 
   sendPhoneVerificationCode(email: string): Observable<any> {
@@ -150,38 +124,6 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  verifyPhone(verificationCode: string): Observable<ApiResultModel | undefined> {
-    this.isLoadingSubject.next(true);
-    return this.httpService.post("account/verify-phone", {email: this.email, code: verificationCode}, false).pipe(
-      map((result: ApiResultModel) => {
-        localStorage.setItem("token", result.data.token);
-        this.isLoadingSubject.next(false);
-        return result;
-      }),
-      //switchMap(() => this.login(user.email, user.password)),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
-
-  forgotPassword(email: string): Observable<any> {
-    this.isLoadingSubject.next(true);
-    return this.httpService.post("user/forgotPassword", {email: email}, false).pipe(
-      map((result) => {
-        this.isLoadingSubject.next(false);
-        return true;
-      }),
-      //switchMap(() => this.login(user.email, user.password)),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
 
   resetPassword(email: string, code: string, password: string): Observable<any> {
     this.isLoadingSubject.next(true);

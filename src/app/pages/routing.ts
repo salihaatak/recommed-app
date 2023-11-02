@@ -2,9 +2,14 @@ import { Routes } from '@angular/router';
 
 const Routing: Routes = [
   {
-    path: 'dashboard',
+    path: 'dashboard/recommender',
     loadChildren: () =>
       import('./dashboard-recommender/dashboard-recommender.module').then((m) => m.DashboardRecommenderModule),
+  },
+  {
+    path: 'dashboard/account',
+    loadChildren: () =>
+      import('./dashboard-account/dashboard-account.module').then((m) => m.DashboardAccountModule),
   },
   {
     path: 'builder',
@@ -45,7 +50,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/dashboard/recommender',
     pathMatch: 'full',
   },
   {

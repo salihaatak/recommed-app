@@ -6,13 +6,14 @@ import { AuthService } from '../../services/auth.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
+import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
+  selector: 'app-account-registration',
+  templateUrl: './account-registration.component.html',
+  styleUrls: ['./account-registration.component.scss'],
 })
-export class RegistrationComponent implements OnInit, OnDestroy {
+export class AccountRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   isLoading$: Observable<boolean>;
@@ -35,11 +36,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     localStorage.removeItem("token");
     this.initForm();
-  }
-
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.form1.controls;
   }
 
   initForm() {
@@ -112,21 +108,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const result: {
-      [key: string]: string | null;
-    } = {};
-    Object.keys(this.f).forEach((key) => {
-      result[key] = this.f[key].value;
-    });
-    result.firebaseToken = localStorage.getItem("firebase_token")
-    result.deviceId = localStorage.getItem("device_id")
-    const newUser = new UserModel();
-    newUser.setUser(result);
-    const registrationSubscr = this.authService
-      .register(newUser)
+    const s = this.authService
+      .post(
+        'account/register',
+        {
+        firstName: this.form1.controls["firstName"].value,
+        lastName: this.form1.controls["firstName"].value,
+        accountName: this.form1.controls["accountName"].value,
+        phoneNumber: this.form1.controls["phoneNumber"].value,
+        password: this.form1.controls["password"].value,
+        email: this.form1.controls["email"].value,
+        optin: this.form1.controls["agreeOptin"].value,
+        firebaseToken: localStorage.getItem("firebase_token"),
+        deviceId: localStorage.getItem("device_id")
+      })
       .pipe(first())
-      .subscribe((user: UserModel) => {
-        if (user) {
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          localStorage.setItem("accountEmail", result.data.email)
+          localStorage.setItem("accountPhone", result.data.phoneNumber)
           this.authService.email = this.form1.controls["email"].value
           this.authService.phoneNumber = this.form1.controls["phoneNumber"].value
           this.router.navigate(['/auth/account/registration-email-verification']);
@@ -134,7 +134,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.hasError = true;
         }
       });
-    this.unsubscribe.push(registrationSubscr);
+    this.unsubscribe.push(s);
   }
 
   ngOnDestroy() {

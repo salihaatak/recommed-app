@@ -18,6 +18,7 @@ export class AuthGuard  {
     if (localStorage.getItem("token")){
       const a = await this.authService.me().toPromise();
       this.authService.currentUserSubject.next(a);
+      return true;
     }
 
     // not logged in so redirect to login page with the return url

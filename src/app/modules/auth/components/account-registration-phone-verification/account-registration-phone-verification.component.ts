@@ -3,17 +3,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
+import { ConfirmPasswordValidator } from '../account-registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 
 @Component({
-  selector: 'app-registration-email-verification',
-  templateUrl: './email-verification.component.html',
-  styleUrls: ['./email-verification.component.scss'],
+  selector: 'app-account-registration--phone-verification',
+  templateUrl: './account-registration-phone-verification.component.html',
+  styleUrls: ['./account-registration-phone-verification.component.scss'],
 })
-export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy {
+export class AccountRegistrationPhoneVerificationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   isLoading$: Observable<boolean>;
@@ -35,12 +35,20 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
 
   ngOnInit(): void {
     this.initForm();
+
+    const registrationSubscr = this.authService
+      .sendPhoneVerificationCode(this.authService.email)
+      .pipe(first())
+      .subscribe((user: UserModel) => {
+      });
+    this.unsubscribe.push(registrationSubscr);
+
   }
 
   initForm() {
     this.form1 = this.fb.group(
       {
-        emailVerificationCode: [
+        phoneVerificationCode: [
           '',
           Validators.compose([
             Validators.required,
@@ -53,25 +61,25 @@ export class RegistrationEmailVerificationComponent implements OnInit, OnDestroy
 
   submit() {
     this.hasError = false;
-    const result: {
-      [key: string]: string;
-    } = {};
-    Object.keys(this.form1.controls).forEach((key) => {
-      result[key] = this.form1.controls[key].value;
-    });
-    const newUser = new UserModel();
-    newUser.setUser(result);
-    const registrationSubscr = this.authService
-      .verifyEmail(this.authService.email, this.form1.controls["emailVerificationCode"].value)
-      .pipe(first())
+    const s = this.authService
+      .post(
+        'account/verify-phone',
+        {
+          email: this.authService.email,
+          code: this.form1.controls["phoneVerificationCode"].value
+        }
+      )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.router.navigate(['/auth/account/registration-phone-verification']);
+          localStorage.setItem('token', result?.data.token)
+          this.authService.me().subscribe(()=>{
+            this.router.navigate([this.authService.getDashboardRoute()]);
+          })
         } else {
           this.hasError = true;
         }
       });
-    this.unsubscribe.push(registrationSubscr);
+    this.unsubscribe.push(s);
   }
 
   ngOnDestroy() {

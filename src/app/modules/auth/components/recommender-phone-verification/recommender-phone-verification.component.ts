@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
+import { ConfirmPasswordValidator } from '../account-registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
@@ -74,7 +74,7 @@ export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy 
         if (result?.success) {
           localStorage.setItem("token", result?.data.token);
           this.authService.me().subscribe(()=>{
-            this.router.navigate(['dashboard']);
+            this.router.navigate([this.authService.getDashboardRoute()]);
           })
         } else {
           this.hasError = true;

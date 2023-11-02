@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ApiResultModel } from '../../models/api-result.mode';
 
 enum ErrorStates {
   NotSubmitted,
@@ -53,12 +54,15 @@ export class ForgotPasswordComponent implements OnInit {
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
     const forgotPasswordSubscr = this.authService
-      .forgotPassword(this.form1.controls.email.value)
-      .pipe(first())
-      .subscribe((result: boolean) => {
-        this.authService.email = this.form1.controls.email.value;
-        this.router.navigate(['auth/reset-password']);
-        this.errorState = result ? ErrorStates.NoError : ErrorStates.HasError;
+      .post('user/forgot-password', {email: this.form1.controls.email.value})
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result){
+          this.authService.email = this.form1.controls.email.value;
+          this.router.navigate(['auth/reset-password']);
+          this.errorState = ErrorStates.NoError;
+        } else {
+          this.errorState = ErrorStates.HasError;
+        }
       });
     this.unsubscribe.push(forgotPasswordSubscr);
   }

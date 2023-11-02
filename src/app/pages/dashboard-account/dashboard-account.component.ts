@@ -6,7 +6,7 @@ import { ModalConfig, ModalComponent } from '../../_metronic/partials';
   templateUrl: './dashboard-account.component.html',
   styleUrls: ['./dashboard-account.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardAccountComponent {
   modalConfig: ModalConfig = {
     modalTitle: 'Modal title',
     dismissButtonLabel: 'Submit',
