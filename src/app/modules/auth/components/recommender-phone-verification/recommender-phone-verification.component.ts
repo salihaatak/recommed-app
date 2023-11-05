@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { ConfirmPasswordValidator } from '../account-registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -23,12 +23,12 @@ export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy 
 
   constructor(
     private fb: FormBuilder,
-    public apiService: ApiService,
+    public appService: AppService,
     private router: Router
   ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
-    if (this.apiService.currentUserValue) {
+    if (this.appService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -36,9 +36,9 @@ export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy 
   ngOnInit(): void {
     this.initForm();
 
-    const subscr = this.apiService.post(
+    const subscr = this.appService.post(
           'user/send-phone-verification-code',
-          {phoneNumber: this.apiService.phoneNumber},
+          {phoneNumber: this.appService.phoneNumber},
           false
         )
       .subscribe((result: ApiResultModel | undefined) => {
@@ -63,11 +63,11 @@ export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy 
 
   submit() {
     this.hasError = false;
-    const registrationSubscr = this.apiService
+    const registrationSubscr = this.appService
       .post(
           'user/verify-phone',
           {
-            phoneNumber: this.apiService.phoneNumber,
+            phoneNumber: this.appService.phoneNumber,
             verificationCode: this.form1.controls["phoneVerificationCode"].value
           },
           false
@@ -75,8 +75,8 @@ export class RecommenderPhoneVerificationComponent implements OnInit, OnDestroy 
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem("token", result?.data.token);
-          this.apiService.me().subscribe(()=>{
-            this.router.navigate([this.apiService.getDashboardRoute()]);
+          this.appService.me().subscribe(()=>{
+            this.router.navigate([this.appService.getDashboardRoute()]);
           })
         } else {
           this.hasError = true;

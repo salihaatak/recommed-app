@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/modules/auth';
+import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 import { Recommendation } from 'src/app/modules/auth/models/recommendation.model';
 
@@ -11,11 +11,10 @@ export class RecommendationsLatestComponent implements OnInit {
   recommendations: Array<Recommendation>;
 
   constructor(
-    public apiService: ApiService,
+    public appService: AppService,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone // NgZone servisini enjekte edin
   ) {
-    apiService.eventEmitter.subscribe((x)=>{
+    appService.eventEmitter.subscribe((x)=>{
       if (x.type == 'recommendation'){
         this.reload();
       }
@@ -27,13 +26,12 @@ export class RecommendationsLatestComponent implements OnInit {
   }
 
   public reload (){
-    const s = this.apiService
+    const s = this.appService
     .post('user/recommendations')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.recommendations = result?.data;
         this.cdr.detectChanges();
-        console.log("Kendimi güncelledim!");
       } else {
       }
     });

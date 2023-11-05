@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-logout',
@@ -7,8 +7,8 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent implements OnInit {
-  constructor(private apiService: ApiService) {
-    this.apiService.logout();
+  constructor(private appService: AppService) {
+    this.appService.logout();
   }
 
   ngOnInit(): void {}

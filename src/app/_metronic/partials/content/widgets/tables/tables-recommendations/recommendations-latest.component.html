@@ -42,7 +42,7 @@
           <td>
             <div class="d-flex align-items-center">
               <div class="symbol symbol-45px me-5">
-                <img src="./assets/media/avatars/300-14.jpg" alt="" />
+                <img src="./assets/media/avatars/blank.png" alt="" />
               </div>
               <div class="d-flex justify-content-start flex-column">
                 <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
@@ -55,118 +55,16 @@
             </div>
           </td>
           <td>
-            <span class="badge badge-light-warning fs-8 fw-bolder">Yeni</span>
+            <ng-container [ngSwitch]="item.status">
+              <span *ngSwitchCase="'n'" class="badge badge-light-warning fs-8 fw-bolder">Yeni</span>
+              <span *ngSwitchCase="'r'" class="badge badge-light-danger fs-8 fw-bolder">Reddetti</span>
+              <span *ngSwitchCase="'t'" class="badge badge-light-primary fs-8 fw-bolder">Görüşüldü</span>
+              <span *ngSwitchCase="'v'" class="badge badge-light-primary fs-8 fw-bolder">Doğrulandı</span>
+              <span *ngSwitchCase="'c'" class="badge badge-light-danger fs-8 fw-bolder">İptal Edildi</span>
+              <span *ngSwitchCase="'p'" class="badge badge-light-success fs-8 fw-bolder">Yararlandı</span>
+            </ng-container>
           </td>
         </tr>
-        <tr>
-
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="symbol symbol-45px me-5">
-                <img src="./assets/media/avatars/300-2.jpg" alt="" />
-              </div>
-              <div class="d-flex justify-content-start flex-column">
-                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
-                  Jessie Clarcson
-                </a>
-                <span class="text-muted fw-bold text-muted d-block fs-7">
-                  C#, ASP.NET, MS SQL
-                </span>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <span class="badge badge-light-danger fs-8 fw-bolder">Reddetti</span>
-          </td>
-
-        </tr>
-        <tr>
-
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="symbol symbol-45px me-5">
-                <img src="./assets/media/avatars/300-5.jpg" alt="" />
-              </div>
-              <div class="d-flex justify-content-start flex-column">
-                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
-                  Lebron Wayde
-                </a>
-                <span class="text-muted fw-bold text-muted d-block fs-7">
-                  PHP, Laravel, VueJS
-                </span>
-              </div>
-            </div>
-          </td>
-          <td>
-            <span class="badge badge-light-primary fs-8 fw-bolder">Görüşüldü</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="symbol symbol-45px me-5">
-                <img src="./assets/media/avatars/300-20.jpg" alt="" />
-              </div>
-              <div class="d-flex justify-content-start flex-column">
-                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
-                  Natali Goodwin
-                </a>
-                <span class="text-muted fw-bold text-muted d-block fs-7">
-                  Python, PostgreSQL, ReactJS
-                </span>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <span class="badge badge-light-primary fs-8 fw-bolder">Doğrulandı</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="symbol symbol-45px me-5">
-                <img src="./assets/media/avatars/300-23.jpg" alt="" />
-              </div>
-              <div class="d-flex justify-content-start flex-column">
-                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
-                  Kevin Leonard
-                </a>
-                <span class="text-muted fw-bold text-muted d-block fs-7">
-                  HTML, JS, ReactJS
-                </span>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <span class="badge badge-light-danger fs-8 fw-bolder">İptal Edildi</span>
-          </td>
-        </tr>
-        <tr>
-
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="symbol symbol-45px me-5">
-                <img src="./assets/media/avatars/300-2.jpg" alt="" />
-              </div>
-              <div class="d-flex justify-content-start flex-column">
-                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
-                  Jessie Clarcson
-                </a>
-                <span class="text-muted fw-bold text-muted d-block fs-7">
-                  C#, ASP.NET, MS SQL
-                </span>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <span class="badge badge-light-success fs-8 fw-bolder">Yararlandı</span>
-          </td>
-        </tr>
-
       </tbody>
       <!-- end::Table body -->
     </table>

@@ -9,18 +9,18 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiService } from './modules/auth/services/api.service';
+import { AppService } from './modules/auth/services/app.service';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 // #fake-end#
 
-function appInitializer(apiService: ApiService) {
+function appInitializer(appService: AppService) {
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore
-      apiService.me().subscribe().add(resolve);
+      appService.me().subscribe().add(resolve);
     });
   };
 }
@@ -50,7 +50,7 @@ function appInitializer(apiService: ApiService) {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,
       multi: true,
-      deps: [ApiService]
+      deps: [AppService]
     },
   ],
   bootstrap: [AppComponent],

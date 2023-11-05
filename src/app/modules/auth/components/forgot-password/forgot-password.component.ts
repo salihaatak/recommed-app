@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiResultModel } from '../../models/api-result.mode';
@@ -27,10 +27,10 @@ export class ForgotPasswordComponent implements OnInit {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private appService: AppService,
     private router: Router
     ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
   }
 
   ngOnInit(): void {
@@ -50,11 +50,11 @@ export class ForgotPasswordComponent implements OnInit {
 
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
-    const forgotPasswordSubscr = this.apiService
+    const forgotPasswordSubscr = this.appService
       .post('user/forgot-password', {contact: this.form1.controls.contact.value}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result){
-          this.apiService.contact = this.form1.controls.contact.value;
+          this.appService.contact = this.form1.controls.contact.value;
           this.router.navigate(['auth/reset-password']);
           this.errorState = ErrorStates.NoError;
         } else {

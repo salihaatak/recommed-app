@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/modules/auth';
+import { AppService } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-recommender-summary',
@@ -14,7 +14,7 @@ export class RecommenderSummaryComponent implements OnInit {
 
 
   constructor(
-     public apiService: ApiService
+     public appService: AppService
   ) {}
 
   ngOnInit(): void {

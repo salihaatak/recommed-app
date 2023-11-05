@@ -2,8 +2,7 @@ import { ChangeDetectorRef, Component, Input, NgZone, OnDestroy, OnInit, ViewChi
 import { Subscription } from 'rxjs';
 import { LayoutService } from '../../../core/layout.service';
 import { ModalConfig, ModalComponent } from '../../../../../_metronic/partials';
-import { ApiService } from 'src/app/modules/auth';
-import { UserrModel } from 'src/app/modules/auth/models/userr.model';
+import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 
 
@@ -45,7 +44,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       private layout: LayoutService,
       private zone: NgZone,
       private cdr: ChangeDetectorRef,
-      private apiService: ApiService
+      private appService: AppService
       ) {}
 
   ngOnInit(): void {
@@ -59,9 +58,10 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
     window.selectContactsCallbackTS = {
       zone: this.zone,
-      componentFn: (val: UserrModel) => {
-        this.apiService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
-          this.apiService.eventEmitter.emit({type: 'recommendation'});
+      componentFn: (val: any) => {
+        this.appService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
+          this.appService.eventEmitter.emit({type: 'recommendation'});
+          this.modalComponent.close();
           console.log(result);
         })
         this.cdr.detectChanges();

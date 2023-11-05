@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalConfig, ModalComponent } from '../../_metronic/partials';
-import { ApiService, UserType } from 'src/app/modules/auth';
+import { AppService, UserType } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,9 +17,9 @@ export class DashboardRecommenderComponent {
   };
   @ViewChild('modal') private modalComponent: ModalComponent;
   constructor(
-    private apiService: ApiService
+    private appService: AppService
   ) {
-    this.user = apiService.currentUserValue;
+    this.user = appService.currentUserValue;
 
   }
 

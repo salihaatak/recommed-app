@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
@@ -22,12 +22,12 @@ export class InvitationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private appService: AppService,
     private router: Router
   ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
-    if (this.apiService.currentUserValue) {
+    if (this.appService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -53,7 +53,7 @@ export class InvitationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const subscr = this.apiService
+    const subscr = this.appService
       .post("user/verify-invitation", {invitationCode: this.form1.controls["invitationCode"].value}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {

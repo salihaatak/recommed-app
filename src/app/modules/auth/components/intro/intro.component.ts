@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, NgZone, ApplicationRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -17,24 +17,24 @@ export class IntroComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
   constructor(
-    private apiService: ApiService,
+    private appService: AppService,
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
-    if (this.apiService.currentUserValue) {
+    if (this.appService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
 
   ngOnInit(): void {
     if (localStorage.getItem("firebase_token")){
-      this.apiService.me().subscribe(()=>{
+      this.appService.me().subscribe(()=>{
         if (this.route.snapshot.queryParams['returnUrl']){
           this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
         } else {
-          this.router.navigate([this.apiService.getDashboardRoute()]);
+          this.router.navigate([this.appService.getDashboardRoute()]);
         }
       })
     }

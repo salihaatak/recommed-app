@@ -2,13 +2,10 @@ import { EventEmitter, HostListener, Injectable, OnDestroy } from '@angular/core
 import { Observable, BehaviorSubject, of, Subscription, Subject } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
-import { AuthModel } from '../models/auth.model';
 import { HTTPService } from './auth-http';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ResultModel } from '../models/result.model';
 import { ApiResultModel } from '../models/api-result.mode';
-import { UserrModel } from '../models/userr.model';
 import { Recommendation } from '../models/recommendation.model';
 
 export type UserType = UserModel | undefined;
@@ -16,7 +13,7 @@ export type UserType = UserModel | undefined;
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService implements OnDestroy {
+export class AppService implements OnDestroy {
   eventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   // private fields
@@ -104,7 +101,7 @@ export class ApiService implements OnDestroy {
 
   logout() {
     localStorage.removeItem("token");
-    this.router.navigate(['/auth'], {
+    this.router.navigate(['/'], {
       queryParams: {},
     });
   }

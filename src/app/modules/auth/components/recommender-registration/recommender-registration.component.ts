@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -25,13 +25,13 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private appService: AppService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
-    if (this.apiService.currentUserValue) {
+    if (this.appService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -39,7 +39,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
     if (this.invitationCode){
-      const subscr = this.apiService
+      const subscr = this.appService
       .post("user/verify-invitation", {invitationCode: this.invitationCode}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
@@ -114,7 +114,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const s = this.apiService
+    const s = this.appService
       .post(
         "user/join",
         {
@@ -131,7 +131,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.apiService.phoneNumber = this.form1.controls["phoneNumber"].value;
+          this.appService.phoneNumber = this.form1.controls["phoneNumber"].value;
           this.router.navigate(['/auth/recommender/phone-verification']);
         } else {
           this.hasError = true;

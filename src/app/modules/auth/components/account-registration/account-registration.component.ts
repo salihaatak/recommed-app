@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -23,12 +23,12 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private appService: AppService,
     private router: Router
   ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
-    if (this.apiService.currentUserValue) {
+    if (this.appService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -108,7 +108,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const s = this.apiService
+    const s = this.appService
       .post(
         'account/register',
         {
@@ -129,8 +129,8 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         if (result?.success) {
           localStorage.setItem("accountEmail", result.data.email)
           localStorage.setItem("accountPhone", result.data.phoneNumber)
-          this.apiService.email = this.form1.controls["email"].value
-          this.apiService.phoneNumber = this.form1.controls["phoneNumber"].value
+          this.appService.email = this.form1.controls["email"].value
+          this.appService.phoneNumber = this.form1.controls["phoneNumber"].value
           this.router.navigate(['/auth/account/registration-email-verification']);
         } else {
           this.hasError = true;

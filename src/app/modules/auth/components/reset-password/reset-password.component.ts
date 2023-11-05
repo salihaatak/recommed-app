@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { ApiService } from '../../services/api.service';
+import { AppService } from '../../services/app.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiResultModel } from '../../models/api-result.mode';
@@ -27,10 +27,10 @@ export class ResetPasswordComponent implements OnInit {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private appService: AppService,
     private router: Router,
     ) {
-    this.isLoading$ = this.apiService.isLoading$;
+    this.isLoading$ = this.appService.isLoading$;
   }
 
   ngOnInit(): void {
@@ -68,9 +68,9 @@ export class ResetPasswordComponent implements OnInit {
 
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
-    const forgotPasswordSubscr = this.apiService
+    const forgotPasswordSubscr = this.appService
       .post('user/reset-password', {
-        contact: this.apiService.contact,
+        contact: this.appService.contact,
         code: this.form1.controls.code.value,
         password: this.form1.controls.password.value,
         firebaseToken: localStorage.getItem("firebase_token")
@@ -78,8 +78,8 @@ export class ResetPasswordComponent implements OnInit {
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem('token', result.data.token)
-          this.apiService.me().subscribe(()=>{
-            this.router.navigate([this.apiService.getDashboardRoute()]);
+          this.appService.me().subscribe(()=>{
+            this.router.navigate([this.appService.getDashboardRoute()]);
           })
         } else {
           this.errorState = this.errorStates.HasError
