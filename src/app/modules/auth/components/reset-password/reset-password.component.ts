@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiResultModel } from '../../models/api-result.mode';
@@ -27,19 +27,14 @@ export class ResetPasswordComponent implements OnInit {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private apiService: ApiService,
     private router: Router,
     ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
   }
 
   ngOnInit(): void {
     this.initForm();
-  }
-
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.form1.controls;
   }
 
   initForm() {
@@ -73,14 +68,18 @@ export class ResetPasswordComponent implements OnInit {
 
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
-    const forgotPasswordSubscr = this.authService
-      .resetPassword(this.authService.email, this.form1.controls.code.value, this.form1.controls.password.value)
-      .pipe(first())
+    const forgotPasswordSubscr = this.apiService
+      .post('user/reset-password', {
+        contact: this.apiService.contact,
+        code: this.form1.controls.code.value,
+        password: this.form1.controls.password.value,
+        firebaseToken: localStorage.getItem("firebase_token")
+      }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem('token', result.data.token)
-          this.authService.me().subscribe(()=>{
-            this.router.navigate([this.authService.getDashboardRoute()]);
+          this.apiService.me().subscribe(()=>{
+            this.router.navigate([this.apiService.getDashboardRoute()]);
           })
         } else {
           this.errorState = this.errorStates.HasError

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { UserModel } from '../../models/user.model';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 declare global {
@@ -31,15 +31,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone,
     private cdr: ChangeDetectorRef
   ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.apiService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -93,13 +93,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const loginSubscr = this.authService
+    const loginSubscr = this.apiService
       .login(this.form1.controls.contact.value, this.form1.controls.password.value)
       .pipe(first())
       .subscribe((user: UserModel | undefined) => {
         if (user) {
-          this.authService.me().subscribe(()=>{
-            this.router.navigate([this.authService.getDashboardRoute()]);
+          this.apiService.me().subscribe(()=>{
+            this.router.navigate([this.apiService.getDashboardRoute()]);
           })
         } else {
           this.hasError = true;

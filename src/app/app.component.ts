@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
   constructor(
     private translationService: TranslationService,
     private modeService: ThemeModeService,
-    private router: Router
   ) {
     // register translations
     this.translationService.loadTranslations(
@@ -40,13 +39,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.modeService.init();
-    switch (localStorage.getItem('type')){
-      case 'u':
-        this.router.navigate(['/dashboard/account']);
-        break;
-      case 'r':
-        this.router.navigate(['/dashboard/recommender']);
-        break;
-    }
+    //localStorage.clear();
   }
 }

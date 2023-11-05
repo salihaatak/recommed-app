@@ -1,7 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LayoutService } from '../../../core/layout.service';
+import { ModalConfig, ModalComponent } from '../../../../../_metronic/partials';
+import { ApiService } from 'src/app/modules/auth';
+import { UserrModel } from 'src/app/modules/auth/models/userr.model';
+import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 
+
+declare global {
+  interface Window { WebView: any; }
+  interface Window { selectContactsCallbackTS: any; }
+  interface Window { getLocationCallbackTS: any; }
+}
 @Component({
   selector: 'app-classic',
   templateUrl: './classic.component.html',
@@ -24,7 +34,19 @@ export class ClassicComponent implements OnInit, OnDestroy {
   filterButtonClass: string = '';
   daterangepickerButtonClass: string = '';
 
-  constructor(private layout: LayoutService) {}
+  modalConfig: ModalConfig = {
+    modalTitle: 'Nasıl paylaşmak istersiniz?',
+    hideDismissButton: () => true,
+    hideCloseButton: () => true,
+  };
+
+  @ViewChild('modal') private modalComponent: ModalComponent;
+  constructor(
+      private layout: LayoutService,
+      private zone: NgZone,
+      private cdr: ChangeDetectorRef,
+      private apiService: ApiService
+      ) {}
 
   ngOnInit(): void {
     this.updateProps();
@@ -34,6 +56,32 @@ export class ClassicComponent implements OnInit, OnDestroy {
         this.updateProps();
       });
     this.unsubscribe.push(subscr);
+
+    window.selectContactsCallbackTS = {
+      zone: this.zone,
+      componentFn: (val: UserrModel) => {
+        this.apiService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
+          this.apiService.eventEmitter.emit({type: 'recommendation'});
+          console.log(result);
+        })
+        this.cdr.detectChanges();
+      },
+      component: this
+    }
+  }
+
+  async openModal() {
+    return await this.modalComponent.open();
+  }
+
+  btnSelectContactsClick(){
+    window.WebView.postMessage(JSON.stringify({
+      type: "selectContacts",
+      title: "Telefon Rehberim",
+      max: 20,
+      text: "Seçtiğiniz kişilerin numaraları işletmeye iletilecektir. Bu numaraları paylaşarak Kullanım Koşullarımızı kabul etmiş oluyorsunuz. Tek seferden en fazla 20 tane numara seçebilirsiniz.",
+      buttonText: "Gönder"
+    }))
   }
 
   updateProps() {

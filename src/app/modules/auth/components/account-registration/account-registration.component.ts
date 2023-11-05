@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -23,12 +23,12 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private apiService: ApiService,
     private router: Router
   ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.apiService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -108,27 +108,29 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const s = this.authService
+    const s = this.apiService
       .post(
         'account/register',
         {
-        firstName: this.form1.controls["firstName"].value,
-        lastName: this.form1.controls["firstName"].value,
-        accountName: this.form1.controls["accountName"].value,
-        phoneNumber: this.form1.controls["phoneNumber"].value,
-        password: this.form1.controls["password"].value,
-        email: this.form1.controls["email"].value,
-        optin: this.form1.controls["agreeOptin"].value,
-        firebaseToken: localStorage.getItem("firebase_token"),
-        deviceId: localStorage.getItem("device_id")
-      })
+          firstName: this.form1.controls["firstName"].value,
+          lastName: this.form1.controls["firstName"].value,
+          accountName: this.form1.controls["accountName"].value,
+          phoneNumber: this.form1.controls["phoneNumber"].value,
+          password: this.form1.controls["password"].value,
+          email: this.form1.controls["email"].value,
+          optin: this.form1.controls["agreeOptin"].value,
+          firebaseToken: localStorage.getItem("firebase_token"),
+          deviceId: localStorage.getItem("device_id")
+        },
+        false
+      )
       .pipe(first())
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem("accountEmail", result.data.email)
           localStorage.setItem("accountPhone", result.data.phoneNumber)
-          this.authService.email = this.form1.controls["email"].value
-          this.authService.phoneNumber = this.form1.controls["phoneNumber"].value
+          this.apiService.email = this.form1.controls["email"].value
+          this.apiService.phoneNumber = this.form1.controls["phoneNumber"].value
           this.router.navigate(['/auth/account/registration-email-verification']);
         } else {
           this.hasError = true;

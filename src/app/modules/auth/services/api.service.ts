@@ -1,5 +1,5 @@
-import { HostListener, Injectable, OnDestroy } from '@angular/core';
-import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
+import { EventEmitter, HostListener, Injectable, OnDestroy } from '@angular/core';
+import { Observable, BehaviorSubject, of, Subscription, Subject } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
 import { AuthModel } from '../models/auth.model';
@@ -8,16 +8,19 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ResultModel } from '../models/result.model';
 import { ApiResultModel } from '../models/api-result.mode';
+import { UserrModel } from '../models/userr.model';
+import { Recommendation } from '../models/recommendation.model';
 
 export type UserType = UserModel | undefined;
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnDestroy {
+export class ApiService implements OnDestroy {
+  eventEmitter: EventEmitter<any> = new EventEmitter<any>();
+
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
   // public fields
   currentUser$: Observable<UserType>;
@@ -27,6 +30,12 @@ export class AuthService implements OnDestroy {
 
   email: string;
   phoneNumber: string;
+  contact: string;
+
+  public recommendations: Subject<Recommendation> = new Subject<Recommendation>();
+
+
+
 
   get currentUserValue(): UserType {
     return this.currentUserSubject.value;
@@ -104,7 +113,7 @@ export class AuthService implements OnDestroy {
     switch (this.currentUserValue?.type) {
       case "r": return '/dashboard/recommender'; break;
       case "u": return  '/dashboard/account'; break;
-      default: return  '/dashboard/admin'; break;
+      default: return  '/'; break;
     }
   }
 
@@ -124,27 +133,9 @@ export class AuthService implements OnDestroy {
     );
   }
 
-
-  resetPassword(email: string, code: string, password: string): Observable<any> {
+  post(endpoint: string, data: any = {}, auth: boolean = true): Observable<ApiResultModel | undefined> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("user/setNewPassword", {email: email, code: code, password: password, firebaseToken: localStorage.getItem("firebase_token")}, false).pipe(
-      map((result: ApiResultModel) => {
-        localStorage.setItem("token", result.data.token);
-        this.isLoadingSubject.next(false);
-        return result;
-      }),
-      //switchMap(() => this.login(user.email, user.password)),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
-
-  post(endpoint: string, data: any): Observable<ApiResultModel | undefined> {
-    this.isLoadingSubject.next(true);
-    return this.httpService.post(endpoint, data, false).pipe(
+    return this.httpService.post(endpoint, data, auth).pipe(
       map((result: ApiResultModel | undefined) => {
         this.isLoadingSubject.next(false);
         return result;

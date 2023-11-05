@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiResultModel } from '../../models/api-result.mode';
@@ -27,10 +27,10 @@ export class ForgotPasswordComponent implements OnInit {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private apiService: ApiService,
     private router: Router
     ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
   }
 
   ngOnInit(): void {
@@ -39,13 +39,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   initForm() {
     this.form1 = this.fb.group({
-      email: [
+      contact: [
         null,
         Validators.compose([
           Validators.required,
-          Validators.email,
-          Validators.minLength(10),
-          Validators.maxLength(320),
         ]),
       ],
     });
@@ -53,11 +50,11 @@ export class ForgotPasswordComponent implements OnInit {
 
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
-    const forgotPasswordSubscr = this.authService
-      .post('user/forgot-password', {email: this.form1.controls.email.value})
+    const forgotPasswordSubscr = this.apiService
+      .post('user/forgot-password', {contact: this.form1.controls.contact.value}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result){
-          this.authService.email = this.form1.controls.email.value;
+          this.apiService.contact = this.form1.controls.contact.value;
           this.router.navigate(['auth/reset-password']);
           this.errorState = ErrorStates.NoError;
         } else {

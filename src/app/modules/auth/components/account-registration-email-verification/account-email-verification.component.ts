@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { ConfirmPasswordValidator } from '../account-registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -23,12 +23,12 @@ export class AccountRegistrationEmailVerificationComponent implements OnInit, On
 
   constructor(
     private fb: FormBuilder,
-    public authService: AuthService,
+    public apiService: ApiService,
     private router: Router
   ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.apiService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -53,13 +53,14 @@ export class AccountRegistrationEmailVerificationComponent implements OnInit, On
 
   submit() {
     this.hasError = false;
-    const registrationSubscr = this.authService
+    const registrationSubscr = this.apiService
       .post(
         'account/verify-email',
         {
-          email: this.authService.email,
+          email: this.apiService.email,
           code: this.form1.controls["emailVerificationCode"].value
-        }
+        },
+        false
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {

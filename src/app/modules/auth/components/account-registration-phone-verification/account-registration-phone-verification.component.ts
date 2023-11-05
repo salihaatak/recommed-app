@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { ConfirmPasswordValidator } from '../account-registration/confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -23,12 +23,12 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
 
   constructor(
     private fb: FormBuilder,
-    public authService: AuthService,
+    public apiService: ApiService,
     private router: Router
   ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.apiService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -36,8 +36,8 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
   ngOnInit(): void {
     this.initForm();
 
-    const registrationSubscr = this.authService
-      .sendPhoneVerificationCode(this.authService.email)
+    const registrationSubscr = this.apiService
+      .sendPhoneVerificationCode(this.apiService.email)
       .pipe(first())
       .subscribe((user: UserModel) => {
       });
@@ -61,19 +61,20 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
 
   submit() {
     this.hasError = false;
-    const s = this.authService
+    const s = this.apiService
       .post(
         'account/verify-phone',
         {
-          email: this.authService.email,
+          email: this.apiService.email,
           code: this.form1.controls["phoneVerificationCode"].value
-        }
+        },
+        false
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem('token', result?.data.token)
-          this.authService.me().subscribe(()=>{
-            this.router.navigate([this.authService.getDashboardRoute()]);
+          this.apiService.me().subscribe(()=>{
+            this.router.navigate([this.apiService.getDashboardRoute()]);
           })
         } else {
           this.hasError = true;

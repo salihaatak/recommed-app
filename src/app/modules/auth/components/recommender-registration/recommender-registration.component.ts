@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
@@ -25,13 +25,13 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.isLoading$ = this.authService.isLoading$;
+    this.isLoading$ = this.apiService.isLoading$;
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.apiService.currentUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -39,8 +39,8 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
     if (this.invitationCode){
-      const subscr = this.authService
-      .post("user/verify-invitation", {invitationCode: this.invitationCode})
+      const subscr = this.apiService
+      .post("user/verify-invitation", {invitationCode: this.invitationCode}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;
@@ -114,7 +114,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const s = this.authService
+    const s = this.apiService
       .post(
         "user/join",
         {
@@ -126,11 +126,12 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           phoneNumber: this.form1.controls["phoneNumber"].value,
           password: this.form1.controls["password"].value,
           optin: this.form1.controls["optin"].value
-        }
+        },
+        false
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.authService.phoneNumber = this.form1.controls["phoneNumber"].value;
+          this.apiService.phoneNumber = this.form1.controls["phoneNumber"].value;
           this.router.navigate(['/auth/recommender/phone-verification']);
         } else {
           this.hasError = true;

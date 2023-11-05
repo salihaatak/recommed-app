@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
-import { AuthService, UserType } from '../../../../../../modules/auth';
+import { ApiService, UserType } from '../../../../../../modules/auth';
 
 @Component({
   selector: 'app-user-inner',
@@ -18,7 +18,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
 
   constructor(
-    private auth: AuthService,
+    private auth: ApiService,
     private translationService: TranslationService
   ) {}
 

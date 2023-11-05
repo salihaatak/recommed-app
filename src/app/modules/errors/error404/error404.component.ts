@@ -10,7 +10,7 @@ import {
   ToggleComponent,
 } from '../../../_metronic/kt/components';
 import { ThemeModeService } from '../../../_metronic/partials/layout/theme-mode-switcher/theme-mode.service';
-import { AuthService } from '../../auth';
+import { ApiService } from '../../auth';
 
 @Component({
   selector: 'app-error404',
@@ -20,7 +20,7 @@ import { AuthService } from '../../auth';
 export class Error404Component implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
 
-  constructor(private router: Router, private modeService: ThemeModeService, private authService: AuthService) {}
+  constructor(private router: Router, private modeService: ThemeModeService, private apiService: ApiService) {}
 
   ngOnInit(): void {
     const subscr = this.modeService.mode.asObservable().subscribe((mode) => {
@@ -33,7 +33,7 @@ export class Error404Component implements OnInit, OnDestroy {
   }
 
   routeToDashboard() {
-    this.router.navigate([this.authService.getDashboardRoute()]);
+    this.router.navigate([this.apiService.getDashboardRoute()]);
     setTimeout(() => {
       ToggleComponent.reinitialization();
       ScrollTopComponent.reinitialization();
