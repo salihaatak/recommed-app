@@ -50,8 +50,6 @@ export class AppService implements OnDestroy {
     this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
-    const subscr = this.me().subscribe();
-    this.unsubscribe.push(subscr);
   }
 
   // public methods

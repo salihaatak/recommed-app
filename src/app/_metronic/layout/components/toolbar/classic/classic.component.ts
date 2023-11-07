@@ -62,7 +62,6 @@ export class ClassicComponent implements OnInit, OnDestroy {
         this.appService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
           this.appService.eventEmitter.emit({type: 'recommendation'});
           this.modalComponent.close();
-          console.log(result);
         })
         this.cdr.detectChanges();
       },
