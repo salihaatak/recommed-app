@@ -44,7 +44,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       private layout: LayoutService,
       private zone: NgZone,
       private cdr: ChangeDetectorRef,
-      private appService: AppService
+      public appService: AppService
       ) {}
 
   ngOnInit(): void {
@@ -81,6 +81,28 @@ export class ClassicComponent implements OnInit, OnDestroy {
       text: "Seçtiğiniz kişilerin numaraları işletmeye iletilecektir. Bu numaraları paylaşarak Kullanım Koşullarımızı kabul etmiş oluyorsunuz. Tek seferden en fazla 20 tane numara seçebilirsiniz.",
       buttonText: "Gönder"
     }))
+  }
+
+  btnShareClick(){
+    window.WebView.postMessage(JSON.stringify({
+      type: "nativeShare",
+      text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
+      link: "https://recommed.co/login.php",
+      image: "https://recommed.co/media/putbell/lock.png"
+    }))
+  }
+
+  btnWhatsappShare(){
+    window.WebView.postMessage(JSON.stringify({
+      type: "whatsappShare",
+      text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
+      link: "https://recommed.co/login.php",
+      image: "https://recommed.co/media/putbell/lock.png"
+    }))
+  }
+
+  btnQRClick(){
+
   }
 
   updateProps() {

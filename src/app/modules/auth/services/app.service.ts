@@ -32,7 +32,9 @@ export class AppService implements OnDestroy {
   public recommendations: Subject<Recommendation> = new Subject<Recommendation>();
 
 
-
+  get IsAndroid(): boolean {
+    return navigator.userAgent.toLowerCase().indexOf("android") > -1;
+  }
 
   get currentUserValue(): UserType {
     return this.currentUserSubject.value;

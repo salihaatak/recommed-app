@@ -49,16 +49,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
 
-    window.selectContactsCallbackTS = {
-      zone: this.zone,
-      componentFn: (val: any) => {
-        this.contacts = JSON.stringify(val);
-
-        this.cdr.detectChanges();
-      },
-      component: this
-    }
-
     window.getLocationCallbackTS = {
       zone: this.zone,
       componentFn: (val: any) => {
@@ -109,37 +99,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(loginSubscr);
   }
 
-  btnSelectContactsClick(){
-    window.WebView.postMessage(JSON.stringify({
-      type: "selectContacts",
-      title: "Telefon Rehberim",
-      max: 20,
-      text: "Seçtiğiniz kişilerin numaraları işletmeye iletilecektir. Bu numaraları paylaşarak Kullanım Koşullarımızı kabul etmiş oluyorsunuz. Tek seferden en fazla 20 tane numara seçebilirsiniz.",
-      buttonText: "Gönder"
-    }))
-  }
-
-  btnNativeShareClick(){
-    window.WebView.postMessage(JSON.stringify({
-        type: "nativeShare",
-        text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
-        link: "https://recommed.co/login.php",
-        image: "https://recommed.co/media/putbell/lock.png"
-    }));
-  }
-
+  /*
   btnGetLocationClick(){
     window.WebView.postMessage(JSON.stringify({
       type: "getLocation"
-    }));
-  }
-
-  btnWhatsappShareClick(){
-    window.WebView.postMessage(JSON.stringify({
-        type: "whatsappShare",
-        text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
-        link: "https://recommed.co/login.php",
-        image: "https://recommed.co/media/putbell/lock.png"
     }));
   }
 
@@ -148,6 +111,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       type: "like"
     }))
   }
+  */
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

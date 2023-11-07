@@ -28,35 +28,42 @@
 
 <!--begin::Primary button-->
 <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
-  data-bs-target="#kt_modal_create_app" (click)="openModal()">Tavsiye Et Kazan</a>
+  data-bs-target="#kt_modal_create_app" (click)="openModal()">
+  <i class="fa-solid fa-comments-dollar fs-3"></i>
+  Tavsiye Et Kazan
+</a>
+
 <!--end::Primary button-->
 
 <app-modal #modal [modalConfig]="modalConfig">
-  <!--begin::Login options-->
   <div class="row g-3 mb-9 flex-center">
-    <!--begin::Col-->
-    <div class="col-md-6">
-      <!--begin::Google link--->
-      <a
-        class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100"
+    <div class="col-md-3">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
         (click)="btnSelectContactsClick()">
-        <i class="fas fa-address-book text-gray-600"></i>
-        Telefon Rehberim
-      </a>
-      <!--end::Google link--->
+          <i class="fa-solid fa-address-book fs-3"></i>
+          <span class="fs-1x">Telefon Rehberim</span>
+        </a>
     </div>
-    <div class="col-md-6">
-      <!--begin::Google link--->
-      <a href="#"
-        class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-        <img alt="Logo" src="./assets/media/svg/brand-logos/google-icon.svg" class="h-15px me-3" />
-        Paylaş
-      </a>
-      <!--end::Google link--->
+    <div class="col-md-3">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
+        (click)="btnShareClick()">
+          <i class="fa-solid fa-share-nodes fs-3"></i>
+          <span class="fs-1x">Paylaş</span>
+        </a>
     </div>
-    <!--end::Col-->
-
-    <!--end::Col-->
+    <div class="col-md-3" *ngIf="this.appService.IsAndroid">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
+        (click)="btnWhatsappShare()">
+        <i class="fa-brands fa-whatsapp fs-3"></i>
+          <span class="fs-1x">Whatsapp</span>
+        </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
+        (click)="btnQRClick()">
+        <i class="fa-solid fa-qrcode fs-3"></i>
+          <span class="fs-1x">Kare Kod</span>
+        </a>
+    </div>
   </div>
-  <!--end::Login options-->
 </app-modal>
