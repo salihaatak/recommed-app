@@ -17,8 +17,9 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // BODY_CLASSES.forEach((c) => document.body.classList.add(c));
-    switch (localStorage.getItem('type')){
+    switch (localStorage.getItem('role')){
       case 'u':
+      case 'o':
         this.router.navigate(['/dashboard/account']);
         break;
       case 'r':

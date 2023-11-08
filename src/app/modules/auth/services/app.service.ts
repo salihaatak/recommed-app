@@ -25,12 +25,10 @@ export class AppService implements OnDestroy {
   currentUserSubject: BehaviorSubject<UserType>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
+  role: string;
   email: string;
   phoneNumber: string;
   contact: string;
-
-  public recommendations: Subject<Recommendation> = new Subject<Recommendation>();
-
 
   get IsAndroid(): boolean {
     return navigator.userAgent.toLowerCase().indexOf("android") > -1;
@@ -88,7 +86,8 @@ export class AppService implements OnDestroy {
     return this.httpService.post("user/me", {}, true).pipe(
       map((result: any) => {
         if (result) {
-          localStorage.setItem('type', result.data.user.type)
+          localStorage.setItem('role', result.data.user.role)
+          this.role = result.data.user.role;
           this.currentUserSubject.next(result.data.user);
         } else {
           this.logout();
@@ -107,9 +106,9 @@ export class AppService implements OnDestroy {
   }
 
   getDashboardRoute(){
-    switch (this.currentUserValue?.type) {
+    switch (this.currentUserValue?.role) {
       case "r": return '/dashboard/recommender'; break;
-      case "u": return  '/dashboard/account'; break;
+      case "u": case "o": return  '/dashboard/account'; break;
       default: return  '/'; break;
     }
   }

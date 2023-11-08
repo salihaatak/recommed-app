@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { AppService } from 'src/app/modules/auth';
+import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 
 @Component({
   selector: 'app-recommender-summary',
@@ -12,11 +13,36 @@ export class RecommenderSummaryComponent implements OnInit {
   @Input() color: string = '';
   @Input() img: string = '';
 
+  summary: any = {};
+  percentage: string;
 
   constructor(
-     public appService: AppService
-  ) {}
+     public appService: AppService,
+     public cdr: ChangeDetectorRef
+  ) {
+    appService.eventEmitter.subscribe((x)=>{
+      if (x.type == 'recommendation'){
+        this.reload();
+      }
+    });
+
+  }
 
   ngOnInit(): void {
+    this.reload();
+  }
+
+  public reload (){
+    const s = this.appService
+    .post('user/recommendations-summary')
+    .subscribe((result: ApiResultModel | undefined) => {
+      if (result?.success) {
+        this.summary = result?.data;
+        const _percentage = Math.round(this.summary.totalPurchased * 100 / this.summary.totalRecommendations);
+        this.percentage = _percentage > 0 ? `${_percentage}%` : `1%`;
+        this.cdr.detectChanges();
+      } else {
+      }
+    });
   }
 }
