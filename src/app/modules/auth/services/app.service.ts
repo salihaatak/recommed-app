@@ -29,6 +29,7 @@ export class AppService implements OnDestroy {
   email: string;
   phoneNumber: string;
   contact: string;
+  invitationCode: string;
 
   get IsAndroid(): boolean {
     return navigator.userAgent.toLowerCase().indexOf("android") > -1;
@@ -88,6 +89,7 @@ export class AppService implements OnDestroy {
         if (result) {
           localStorage.setItem('role', result.data.user.role)
           this.role = result.data.user.role;
+          this.invitationCode = result.data.user.account.invitationCode;
           this.currentUserSubject.next(result.data.user);
         } else {
           this.logout();

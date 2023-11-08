@@ -28,19 +28,19 @@
 
 <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
   data-bs-target="#kt_modal_create_app"
-  *ngIf="this.appService.role === 'r'" (click)="openModal()">
+  *ngIf="this.appService.role === 'r'" (click)="openModalRecommender()">
   <i class="fa-solid fa-comments-dollar fs-3"></i>
   Tavsiye Et Kazan
 </a>
 
 <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
   data-bs-target="#kt_modal_create_app"
-  *ngIf="this.appService.role === 'o' || this.appService.role === 'u'" (click)="openModal()">
+  *ngIf="this.appService.role === 'o' || this.appService.role === 'u'" (click)="openModalProvider()">
   <i class="fa-solid fa-user-plus fs-3"></i>
   Marka Elçisi Davet
 </a>
 
-<app-modal #modal [modalConfig]="modalConfig">
+<app-modal #modalRecommender [modalConfig]="modalConfigRecommender">
   <div class="row g-3 mb-9 flex-center">
     <div class="col-md-3">
       <a class="btn btn-primary flex-center text-nowrap w-100"
@@ -51,19 +51,45 @@
     </div>
     <div class="col-md-3">
       <a class="btn btn-primary flex-center text-nowrap w-100"
-        (click)="btnShareClick()">
+        (click)="btnShareRecommenderClick()">
           <i class="fa-solid fa-share-nodes fs-3"></i>
           <span class="fs-1x">Paylaş</span>
         </a>
     </div>
     <div class="col-md-3" *ngIf="this.appService.IsAndroid">
       <a class="btn btn-primary flex-center text-nowrap w-100"
-        (click)="btnWhatsappShare()">
+        (click)="btnWhatsappRecommenderClick()">
         <i class="fa-brands fa-whatsapp fs-3"></i>
           <span class="fs-1x">Whatsapp</span>
         </a>
     </div>
     <div class="col-md-3">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
+        (click)="btnQRClick()">
+        <i class="fa-solid fa-qrcode fs-3"></i>
+          <span class="fs-1x">Kare Kod</span>
+        </a>
+    </div>
+  </div>
+</app-modal>
+
+<app-modal #modalProvider [modalConfig]="modalConfigProvider">
+  <div class="row g-3 mb-9 flex-center">
+    <div class="col-md-4">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
+        (click)="btnShareProviderClick()">
+          <i class="fa-solid fa-share-nodes fs-3"></i>
+          <span class="fs-1x">Paylaş</span>
+        </a>
+    </div>
+    <div class="col-md-4" *ngIf="this.appService.IsAndroid">
+      <a class="btn btn-primary flex-center text-nowrap w-100"
+        (click)="btnWhatsappProviderClick()">
+        <i class="fa-brands fa-whatsapp fs-3"></i>
+          <span class="fs-1x">Whatsapp</span>
+        </a>
+    </div>
+    <div class="col-md-4">
       <a class="btn btn-primary flex-center text-nowrap w-100"
         (click)="btnQRClick()">
         <i class="fa-solid fa-qrcode fs-3"></i>

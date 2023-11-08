@@ -33,13 +33,20 @@ export class ClassicComponent implements OnInit, OnDestroy {
   filterButtonClass: string = '';
   daterangepickerButtonClass: string = '';
 
-  modalConfig: ModalConfig = {
+  modalConfigRecommender: ModalConfig = {
     modalTitle: 'Nasıl paylaşmak istersiniz?',
     hideDismissButton: () => true,
     hideCloseButton: () => true,
   };
 
-  @ViewChild('modal') private modalComponent: ModalComponent;
+  modalConfigProvider: ModalConfig = {
+    modalTitle: 'Nasıl davet etmek istersiniz?',
+    hideDismissButton: () => true,
+    hideCloseButton: () => true,
+  };
+
+  @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
+  @ViewChild('modalProvider') private modalProvider: ModalComponent;
   constructor(
       private layout: LayoutService,
       private zone: NgZone,
@@ -61,7 +68,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       componentFn: (val: any) => {
         this.appService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
           this.appService.eventEmitter.emit({type: 'recommendation'});
-          this.modalComponent.close();
+          this.modalRecommender.close();
         })
         this.cdr.detectChanges();
       },
@@ -69,8 +76,12 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }
   }
 
-  async openModal() {
-    return await this.modalComponent.open();
+  async openModalRecommender() {
+    return await this.modalRecommender.open();
+  }
+
+  async openModalProvider() {
+    return await this.modalProvider.open();
   }
 
   btnSelectContactsClick(){
@@ -83,7 +94,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }))
   }
 
-  btnShareClick(){
+  btnShareRecommenderClick(){
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -92,7 +103,25 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }))
   }
 
-  btnWhatsappShare(){
+  btnShareProviderClick(){
+    window.WebView.postMessage(JSON.stringify({
+      type: "nativeShare",
+      text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Marka Elçisi davet kodunuz: ${this.appService.invitationCode}. Mobil uygulamamızı kurmak için hemen dokunun. `,
+      link: "https://apps.apple.com/tr/app/putbell/id1583996467",
+      image: "https://recommed.co/media/putbell/lock.png"
+    }))
+  }
+
+  btnWhatsappRecommenderClick(){
+    window.WebView.postMessage(JSON.stringify({
+      type: "whatsappShare",
+      text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
+      link: "https://recommed.co/login.php",
+      image: "https://recommed.co/media/putbell/lock.png"
+    }))
+  }
+
+  btnWhatsappProviderClick(){
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
