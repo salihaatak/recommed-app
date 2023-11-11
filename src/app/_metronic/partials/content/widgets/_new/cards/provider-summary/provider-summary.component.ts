@@ -3,13 +3,12 @@ import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 
 @Component({
-  selector: 'app-recommender-summary',
-  templateUrl: './recommender-summary.component.html',
-  styleUrls: ['./recommender-summary.component.scss'],
+  selector: 'app-provider-summary',
+  templateUrl: './provider-summary.component.html',
+  styleUrls: ['./provider-summary.component.scss'],
 })
-export class RecommenderSummaryComponent implements OnInit {
+export class ProviderSummaryComponent implements OnInit {
   @Input() cssClass: string = '';
-  @Input() description: string = '';
   @Input() color: string = '';
   @Input() img: string = '';
 
@@ -34,7 +33,7 @@ export class RecommenderSummaryComponent implements OnInit {
 
   public reload (){
     const s = this.appService
-    .post('user/recommendations-summary')
+    .post('user/provider-summary')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.summary = result?.data;

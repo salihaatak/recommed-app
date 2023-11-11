@@ -66,9 +66,9 @@ export class ClassicComponent implements OnInit, OnDestroy {
     window.selectContactsCallbackTS = {
       zone: this.zone,
       componentFn: (val: any) => {
+        this.modalRecommender.close();
         this.appService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
           this.appService.eventEmitter.emit({type: 'recommendation'});
-          this.modalRecommender.close();
         })
         this.cdr.detectChanges();
       },

@@ -16,12 +16,11 @@ export type UserType = UserModel | undefined;
 export class AppService implements OnDestroy {
   eventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-  // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
-  // public fields
   currentUser$: Observable<UserType>;
   currentUserSubject: BehaviorSubject<UserType>;
+
   private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
 

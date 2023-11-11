@@ -91,6 +91,7 @@ import { SharedModule } from "../../../shared/shared.module";
 
 import { RecommendationsLatestComponent } from './tables/tables-recommendations/recommendations-latest.component'
 import { RecommenderSummaryComponent } from './_new/cards/recommender-summary/recommender-summary.component';
+import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider-summary.component';
 
 
 @NgModule({
@@ -176,7 +177,8 @@ import { RecommenderSummaryComponent } from './_new/cards/recommender-summary/re
     CardsWidget18Component,
 
     RecommendationsLatestComponent,
-    RecommenderSummaryComponent
+    RecommenderSummaryComponent,
+    ProviderSummaryComponent
   ],
   imports: [
     CommonModule,
@@ -270,7 +272,8 @@ import { RecommenderSummaryComponent } from './_new/cards/recommender-summary/re
     CardsWidget18Component,
 
     RecommendationsLatestComponent,
-    RecommenderSummaryComponent
+    RecommenderSummaryComponent,
+    ProviderSummaryComponent,
   ],
 })
 export class WidgetsModule {}

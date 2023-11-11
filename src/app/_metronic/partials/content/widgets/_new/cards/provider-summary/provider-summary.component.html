@@ -6,12 +6,12 @@
     <!--begin::Title-->
     <div class="card-title d-flex flex-column">
       <!--begin::Amount-->
-      <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">{{summary.sharingAmount ? summary.sharingAmount : 0}} TL</span>
+      <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">{{summary.salesAmount ? summary.salesAmount : '0'}} TL</span>
       <!--end::Amount-->
 
       <!--begin::Subtitle-->
       <span class="text-white opacity-75 pt-1 fw-semibold fs-6">
-        Toplam Geliriniz
+        Toplam Satış Tutarı
       </span>
       <!--end::Subtitle-->
     </div>
@@ -24,7 +24,7 @@
     <!--begin::Progress-->
     <div class="d-flex align-items-center flex-column mt-3 w-100">
       <div class="d-flex justify-content-between fw-bold fs-6 text-white opacity-75 w-100 mt-auto mb-2">
-        <span>{{summary.purchasedCount}} Kişi Yararlandı</span>
+        <span>{{summary.purchasedCount}} Müşteriye Dönüşüm</span>
         <span>{{summary.recommendationCount}} Tavsiye</span>
       </div>
 

@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     switch (localStorage.getItem('role')){
       case 'u':
       case 'o':
-        this.router.navigate(['/dashboard/account']);
+        this.router.navigate(['/dashboard/provider']);
         break;
       case 'r':
         this.router.navigate(['/dashboard/recommender']);

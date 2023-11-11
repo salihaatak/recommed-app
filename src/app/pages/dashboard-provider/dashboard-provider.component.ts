@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { ModalConfig, ModalComponent } from '../../_metronic/partials';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard-account.component.html',
-  styleUrls: ['./dashboard-account.component.scss'],
+  selector: 'app-provider',
+  templateUrl: './dashboard-provider.component.html',
+  styleUrls: ['./dashboard-provider.component.scss'],
 })
-export class DashboardAccountComponent {
+export class DashboardProviderComponent {
   modalConfig: ModalConfig = {
     modalTitle: 'Modal title',
     dismissButtonLabel: 'Submit',
