@@ -29,7 +29,7 @@ export const DarkSidebarConfig: ILayout = {
         },
         content: 'menu',
         menu: {
-          display: false,
+          display: true,
           iconType: 'svg',
         },
       },

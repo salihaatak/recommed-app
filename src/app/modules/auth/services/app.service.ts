@@ -21,9 +21,9 @@ export class AppService implements OnDestroy {
 
   // public fields
   currentUser$: Observable<UserType>;
-  isLoading$: Observable<boolean>;
   currentUserSubject: BehaviorSubject<UserType>;
-  isLoadingSubject: BehaviorSubject<boolean>;
+  private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
 
   role: string;
   email: string;
@@ -47,10 +47,8 @@ export class AppService implements OnDestroy {
     private httpService: HTTPService,
     private router: Router
   ) {
-    this.isLoadingSubject = new BehaviorSubject<boolean>(false);
     this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
     this.currentUser$ = this.currentUserSubject.asObservable();
-    this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
   // public methods
@@ -142,7 +140,9 @@ export class AppService implements OnDestroy {
         console.error('err', err);
         return of(undefined);
       }),
-      finalize(() => this.isLoadingSubject.next(false))
+      finalize(() => {
+        this.isLoadingSubject.next(false)
+      })
     );
   }
 
