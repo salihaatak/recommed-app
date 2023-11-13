@@ -18,7 +18,7 @@ export class CardsWidget7Component implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      { name: 'Alan Warden', initials: 'A', state: 'warning' },
+      { name: 'Alan Warden', initials: 'AB', state: 'warning' },
       { name: 'Michael Eberon', src: './assets/media/avatars/300-11.jpg' },
       { name: 'Susan Redwood', initials: 'S', state: 'primary' },
       { name: 'Melody Macy', src: './assets/media/avatars/300-2.jpg' },

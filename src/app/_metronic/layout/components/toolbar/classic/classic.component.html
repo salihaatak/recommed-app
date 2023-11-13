@@ -29,7 +29,7 @@
 <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
   data-bs-target="#kt_modal_create_app"
   *ngIf="this.appService.role === 'r'" (click)="openModalRecommender()">
-  <i class="fa-solid fa-comments-dollar fs-3"></i>
+  <i class="fa-solid fa-coins fs-3"></i>
   Tavsiye Et Kazan
 </a>
 
@@ -95,6 +95,14 @@
         <i class="fa-solid fa-qrcode fs-3"></i>
           <span class="fs-1x">Kare Kod</span>
         </a>
+    </div>
+
+    <div class="col-md-4">
+      <span class=" flex-center text-nowrap w-100"
+        >
+          <span class="fs-1x">Davet Kodu:</span>
+          <span class="fs-1x">{{appService.invitationCode}}</span>
+      </span>
     </div>
   </div>
 </app-modal>

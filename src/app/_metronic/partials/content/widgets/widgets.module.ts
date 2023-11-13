@@ -92,6 +92,8 @@ import { SharedModule } from "../../../shared/shared.module";
 import { RecommendationsLatestComponent } from './tables/tables-recommendations/recommendations-latest.component'
 import { RecommenderSummaryComponent } from './_new/cards/recommender-summary/recommender-summary.component';
 import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider-summary.component';
+import { RecommenderCountComponent } from './_new/cards/recommender-count/recommender-count.component';
+import { ComparePeriodComponent } from './_new/cards/compare-period/compare-period.component';
 
 
 @NgModule({
@@ -178,7 +180,9 @@ import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider
 
     RecommendationsLatestComponent,
     RecommenderSummaryComponent,
-    ProviderSummaryComponent
+    ProviderSummaryComponent,
+    RecommenderCountComponent,
+    ComparePeriodComponent
   ],
   imports: [
     CommonModule,
@@ -274,6 +278,8 @@ import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider
     RecommendationsLatestComponent,
     RecommenderSummaryComponent,
     ProviderSummaryComponent,
+    RecommenderCountComponent,
+    ComparePeriodComponent
   ],
 })
 export class WidgetsModule {}

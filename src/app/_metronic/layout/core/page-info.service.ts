@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AppService } from 'src/app/modules/auth';
 
 export interface PageLink {
   title: string;
@@ -25,7 +26,9 @@ export class PageInfoService {
     Array<PageLink>
   >([]);
 
-  constructor() {}
+  constructor(
+    private appService: AppService
+  ) {}
 
   public setTitle(_title: string) {
     this.title.next(_title);
@@ -60,7 +63,7 @@ export class PageInfoService {
   public calculateTitle() {
     const asideTitle = this.calculateTitleInMenu('kt_app_sidebar');
     const headerTitle = this.calculateTitleInMenu('kt_app_header_wrapper');
-    const title = asideTitle || headerTitle || '';
+    const title = 'Merhaba';
     this.setTitle(title);
   }
 
