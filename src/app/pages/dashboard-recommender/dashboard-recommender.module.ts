@@ -15,7 +15,6 @@ import { ModalsModule, WidgetsModule } from '../../_metronic/partials';
       },
     ]),
     WidgetsModule,
-    ModalsModule,
   ],
 })
 export class DashboardRecommenderModule {}

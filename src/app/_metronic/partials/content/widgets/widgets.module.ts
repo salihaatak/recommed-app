@@ -94,6 +94,7 @@ import { RecommenderSummaryComponent } from './_new/cards/recommender-summary/re
 import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider-summary.component';
 import { RecommenderCountComponent } from './_new/cards/recommender-count/recommender-count.component';
 import { ComparePeriodComponent } from './_new/cards/compare-period/compare-period.component';
+import { ModalsModule } from '../../layout/modals/modals.module';
 
 
 @NgModule({
@@ -182,7 +183,7 @@ import { ComparePeriodComponent } from './_new/cards/compare-period/compare-peri
     RecommenderSummaryComponent,
     ProviderSummaryComponent,
     RecommenderCountComponent,
-    ComparePeriodComponent
+    ComparePeriodComponent,
   ],
   imports: [
     CommonModule,
@@ -190,7 +191,8 @@ import { ComparePeriodComponent } from './_new/cards/compare-period/compare-peri
     InlineSVGModule,
     NgApexchartsModule,
     NgbDropdownModule,
-    SharedModule
+    SharedModule,
+    ModalsModule
   ],
   exports: [
     // Advanced Tables
@@ -279,7 +281,7 @@ import { ComparePeriodComponent } from './_new/cards/compare-period/compare-peri
     RecommenderSummaryComponent,
     ProviderSummaryComponent,
     RecommenderCountComponent,
-    ComparePeriodComponent
+    ComparePeriodComponent,
   ],
 })
 export class WidgetsModule {}
