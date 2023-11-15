@@ -1,5 +1,12 @@
 
-export type RecommendationActivityTypeModel = 'n' | 't' | 'v' | 'c' | 'p';
+export type RecommendationActivityTypeModel =
+    | 'ne'
+    | 'cl'
+    | 'ta'
+    | 've'
+    | 'ca'
+    | 'sa'
+    | 're';
 
 export type RecommendationActivityModel = {
   type: RecommendationActivityTypeModel;

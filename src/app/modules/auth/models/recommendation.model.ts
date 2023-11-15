@@ -3,5 +3,6 @@ export class Recommendation {
   name: string;
   phoneNumber: string;
   createdAt: string;
+  createdAtFormatted: string;
   status: string;
 }

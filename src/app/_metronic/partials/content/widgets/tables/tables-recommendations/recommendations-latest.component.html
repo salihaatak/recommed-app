@@ -49,19 +49,20 @@
                   {{item.name}}
                 </span>
                 <span class="text-muted fw-bold text-muted d-block fs-7">
-                  {{item.createdAt}}
+                  {{item.createdAtFormatted}}
                 </span>
               </div>
             </div>
           </td>
           <td>
             <ng-container [ngSwitch]="item.status">
-              <span *ngSwitchCase="'n'" class="badge badge-light-warning fs-8 fw-bolder">Yeni</span>
-              <span *ngSwitchCase="'r'" class="badge badge-light-danger fs-8 fw-bolder">Reddetti</span>
-              <span *ngSwitchCase="'t'" class="badge badge-light-primary fs-8 fw-bolder">Görüşüldü</span>
-              <span *ngSwitchCase="'v'" class="badge badge-light-primary fs-8 fw-bolder">Doğrulandı</span>
-              <span *ngSwitchCase="'c'" class="badge badge-light-danger fs-8 fw-bolder">İptal Edildi</span>
-              <span *ngSwitchCase="'p'" class="badge badge-light-success fs-8 fw-bolder">Yararlandı</span>
+              <span *ngSwitchCase="'ne'" class="badge badge-light-warning fs-8 fw-bolder">Yeni</span>
+              <span *ngSwitchCase="'re'" class="badge badge-light-danger fs-8 fw-bolder">Reddetti</span>
+              <span *ngSwitchCase="'ca'" class="badge badge-light-primary fs-8 fw-bolder">Arandı</span>
+              <span *ngSwitchCase="'ta'" class="badge badge-light-danger fs-8 fw-bolder">Görüşüldü</span>
+              <span *ngSwitchCase="'ve'" class="badge badge-light-primary fs-8 fw-bolder">Doğrulandı</span>
+              <span *ngSwitchCase="'cl'" class="badge badge-light-danger fs-8 fw-bolder">İptal Edildi</span>
+              <span *ngSwitchCase="'sa'" class="badge badge-light-success fs-8 fw-bolder">Yararlandı</span>
             </ng-container>
           </td>
         </tr>
@@ -89,16 +90,16 @@
         <!-- end::Label-->
         <!-- begin::Badge-->
         <div class="timeline-badge">
-          <i class="fa fa-genderless text-warning fs-1" *ngIf="item.type === 'n'"></i>
-          <i class="fa fa-genderless text-primary fs-1" *ngIf="item.type === 't' || item.type === 'v'"></i>
-          <i class="fa fa-genderless text-danger fs-1" *ngIf="item.type === 'c'"></i>
-          <i class="fa fa-genderless text-success fs-1" *ngIf="item.type === 'p'"></i>
+          <i class="fa fa-genderless text-warning fs-1" *ngIf="item.type === 'ne'"></i>
+          <i class="fa fa-genderless text-primary fs-1" *ngIf="item.type === 'ca' || item.type === 've' || item.type === 'ta'"></i>
+          <i class="fa fa-genderless text-danger fs-1" *ngIf="item.type === 'cl' || item.type === 're'"></i>
+          <i class="fa fa-genderless text-success fs-1" *ngIf="item.type === 'sa'"></i>
         </div>
         <!-- end::Badge-->
         <!-- begin::Text-->
         <div class="fw-bolder timeline-content ps-3">
           {{item.description}}
-          <div class="timeline-label fw-normal fs-8 text-muted">
+          <div class="fw-normal fs-8 text-muted">
             {{item.detail}}
           </div>
         </div>

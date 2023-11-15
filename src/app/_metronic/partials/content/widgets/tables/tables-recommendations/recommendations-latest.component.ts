@@ -36,9 +36,11 @@ export class RecommendationsLatestComponent implements OnInit {
   }
 
   openRecommendationHistoryModal(recommendationUid: string) {
-    this.modalRecommendationHistory.open();
     this.appService.post("recommendation/get", {uid: recommendationUid}).subscribe((result: ApiResultModel | undefined) => {
-      this.recommendationActivities = result?.data;
+      this.modalConfigRecommendationHistory.modalTitle = 'Tavsiye: ' + result?.data.recommendation.name;
+      this.modalRecommendationHistory.open();
+
+      this.recommendationActivities = result?.data.activities;
 
       this.cdr.detectChanges();
     })
