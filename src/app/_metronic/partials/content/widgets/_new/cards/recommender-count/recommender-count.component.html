@@ -31,7 +31,7 @@
         </ng-container>
         <ng-container *ngIf="!item.src">
           <span class="symbol-label fw-bold"
-            [ngClass]="'bg-' + getRandomState() + ' ' + 'text-inverse-warning'">{{item.initials}}</span>
+            [ngClass]="'bg-' + item.state + ' ' + 'text-inverse-warning'">{{item.initials}}</span>
         </ng-container>
 
       </div>

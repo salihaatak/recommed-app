@@ -36,7 +36,6 @@ export class RecommenderCountComponent implements OnInit {
 
   getRandomState(): string {
     this.currentStateIndex = this.currentStateIndex == this.states.length - 1 ? 0 : this.currentStateIndex + 1;
-
     return this.states[this.currentStateIndex];
   }
 
@@ -46,6 +45,12 @@ export class RecommenderCountComponent implements OnInit {
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.items = result?.data.items;
+        this.items = this.items.map((item) => {
+          return {
+            ...item,
+            state: this.getRandomState()
+          }
+        });
         this.stats = result?.data.count
         this.remainingCount = this.stats - result?.data.items.length;
 
