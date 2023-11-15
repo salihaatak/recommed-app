@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from './services/app.service';
 
 // const BODY_CLASSES = ['bgi-size-cover', 'bgi-position-center', 'bgi-no-repeat'];
 
@@ -12,7 +13,8 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private appService: AppService
   ) {}
 
   ngOnInit(): void {
@@ -20,10 +22,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     switch (localStorage.getItem('role')){
       case 'u':
       case 'o':
-        this.router.navigate(['/dashboard/provider']);
+        this.router.navigate([this.appService.getDashboardRoute()]);
         break;
       case 'r':
-        this.router.navigate(['/dashboard/recommender']);
+        this.router.navigate([this.appService.getDashboardRoute()]);
         break;
     }
 

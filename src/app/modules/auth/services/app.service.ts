@@ -107,7 +107,7 @@ export class AppService implements OnDestroy {
   getDashboardRoute(){
     switch (this.currentUserValue?.role) {
       case "r": return '/dashboard/recommender'; break;
-      case "u": case "o": return  '/dashboard/account'; break;
+      case "u": case "o": return  '/dashboard/provider'; break;
       default: return  '/'; break;
     }
   }
