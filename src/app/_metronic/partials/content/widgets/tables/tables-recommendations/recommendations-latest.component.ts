@@ -3,6 +3,7 @@ import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 import { Recommendation } from 'src/app/modules/auth/models/recommendation.model';
 import { ModalConfig, ModalComponent } from '../../../../../../_metronic/partials';
+import { RecommendationActivityModel} from '../../../../../../models/recommendation-activity.model'
 
 @Component({
   selector: 'app-recommendations-latest',
@@ -10,9 +11,10 @@ import { ModalConfig, ModalComponent } from '../../../../../../_metronic/partial
 })
 export class RecommendationsLatestComponent implements OnInit {
   recommendations: Array<Recommendation>;
+  recommendationActivities: Array<RecommendationActivityModel>
 
   modalConfigRecommendationHistory: ModalConfig = {
-    modalTitle: 'Tavsiye Aşamaları',
+    modalTitle: 'Tavsiyenin Aşamaları',
     hideDismissButton: () => true,
     hideCloseButton: () => true,
   };
@@ -36,7 +38,7 @@ export class RecommendationsLatestComponent implements OnInit {
   openRecommendationHistoryModal(recommendationUid: string) {
     this.modalRecommendationHistory.open();
     this.appService.post("recommendation/get", {uid: recommendationUid}).subscribe((result: ApiResultModel | undefined) => {
-      //...
+      this.recommendationActivities = result?.data;
 
       this.cdr.detectChanges();
     })
