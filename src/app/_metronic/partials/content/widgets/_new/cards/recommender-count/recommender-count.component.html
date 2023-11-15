@@ -23,22 +23,22 @@
     <!--end::Title-->
 
     <!--begin::Users group-->
-    <div class="symbol-group symbol-hover flex-nowrap">
-      <div *ngFor="let item of items" class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
+    <div class="symbol-group flex-nowrap">
+      <div *ngFor="let item of items" class="symbol symbol-35px symbol-circle " data-bs-toggle="tooltip"
         [title]="item.name">
         <ng-container *ngIf="item.src">
           <img alt="Pic" [src]="item.src" />
         </ng-container>
         <ng-container *ngIf="!item.src">
           <span class="symbol-label fw-bold"
-            [ngClass]="'bg-' + item.state + ' ' + 'text-inverse-' + item.state">{{item.initials}}</span>
+            [ngClass]="'bg-' + getRandomState() + ' ' + 'text-inverse-warning'">{{item.initials}}</span>
         </ng-container>
 
       </div>
-      <a href="#" class="symbol symbol-35px symbol-circle" *ngIf="remainingCount > 0">
-        <span class="symbol-label fs-8 fw-bold" [ngClass]="'bg-' + labelColor"
-          [ngClass]="'text-' + textColor">+{{remainingCount}}</span>
-      </a>
+      <span class="symbol symbol-35px symbol-circle" *ngIf="remainingCount > 0">
+        <span class="symbol-label fs-8 fw-bold" [ngClass]="'bg-dark'"
+          [ngClass]="'text-dark'">+{{remainingCount}}</span>
+      </span>
     </div>
     <!--end::Users group-->
   </div>

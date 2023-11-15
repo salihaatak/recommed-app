@@ -14,6 +14,9 @@ export class RecommenderCountComponent implements OnInit {
   @Input() remainingCount: number = 0;
   @Input() labelColor: string = 'dark';
   @Input() textColor: string = 'gray-300';
+  private currentStateIndex: number = 0;
+  private states: Array<string> = ['warning', 'primary', 'danger', 'success', 'info']
+
   items: Array<{ name: string; initials?: string; state?: string, src?: string }>;
 
   constructor(
@@ -29,6 +32,12 @@ export class RecommenderCountComponent implements OnInit {
 
   ngOnInit(): void {
     this.reload();
+  }
+
+  getRandomState(): string {
+    this.currentStateIndex = this.currentStateIndex == this.states.length - 1 ? 0 : this.currentStateIndex + 1;
+
+    return this.states[this.currentStateIndex];
   }
 
   public reload (){
