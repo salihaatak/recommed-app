@@ -2,8 +2,8 @@
 
 <div class="card-header border-0 pt-5">
   <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">Tavsiyeleriniz</span>
-    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="false">Son tavsiyeleriniz</span>
+    <span class="card-label fw-bolder fs-3 mb-1">{{this.appService.role === 'r' ? 'Yaptığınız Tavsiyeler' : 'Gelen Tavsiyeler'}}</span>
+    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="false">Tavsiyeye dokunarak detay durumu takip edebilir ve işlem yapabilirsiniz</span>
   </h3>
   <div
     class="card-toolbar"
@@ -12,10 +12,9 @@
     data-bs-trigger="hover"
     title="Click to add a user"
   >
-    <a href="#" class="btn btn-sm btn-light-primary" *ngIf="false">
-      <app-keenicon name="plus" class="fs-3"></app-keenicon>
-      Yeni
-    </a>
+    <span class=" btn">
+      <i class="fa-solid fa-rotate" (click)="reload()"></i>
+    </span>
   </div>
 </div>
 <!-- end::Header -->
