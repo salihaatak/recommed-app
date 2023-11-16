@@ -22,14 +22,8 @@ export class IntroComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {
     this.isLoading$ = this.appService.isLoading$;
-    // redirect to home if already logged in
-    if (this.appService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
-  }
 
-  ngOnInit(): void {
-    if (localStorage.getItem("firebase_token")){
+    if (localStorage.getItem("token")){
       this.appService.me().subscribe(()=>{
         if (this.route.snapshot.queryParams['returnUrl']){
           this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
@@ -38,6 +32,9 @@ export class IntroComponent implements OnInit, OnDestroy {
         }
       })
     }
+  }
+
+  ngOnInit(): void {
   }
 
   ngOnDestroy() {

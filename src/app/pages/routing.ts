@@ -50,7 +50,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/dashboard/recommender',
+    redirectTo: '/auth',
     pathMatch: 'full',
   },
   {

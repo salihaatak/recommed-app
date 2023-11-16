@@ -19,16 +19,11 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // BODY_CLASSES.forEach((c) => document.body.classList.add(c));
-    switch (localStorage.getItem('role')){
-      case 'u':
-      case 'o':
+    if (localStorage.getItem('token')){
+      this.appService.me().subscribe(()=>{
         this.router.navigate([this.appService.getDashboardRoute()]);
-        break;
-      case 'r':
-        this.router.navigate([this.appService.getDashboardRoute()]);
-        break;
+      })
     }
-
   }
 
   ngOnDestroy() {

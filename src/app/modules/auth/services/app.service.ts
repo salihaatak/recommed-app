@@ -84,7 +84,6 @@ export class AppService implements OnDestroy {
     return this.httpService.post("user/me", {}, true).pipe(
       map((result: any) => {
         if (result) {
-          localStorage.setItem('role', result.data.user.role)
           this.role = result.data.user.role;
           this.invitationCode = result.data.user.account.invitationCode;
           this.currentUserSubject.next(result.data.user);
@@ -107,7 +106,7 @@ export class AppService implements OnDestroy {
   getDashboardRoute(){
     switch (this.currentUserValue?.role) {
       case "r": return '/dashboard/recommender'; break;
-      case "u": case "o": return  '/dashboard/provider'; break;
+      case "u": case "o": return '/dashboard/provider'; break;
       default: return  '/'; break;
     }
   }
