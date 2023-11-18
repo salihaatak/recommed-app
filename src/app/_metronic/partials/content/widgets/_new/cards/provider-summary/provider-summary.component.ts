@@ -37,7 +37,7 @@ export class ProviderSummaryComponent implements OnInit {
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.summary = result?.data;
-        const _percentage = Math.round(this.summary.purchasedCount * 100 / this.summary.recommendationCount);
+        const _percentage = Math.round(this.summary.soldCount * 100 / this.summary.recommendationCount);
         this.percentage = _percentage > 0 ? `${_percentage}%` : `1%`;
         this.cdr.detectChanges();
       } else {

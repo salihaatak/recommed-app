@@ -1,6 +1,7 @@
 
 export type RecommendationActivityTypeModel =
     | 'ne'
+    | 'ac'
     | 'cl'
     | 'ta'
     | 've'

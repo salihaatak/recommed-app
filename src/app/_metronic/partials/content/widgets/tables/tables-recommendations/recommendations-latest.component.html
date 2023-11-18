@@ -2,8 +2,15 @@
 
 <div class="card-header border-0 pt-5">
   <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">{{this.appService.role === 'r' ? 'Yaptığınız Tavsiyeler' : 'Gelen Tavsiyeler'}}</span>
-    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="false">Tavsiyeye dokunarak detay durumu takip edebilir ve işlem yapabilirsiniz</span>
+    <span class="card-label fw-bolder fs-3 mb-1">{{
+      this.appService.role === "r"
+        ? "Yaptığınız Tavsiyeler"
+        : "Gelen Tavsiyeler"
+    }}</span>
+    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="false"
+      >Tavsiyeye dokunarak detay durumu takip edebilir ve işlem
+      yapabilirsiniz</span
+    >
   </h3>
   <div
     class="card-toolbar"
@@ -12,8 +19,8 @@
     data-bs-trigger="hover"
     title="Click to add a user"
   >
-    <span class=" btn">
-      <i class="fa-solid fa-rotate" (click)="reload()"></i>
+    <span class="btn">
+      <i class="fa-solid fa-rotate" (click)="loadRecommendations()"></i>
     </span>
   </div>
 </div>
@@ -36,8 +43,10 @@
       <!-- end::Table head -->
       <!-- begin::Table body -->
       <tbody>
-        <tr *ngFor="let item of recommendations" (click)="openRecommendationActivitiesModal(item.uid)">
-
+        <tr
+          *ngFor="let item of recommendations"
+          (click)="openRecommendationActivitiesModal(item.uid)"
+        >
           <td>
             <div class="d-flex align-items-center">
               <div class="symbol symbol-45px me-5">
@@ -45,23 +54,59 @@
               </div>
               <div class="d-flex justify-content-start flex-column">
                 <span class="text-dark fw-bolder fs-6">
-                  {{item.name}}
+                  {{ item.name }}
                 </span>
                 <span class="text-muted fw-bold text-muted d-block fs-7">
-                  {{item.createdAtFormatted}}
+                  {{ item.createdAtFormatted }}
+                  <ng-container *ngIf="this.appService.role !== 'r'">
+                    tarihinde {{item.by?.createdBy.name}} tarafından
+                  </ng-container>
                 </span>
               </div>
             </div>
           </td>
           <td>
             <ng-container [ngSwitch]="item.status">
-              <span *ngSwitchCase="'ne'" class="badge badge-light-warning fs-8 fw-bolder">Yeni</span>
-              <span *ngSwitchCase="'re'" class="badge badge-light-danger fs-8 fw-bolder">Reddetti</span>
-              <span *ngSwitchCase="'ca'" class="badge badge-light-primary fs-8 fw-bolder">Arandı</span>
-              <span *ngSwitchCase="'ta'" class="badge badge-light-danger fs-8 fw-bolder">Görüşüldü</span>
-              <span *ngSwitchCase="'ve'" class="badge badge-light-primary fs-8 fw-bolder">Doğrulandı</span>
-              <span *ngSwitchCase="'cl'" class="badge badge-light-danger fs-8 fw-bolder">İptal Edildi</span>
-              <span *ngSwitchCase="'sa'" class="badge badge-light-success fs-8 fw-bolder">Yararlandı</span>
+              <span
+                *ngSwitchCase="'ne'"
+                class="badge badge-light-warning fs-8 fw-bolder"
+                >Yeni</span
+              >
+              <span
+                *ngSwitchCase="'ac'"
+                class="badge badge-light-primary fs-8 fw-bolder"
+                >Kabul Edildi</span
+              >
+              <span
+                *ngSwitchCase="'re'"
+                class="badge badge-light-danger fs-8 fw-bolder"
+                >Reddetti</span
+              >
+              <span
+                *ngSwitchCase="'ca'"
+                class="badge badge-light-primary fs-8 fw-bolder"
+                >Arandı</span
+              >
+              <span
+                *ngSwitchCase="'ta'"
+                class="badge badge-light-danger fs-8 fw-bolder"
+                >Görüşüldü</span
+              >
+              <span
+                *ngSwitchCase="'ve'"
+                class="badge badge-light-primary fs-8 fw-bolder"
+                >Doğrulandı</span
+              >
+              <span
+                *ngSwitchCase="'cl'"
+                class="badge badge-light-danger fs-8 fw-bolder"
+                >İptal Edildi</span
+              >
+              <span
+                *ngSwitchCase="'sa'"
+                class="badge badge-light-success fs-8 fw-bolder"
+                >Yararlandı</span
+              >
             </ng-container>
           </td>
         </tr>
@@ -74,32 +119,51 @@
 </div>
 <!-- begin::Body -->
 
-<app-modal #modalRecommendationActivities [modalConfig]="modalConfigRecommendationActivities">
+<app-modal
+  #modalActivities
+  [modalConfig]="modalConfigActivities"
+>
   <!-- begin::Body-->
   <div class="card-body pt-5">
     <!-- begin::Timeline-->
     <div class="timeline-label">
       <!-- begin::Item-->
-      <div class="timeline-item" *ngFor="let item of recommendationActivities">
+      <div class="timeline-item" *ngFor="let item of activities">
         <!-- begin::Label-->
         <div class="timeline-label fw-bolder text-gray-800 fs-6">
-          {{item.date}}
-          <div class="timeline-label fw-normal fs-8 text-muted">{{item.time}}</div>
+          {{ item.date }}
+          <div class="timeline-label fw-normal fs-8 text-muted">
+            {{ item.time }}
+          </div>
         </div>
         <!-- end::Label-->
         <!-- begin::Badge-->
         <div class="timeline-badge">
-          <i class="fa fa-genderless text-warning fs-1" *ngIf="item.type === 'ne'"></i>
-          <i class="fa fa-genderless text-primary fs-1" *ngIf="item.type === 'ca' || item.type === 've' || item.type === 'ta'"></i>
-          <i class="fa fa-genderless text-danger fs-1" *ngIf="item.type === 'cl' || item.type === 're'"></i>
-          <i class="fa fa-genderless text-success fs-1" *ngIf="item.type === 'sa'"></i>
+          <i
+            class="fa fa-genderless text-warning fs-1"
+            *ngIf="item.type === 'ne'"
+          ></i>
+          <i
+            class="fa fa-genderless text-primary fs-1"
+            *ngIf="
+              item.type === 'ca' || item.type === 've' || item.type === 'ta' || item.type === 'ac'
+            "
+          ></i>
+          <i
+            class="fa fa-genderless text-danger fs-1"
+            *ngIf="item.type === 'cl' || item.type === 're'"
+          ></i>
+          <i
+            class="fa fa-genderless text-success fs-1"
+            *ngIf="item.type === 'sa'"
+          ></i>
         </div>
         <!-- end::Badge-->
         <!-- begin::Text-->
         <div class="fw-bolder timeline-content ps-3">
-          {{item.description}}
+          {{ item.description }}
           <div class="fw-normal fs-8 text-muted">
-            {{item.detail}}
+            {{ item.detail }}
           </div>
         </div>
         <!-- end::Text-->
@@ -109,144 +173,107 @@
     <!-- end::Timeline-->
   </div>
   <!-- end: Card Body-->
-
-
 </app-modal>
 
 <app-modal #modalSale [modalConfig]="modalConfigSale">
-  <form novalidate="" class="form">
+  <form novalidate="" class="form" id="frmSales" [formGroup]="frmSales">
     <div class="card-body p-3">
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fw-bold fs-6"
-          >Full Name</label
-        >
-        <div class="col-lg-8">
-          <div class="row">
-            <div class="col-lg-6 fv-row">
-              <input
-                type="text"
-                class="
-                  form-control form-control-lg form-control-solid
-                  mb-3 mb-lg-0
-                "
-                placeholder="First name"
-                name="fName"
-                value="Max"
-              />
-            </div>
-            <div class="col-lg-6 fv-row">
-              <input
-                type="text"
-                class="form-control form-control-lg form-control-solid"
-                placeholder="Last name"
-                name="lName"
-                value="Smith"
-              />
-            </div>
+      <ng-container *ngIf="hasErrorSales">
+        <div class="mb-lg-15 alert alert-danger">
+          <div class="alert-text font-weight-bold">
+            İşlem yapılamadı. Lütfen formu tamamlayın.
           </div>
         </div>
-      </div>
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fw-bold fs-6"
-          >Company</label
-        >
-        <div class="col-lg-8 fv-row">
-          <input
-            type="text"
-            class="form-control form-control-lg form-control-solid"
-            placeholder="Company name"
-            name="company"
-            value="Keenthemes"
-          />
-        </div>
-      </div>
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fw-bold fs-6"
-          ><span class="required">Contact Phone</span></label
-        >
-        <div class="col-lg-8 fv-row">
-          <input
-            type="tel"
-            class="form-control form-control-lg form-control-solid"
-            placeholder="Phone number"
-            name="contactPhone"
-            value="044 3276 454 935"
-          />
-        </div>
-      </div>
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fw-bold fs-6"
-          ><span class="required">Company Site</span></label
-        >
-        <div class="col-lg-8 fv-row">
-          <input
-            type="text"
-            class="form-control form-control-lg form-control-solid"
-            placeholder="Company website"
-            name="companySite"
-            value="keenthemes.com"
-          />
-        </div>
-      </div>
+      </ng-container>
 
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fw-bold fs-6"
-          >Currency</label
-        >
-        <div class="col-lg-8 fv-row">
-          <select
-            class="form-select form-select-solid form-select-lg"
-            name="currency"
-          >
-            <option value="">Select a currency..</option>
-            <option value="USD">USD - USA dollar</option>
-            <option value="GBP">GBP - British pound</option>
-            <option value="AUD">AUD - Australian dollar</option>
-            <option value="JPY">JPY - Japanese yen</option>
-            <option value="SEK">SEK - Swedish krona</option>
-            <option value="CAD">CAD - Canadian dollar</option>
-            <option value="CHF">CHF - Swiss franc</option>
-          </select>
-        </div>
-      </div>
-      <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-bold fs-6"
-          >Communication</label
+          ><span class="required">Hizmet Tutarı</span></label
         >
         <div class="col-lg-8 fv-row">
-          <div class="d-flex align-items-center mt-3">
-            <label class="form-check form-check-inline form-check-solid me-5"
-              ><input
-                class="form-check-input"
-                name="communication[]"
-                type="checkbox"
-              /><span class="fw-bold ps-2 fs-6">Email</span></label
-            ><label class="form-check form-check-inline form-check-solid"
-              ><input
-                class="form-check-input"
-                name="communication[]"
-                type="checkbox"
-              /><span class="fw-bold ps-2 fs-6">Phone</span></label
-            >
+          <input
+            type="number"
+            class="form-control form-control-lg form-control-solid"
+            formControlName="salesAmount"
+          />
+          <div class="form-text">
+            KDV Hariç, TL
           </div>
         </div>
       </div>
-      <div class="row mb-0">
-        <label class="col-lg-4 col-form-label fw-bold fs-6"
-          >Allow Marketing</label
-        >
-        <div class="col-lg-8 d-flex align-items-center">
-          <div class="form-check form-check-solid form-switch fv-row">
-            <input
-              class="form-check-input w-45px h-30px"
-              type="checkbox"
-              id="allowmarketing"
-            /><label class="form-check-label"></label>
+      <div
+        class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6"
+      >
+        <div class="d-flex flex-stack flex-grow-1">
+          <div class="fw-bold">
+            <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
+            <div class="fs-6 text-gray-600">
+              Marka Elçisine ödül hakedişi kayıt altına alınacak ve mesajla
+              haber verilecektir. Tutarı doğru girdiğinizden emin olun.
+              Müşteriye bir mesaj gönderilmeyecektir. Daha fazla bilgi için:
+              <a class="fw-bolder" target="_blank" href="#"
+                >Kullanım Koşulları</a
+              >
+            </div>
           </div>
         </div>
+      </div>
+      <div class="form-check form-check-solid fv-row">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="approve"
+          value="false"
+          id="approve"
+        /><label class="form-check-label fw-bold ps-2 fs-6 required" for="approve"
+          >Okudum onaylıyorum</label
+        >
       </div>
     </div>
   </form>
-
-
 </app-modal>
+
+<app-modal #modalAccept [modalConfig]="modalConfigAccept">
+  <form novalidate="" class="form" id="frmAccept" [formGroup]="frmAccept">
+    <div class="card-body p-3">
+      <ng-container *ngIf="hasErrorSales">
+        <div class="mb-lg-15 alert alert-danger">
+          <div class="alert-text font-weight-bold">
+            İşlem yapılamadı. Lütfen formu tamamlayın.
+          </div>
+        </div>
+      </ng-container>
+
+      <div
+        class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6"
+      >
+        <div class="d-flex flex-stack flex-grow-1">
+          <div class="fw-bold">
+            <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
+            <div class="fs-6 text-gray-600">
+              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Marka Elçisi bir hakediş elde eder.
+              Lütfen telefon numarasını ve ismi kendi kayıtlarınızda kontrol edin. Aktif görüştüğünüz bir kişiyse kabul etmeyin.
+              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
+              Daha fazla bilgi için:
+              <a class="fw-bolder" target="_blank" href="#"
+                >Kullanım Koşulları</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-check form-check-solid fv-row">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="approve"
+          value="false"
+          id="approve"
+        /><label class="form-check-label fw-bold ps-2 fs-6 required" for="approve"
+          >Okudum onaylıyorum</label
+        >
+      </div>
+    </div>
+  </form>
+</app-modal>
+

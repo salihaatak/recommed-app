@@ -95,6 +95,7 @@ import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider
 import { RecommenderCountComponent } from './_new/cards/recommender-count/recommender-count.component';
 import { ComparePeriodComponent } from './_new/cards/compare-period/compare-period.component';
 import { ModalsModule } from '../../layout/modals/modals.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -192,7 +193,9 @@ import { ModalsModule } from '../../layout/modals/modals.module';
     NgApexchartsModule,
     NgbDropdownModule,
     SharedModule,
-    ModalsModule
+    ModalsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     // Advanced Tables
