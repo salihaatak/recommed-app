@@ -34,14 +34,12 @@ export class ClassicComponent implements OnInit, OnDestroy {
   daterangepickerButtonClass: string = '';
 
   modalConfigRecommender: ModalConfig = {
-    modalTitle: 'Nasıl paylaşmak istersiniz?',
-    hideDismissButton: () => true,
+    title: 'Nasıl paylaşmak istersiniz?',
     hideCloseButton: () => true,
   };
 
   modalConfigProvider: ModalConfig = {
-    modalTitle: 'Nasıl davet etmek istersiniz?',
-    hideDismissButton: () => true,
+    title: 'Nasıl davet etmek istersiniz?',
     hideCloseButton: () => true,
   };
 

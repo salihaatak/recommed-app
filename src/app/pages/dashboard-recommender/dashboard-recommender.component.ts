@@ -11,9 +11,7 @@ export class DashboardRecommenderComponent {
   user: UserType;
 
   modalConfig: ModalConfig = {
-    modalTitle: 'Modal title',
-    dismissButtonLabel: 'Submit',
-    closeButtonLabel: 'Cancel'
+    title: 'Modal title'
   };
   @ViewChild('modal') private modalComponent: ModalComponent;
   constructor(

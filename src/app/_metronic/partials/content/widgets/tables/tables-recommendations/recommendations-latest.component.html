@@ -36,7 +36,7 @@
       <!-- end::Table head -->
       <!-- begin::Table body -->
       <tbody>
-        <tr *ngFor="let item of recommendations" (click)="openRecommendationHistoryModal(item.uid)">
+        <tr *ngFor="let item of recommendations" (click)="openRecommendationActivitiesModal(item.uid)">
 
           <td>
             <div class="d-flex align-items-center">
@@ -74,7 +74,7 @@
 </div>
 <!-- begin::Body -->
 
-<app-modal #modalRecommendationHistory [modalConfig]="modalConfigRecommendationHistory">
+<app-modal #modalRecommendationActivities [modalConfig]="modalConfigRecommendationActivities">
   <!-- begin::Body-->
   <div class="card-body pt-5">
     <!-- begin::Timeline-->
@@ -109,5 +109,45 @@
     <!-- end::Timeline-->
   </div>
   <!-- end: Card Body-->
+
+
+</app-modal>
+
+<app-modal #modalSale [modalConfig]="modalConfigSale">
+  <!-- begin::Body-->
+  <div class="card-body pt-5">
+    <!-- begin::Timeline-->
+    <div class="timeline-label">
+      <!-- begin::Item-->
+      <div class="timeline-item" *ngFor="let item of recommendationActivities">
+        <!-- begin::Label-->
+        <div class="timeline-label fw-bolder text-gray-800 fs-6">
+          {{item.date}}
+          <div class="timeline-label fw-normal fs-8 text-muted">{{item.time}}</div>
+        </div>
+        <!-- end::Label-->
+        <!-- begin::Badge-->
+        <div class="timeline-badge">
+          <i class="fa fa-genderless text-warning fs-1" *ngIf="item.type === 'ne'"></i>
+          <i class="fa fa-genderless text-primary fs-1" *ngIf="item.type === 'ca' || item.type === 've' || item.type === 'ta'"></i>
+          <i class="fa fa-genderless text-danger fs-1" *ngIf="item.type === 'cl' || item.type === 're'"></i>
+          <i class="fa fa-genderless text-success fs-1" *ngIf="item.type === 'sa'"></i>
+        </div>
+        <!-- end::Badge-->
+        <!-- begin::Text-->
+        <div class="fw-bolder timeline-content ps-3">
+          {{item.description}}
+          <div class="fw-normal fs-8 text-muted">
+            {{item.detail}}
+          </div>
+        </div>
+        <!-- end::Text-->
+      </div>
+      <!-- end::Item-->
+    </div>
+    <!-- end::Timeline-->
+  </div>
+  <!-- end: Card Body-->
+
 
 </app-modal>

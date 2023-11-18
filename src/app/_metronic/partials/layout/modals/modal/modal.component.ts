@@ -7,6 +7,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
+btnSalesClick() {
+throw new Error('Method not implemented.');
+}
   @Input() public modalConfig: ModalConfig;
   @ViewChild('modal') private modalContent: TemplateRef<ModalComponent>;
   private modalRef: NgbModalRef;
@@ -21,30 +24,9 @@ export class ModalComponent {
   }
 
   async close(): Promise<void> {
-    if (
-      this.modalConfig.shouldClose === undefined ||
-      (await this.modalConfig.shouldClose())
-    ) {
-      const result =
-        this.modalConfig.onClose === undefined ||
-        (await this.modalConfig.onClose());
-      this.modalRef.close(result);
-    }
-  }
-
-  async dismiss(): Promise<void> {
-    if (this.modalConfig.disableDismissButton !== undefined) {
-      return;
-    }
-
-    if (
-      this.modalConfig.shouldDismiss === undefined ||
-      (await this.modalConfig.shouldDismiss())
-    ) {
-      const result =
-        this.modalConfig.onDismiss === undefined ||
-        (await this.modalConfig.onDismiss());
-      this.modalRef.dismiss(result);
-    }
+    const result =
+      this.modalConfig.onClose === undefined ||
+      (await this.modalConfig.onClose());
+    this.modalRef.close(result);
   }
 }

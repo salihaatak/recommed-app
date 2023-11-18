@@ -15,12 +15,33 @@ export class RecommendationsLatestComponent implements OnInit {
   recommendations: Array<Recommendation>;
   recommendationActivities: Array<RecommendationActivityModel>
 
-  modalConfigRecommendationHistory: ModalConfig = {
-    modalTitle: 'Tavsiyenin Aşamaları',
-    hideDismissButton: () => true,
-    hideCloseButton: () => true,
+  @ViewChild('modalRecommendationActivities') private modalRecommendationActivities: ModalComponent;
+  modalConfigRecommendationActivities: ModalConfig = {
+    title: 'Tavsiyenin Aşamaları',
+    hideCloseButton: () => false,
+    actions: [ {
+        title: "Satış Bildir",
+        event: async (): Promise<boolean> => {
+          this.modalRecommendationActivities.close();
+          return true;
+        }
+    }]
   };
-  @ViewChild('modalRecommendationHistory') private modalRecommendationHistory: ModalComponent;
+
+
+  @ViewChild('modalSale') private modalSale: ModalComponent;
+  modalConfigSale: ModalConfig = {
+    title: 'Satış Bildirimi',
+    hideCloseButton: () => false,
+    actions: [ {
+        title: "Satış Bildir",
+        event: async (): Promise<boolean> => {
+          this.modalSale.close();
+          return true;
+        }
+    }]
+  };
+
 
   constructor(
     public appService: AppService,
@@ -33,14 +54,15 @@ export class RecommendationsLatestComponent implements OnInit {
     });
   }
 
+
   ngOnInit(): void {
     this.reload();
   }
 
-  openRecommendationHistoryModal(recommendationUid: string) {
+  openRecommendationActivitiesModal(recommendationUid: string) {
     this.appService.post("recommendation/get", {uid: recommendationUid}).subscribe((result: ApiResultModel | undefined) => {
-      this.modalConfigRecommendationHistory.modalTitle = 'Tavsiye: ' + result?.data.recommendation.name;
-      this.modalRecommendationHistory.open();
+      this.modalConfigRecommendationActivities.title = 'Tavsiye: ' + result?.data.recommendation.name;
+      this.modalRecommendationActivities.open();
 
       this.recommendationActivities = result?.data.activities;
 
