@@ -43,13 +43,22 @@ export class RecommendationsLatestComponent implements OnInit {
   modalConfigAccept: ModalConfig = {
     title: 'Tavsiye Kabul',
     hideCloseButton: false,
-    actions: [ {
+    actions: [
+      {
         title: "Kabul Et",
         event: async (): Promise<boolean> => {
           this.acceptClick();
           return true;
         }
-    }]
+      },
+      {
+        title: "Reddet",
+        event: async (): Promise<boolean> => {
+          this.cancelClick();
+          return true;
+        }
+      }
+  ]
   };
 
   constructor(
@@ -111,9 +120,9 @@ export class RecommendationsLatestComponent implements OnInit {
 
       this.modalConfigActivities.actions = [];
 
-      if (!this.recommendation.acceptedAt){
+      if (!this.recommendation.acceptedAt && !this.recommendation.cancelledAt){
         this.modalConfigActivities.actions.push({
-            title: "Tavsiyeyi Kabul Et",
+            title: "Tavsiyeyi Kabul Et veya Reddet",
             event: async (): Promise<boolean> => {
               this.modalAccept.open();
 
@@ -122,7 +131,7 @@ export class RecommendationsLatestComponent implements OnInit {
         });
       }
 
-      if (this.recommendation.acceptedAt || this.recommendation.verifiedAt){
+      if (!this.recommendation.soldAt && (this.recommendation.acceptedAt || this.recommendation.verifiedAt)){
         this.modalConfigActivities.actions?.push({
             title: "Satış Kaydet",
             event: async (): Promise<boolean> => {
@@ -181,6 +190,21 @@ export class RecommendationsLatestComponent implements OnInit {
 
       this.cdr.detectChanges();
     });
+  }
+
+  cancelClick() {
+    const s = this.appService
+      .post('recommendation/cancel', {
+        uid: this.currentRecommendationUid
+      })
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result){
+          this.appService.eventEmitter.emit({type: 'recommendation'});
+          this.modalAccept.close();
+        } else {
+          this.hasErrorSales = true;
+        }
+      });
   }
 
   acceptClick() {
