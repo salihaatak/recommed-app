@@ -10,19 +10,19 @@ import { RecommendationActivityModel} from '../../../../../../models/recommendat
   templateUrl: './recommendations-latest.component.html',
 })
 export class RecommendationsLatestComponent implements OnInit {
-  @Input() role: 'r' | 'o' | 'u';
-
   recommendations: Array<Recommendation>;
   recommendationActivities: Array<RecommendationActivityModel>
 
   @ViewChild('modalRecommendationActivities') private modalRecommendationActivities: ModalComponent;
   modalConfigRecommendationActivities: ModalConfig = {
     title: 'Tavsiyenin Aşamaları',
-    hideCloseButton: () => false,
+    hideCloseButton: false,
     actions: [ {
         title: "Satış Bildir",
         event: async (): Promise<boolean> => {
-          this.modalRecommendationActivities.close();
+          this.modalSale.open();
+
+          //this.modalRecommendationActivities.close();
           return true;
         }
     }]
@@ -32,7 +32,7 @@ export class RecommendationsLatestComponent implements OnInit {
   @ViewChild('modalSale') private modalSale: ModalComponent;
   modalConfigSale: ModalConfig = {
     title: 'Satış Bildirimi',
-    hideCloseButton: () => false,
+    hideCloseButton: false,
     actions: [ {
         title: "Satış Bildir",
         event: async (): Promise<boolean> => {

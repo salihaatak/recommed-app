@@ -35,12 +35,12 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   modalConfigRecommender: ModalConfig = {
     title: 'Nasıl paylaşmak istersiniz?',
-    hideCloseButton: () => true,
+    hideCloseButton: true,
   };
 
   modalConfigProvider: ModalConfig = {
     title: 'Nasıl davet etmek istersiniz?',
-    hideCloseButton: () => true,
+    hideCloseButton: true,
   };
 
   @ViewChild('modalRecommender') private modalRecommender: ModalComponent;

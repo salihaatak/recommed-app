@@ -7,13 +7,6 @@ import { ModalConfig, ModalComponent } from '../../_metronic/partials';
   styleUrls: ['./dashboard-provider.component.scss'],
 })
 export class DashboardProviderComponent {
-  modalConfig: ModalConfig = {
-    title: 'Modal title'
-  };
-  @ViewChild('modal') private modalComponent: ModalComponent;
   constructor() {}
 
-  async openModal() {
-    return await this.modalComponent.open();
-  }
 }
