@@ -4,6 +4,7 @@ export interface ModalConfig {
   hideCloseButton: boolean;
   actions?: Array<{
     title: string,
+    buttonClass?: 'primary' | 'success' | 'danger',
     event(): Promise<boolean>
   }>;
 }

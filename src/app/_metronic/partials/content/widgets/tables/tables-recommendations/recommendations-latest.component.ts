@@ -13,19 +13,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RecommendationsLatestComponent implements OnInit {
   recommendations: Array<Recommendation>;
   activities: Array<RecommendationActivityModel>;
-  recommendation: Recommendation;
-  frmSales: FormGroup;
-  frmAccept: FormGroup;
+  recommendation: Recommendation = new Recommendation();
   hasErrorSales: boolean = false;
   currentRecommendationUid: string;
 
-  @ViewChild('modalActivities') private modalActivities: ModalComponent;
-  modalConfigActivities: ModalConfig = {
+  @ViewChild('modalRecommendation') private modalRecommendation: ModalComponent;
+  modalConfigRecommendation: ModalConfig = {
     title: 'Tavsiyenin Aşamaları',
     hideCloseButton: false,
     actions: []
   };
 
+  frmSales: FormGroup;
   @ViewChild('modalSale') private modalSale: ModalComponent;
   modalConfigSale: ModalConfig = {
     title: 'Satış Kaydı',
@@ -39,6 +38,7 @@ export class RecommendationsLatestComponent implements OnInit {
     }]
   };
 
+  frmAccept: FormGroup;
   @ViewChild('modalAccept') private modalAccept: ModalComponent;
   modalConfigAccept: ModalConfig = {
     title: 'Tavsiye Kabul',
@@ -46,24 +46,36 @@ export class RecommendationsLatestComponent implements OnInit {
     actions: [
       {
         title: "Kabul Et",
+        buttonClass: 'success',
         event: async (): Promise<boolean> => {
           this.acceptClick();
           return true;
         }
-      },
+      }
+    ]
+  };
+
+  frmDecline: FormGroup;
+  @ViewChild('modalDecline') private modalDecline: ModalComponent;
+  modalConfigDecline: ModalConfig = {
+    title: 'Tavsiyeyi Reddet',
+    hideCloseButton: false,
+    actions: [
       {
         title: "Reddet",
+        buttonClass: 'danger',
         event: async (): Promise<boolean> => {
-          this.cancelClick();
+          this.declineClick();
           return true;
         }
       }
-  ]
+    ]
   };
 
   constructor(
     private fbSales: FormBuilder,
     private fbAccept: FormBuilder,
+    private fbDecline: FormBuilder,
     public appService: AppService,
     private cdr: ChangeDetectorRef,
   ) {
@@ -80,7 +92,6 @@ export class RecommendationsLatestComponent implements OnInit {
   ngOnInit(): void {
     this.loadRecommendations();
 
-
     this.frmSales = this.fbSales.group(
       {
         salesAmount: [
@@ -95,20 +106,23 @@ export class RecommendationsLatestComponent implements OnInit {
       },
     );
 
-
     this.frmAccept = this.fbAccept.group(
       {
         approve: [false, Validators.compose([Validators.required])],
       },
     );
 
-
+    this.frmDecline = this.fbDecline.group(
+      {
+        approve: [false, Validators.compose([Validators.required])],
+      },
+    );
   }
 
   openRecommendationActivitiesModal(recommendationUid: string) {
     this.currentRecommendationUid = recommendationUid;
     this.loadRecommendation().add(() => {
-      this.modalActivities.open();
+      this.modalRecommendation.open();
     });
   }
 
@@ -116,15 +130,26 @@ export class RecommendationsLatestComponent implements OnInit {
     return this.appService.post("recommendation/get", {uid: this.currentRecommendationUid}).subscribe((result: ApiResultModel | undefined) => {
       this.recommendation = result?.data.recommendation;
       this.activities = result?.data.activities;
-      this.modalConfigActivities.title = `Tavsiye: ${result?.data.recommendation.name}`;
+      this.modalConfigRecommendation.title = `Tavsiye Detayı`;
 
-      this.modalConfigActivities.actions = [];
+      this.modalConfigRecommendation.actions = [];
 
-      if (!this.recommendation.acceptedAt && !this.recommendation.cancelledAt){
-        this.modalConfigActivities.actions.push({
-            title: "Tavsiyeyi Kabul Et veya Reddet",
+      if (!this.recommendation.acceptedAt && !this.recommendation.cancelledAt && !this.recommendation.declinedAt){
+        this.modalConfigRecommendation.actions.push({
+            title: "Kabul Et",
+            buttonClass: 'success',
             event: async (): Promise<boolean> => {
               this.modalAccept.open();
+
+              return true;
+            }
+        });
+
+        this.modalConfigRecommendation.actions.push({
+            title: "Reddet",
+            buttonClass: 'danger',
+            event: async (): Promise<boolean> => {
+              this.modalDecline.open();
 
               return true;
             }
@@ -132,7 +157,7 @@ export class RecommendationsLatestComponent implements OnInit {
       }
 
       if (!this.recommendation.soldAt && (this.recommendation.acceptedAt || this.recommendation.verifiedAt)){
-        this.modalConfigActivities.actions?.push({
+        this.modalConfigRecommendation.actions?.push({
             title: "Satış Kaydet",
             event: async (): Promise<boolean> => {
               this.modalSale.open();
@@ -192,21 +217,6 @@ export class RecommendationsLatestComponent implements OnInit {
     });
   }
 
-  cancelClick() {
-    const s = this.appService
-      .post('recommendation/cancel', {
-        uid: this.currentRecommendationUid
-      })
-      .subscribe((result: ApiResultModel | undefined) => {
-        if (result){
-          this.appService.eventEmitter.emit({type: 'recommendation'});
-          this.modalAccept.close();
-        } else {
-          this.hasErrorSales = true;
-        }
-      });
-  }
-
   acceptClick() {
     this.hasErrorSales = false;
     if (this.frmAccept.controls["approve"].value) {
@@ -220,6 +230,28 @@ export class RecommendationsLatestComponent implements OnInit {
           if (result){
             this.appService.eventEmitter.emit({type: 'recommendation'});
             this.modalAccept.close();
+          } else {
+            this.hasErrorSales = true;
+          }
+        });
+    } else {
+      this.hasErrorSales = true;
+    }
+  }
+
+  declineClick() {
+    this.hasErrorSales = false;
+    if (this.frmDecline.controls["approve"].value) {
+      this.hasErrorSales = false;
+
+      const s = this.appService
+        .post('recommendation/decline', {
+          uid: this.currentRecommendationUid
+        })
+        .subscribe((result: ApiResultModel | undefined) => {
+          if (result){
+            this.appService.eventEmitter.emit({type: 'recommendation'});
+            this.modalDecline.close();
           } else {
             this.hasErrorSales = true;
           }

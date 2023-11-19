@@ -59,7 +59,7 @@
                 <span class="text-muted fw-bold text-muted d-block fs-7">
                   {{ item.createdAtFormatted }}
                   <ng-container *ngIf="this.appService.role !== 'r'">
-                    tarihinde {{item.by?.createdBy.name}} tarafından
+                    tarihinde {{item.by?.createdBy.name}} isimli Marka Elçisi tarafından
                   </ng-container>
                 </span>
               </div>
@@ -76,6 +76,11 @@
                 *ngSwitchCase="'ac'"
                 class="badge badge-light-primary fs-8 fw-bolder"
                 >Kabul Edildi</span
+              >
+              <span
+                *ngSwitchCase="'de'"
+                class="badge badge-light-danger fs-8 fw-bolder"
+                >Kabul Edilmedi</span
               >
               <span
                 *ngSwitchCase="'re'"
@@ -120,12 +125,47 @@
 <!-- begin::Body -->
 
 <app-modal
-  #modalActivities
-  [modalConfig]="modalConfigActivities"
+  #modalRecommendation
+  [modalConfig]="modalConfigRecommendation"
 >
   <!-- begin::Body-->
-  <div class="card-body pt-5">
+  <div class="card-body">
+    <div class="row mb-4">
+      <label class="col-3 fw-bold text-muted">Adı Soyadı</label>
 
+      <div class="col-9">
+        <span class="fw-bolder fs-6 text-dark">{{recommendation ? recommendation.name: ''}}</span>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <label class="col-3 fw-bold text-muted">Telefon</label>
+
+      <div class="col-9 fv-row">
+        <div>
+          <span class="fw-bold fs-6">{{recommendation ? recommendation.phoneNumber : ''}}</span>
+          <div *ngIf="!recommendation?.phoneNumberHidden" class="ml-10">
+            <a [href]="'tel:' + recommendation.phoneNumber" class="btn btn-sm btn-success me-2 cursor-pointer ml-10">
+              <i class="fa-solid fa-phone"></i>
+              <span class="indicator-label">Ara</span>
+            </a>
+          </div>
+        </div>
+        <div class="fw-normal fs-8 text-muted" *ngIf="recommendation?.phoneNumberHidden">
+          Telefon numarası tamamı, tavsiye kabul edildiğinde görünür
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <label class="col-3 fw-bold text-muted">Marka Elçisi</label>
+
+      <div class="col-9 fv-row">
+        <span class="fw-bold fs-6">{{recommendation ? recommendation.by?.createdBy.name : ''}}</span>
+      </div>
+    </div>
+
+    <div class="separator separator-dashed mx-lg-5 mt-2 mb-6 mt-10"></div>
 
     <!-- begin::Timeline-->
     <div class="timeline-label">
@@ -153,7 +193,7 @@
           ></i>
           <i
             class="fa fa-genderless text-danger fs-1"
-            *ngIf="item.type === 'cl' || item.type === 're'"
+            *ngIf="item.type === 'cl' || item.type === 're' || item.type === 'de'"
           ></i>
           <i
             class="fa fa-genderless text-success fs-1"
@@ -278,4 +318,48 @@
     </div>
   </form>
 </app-modal>
+
+<app-modal #modalDecline [modalConfig]="modalConfigDecline">
+  <form novalidate="" class="form" id="frmDecline" [formGroup]="frmDecline">
+    <div class="card-body p-3">
+      <ng-container *ngIf="hasErrorSales">
+        <div class="mb-lg-15 alert alert-danger">
+          <div class="alert-text font-weight-bold">
+            İşlem yapılamadı. Lütfen formu tamamlayın.
+          </div>
+        </div>
+      </ng-container>
+
+      <div
+        class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6"
+      >
+        <div class="d-flex flex-stack flex-grow-1">
+          <div class="fw-bold">
+            <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
+            <div class="fs-6 text-gray-600">
+              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız. İleride bu numaranın başkası tarafından tavsiye edilmesi mümkün olmayacaktır.
+              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
+              Daha fazla bilgi için:
+              <a class="fw-bolder" target="_blank" href="#"
+                >Kullanım Koşulları</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-check form-check-solid fv-row">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="approve"
+          value="false"
+          id="approve"
+        /><label class="form-check-label fw-bold ps-2 fs-6 required" for="approve"
+          >Okudum onaylıyorum</label
+        >
+      </div>
+    </div>
+  </form>
+</app-modal>
+
 
