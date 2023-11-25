@@ -57,7 +57,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
     this.form1 = this.fb.group(
       {
         verificationCode: [
-          'qwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -65,7 +65,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         firstName: [
-          'qwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -73,7 +73,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         lastName: [
-          'qwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -81,14 +81,14 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         phoneNumber: [
-          '5335053495',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(10),
           ]),
         ],
         password: [
-          'qweqwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
@@ -96,7 +96,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         cPassword: [
-          'qweqwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(6),

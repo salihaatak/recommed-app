@@ -38,7 +38,6 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
 
     const registrationSubscr = this.appService
       .sendPhoneVerificationCode(this.appService.email)
-      .pipe(first())
       .subscribe((user: UserModel) => {
       });
     this.unsubscribe.push(registrationSubscr);

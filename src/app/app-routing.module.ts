@@ -14,10 +14,19 @@ export const routes: Routes = [
       import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
   },
   {
+    path: 'me',
+    canActivate: [AuthGuard],
+    data: {veri: 'asdasdas'},
+    loadChildren: () => {
+      return import('./_metronic/layout/layout.module').then((m) => m.LayoutModule);
+    }
+  },
+  {
     path: '',
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
+    loadChildren: () => {
+      return import('./_metronic/layout/layout.module').then((m) => m.LayoutModule);
+    }
   },
   { path: '**', redirectTo: 'error/404' },
 ];

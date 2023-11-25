@@ -12,6 +12,12 @@ const Routing: Routes = [
       import('./dashboard-provider/dashboard-provider.module').then((m) => m.DashboardProviderModule),
   },
   {
+    path: 'me',
+    data: { layout: 'dark-sidebar'},
+    loadChildren: () =>
+      import('./me/me.module').then((m) => m.AccountModule),
+  },
+  {
     path: 'builder',
     loadChildren: () =>
       import('./builder/builder.module').then((m) => m.BuilderModule),
@@ -24,8 +30,10 @@ const Routing: Routes = [
   },
   {
     path: 'crafted/account',
-    loadChildren: () =>
-      import('../modules/account/account.module').then((m) => m.AccountModule),
+    loadChildren: () => {
+      console.log("1");
+      return import('../modules/account/account.module').then((m) => m.AccountModule) },
+
     data: { layout: 'dark-header' },
   },
   {

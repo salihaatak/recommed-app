@@ -1,0 +1,189 @@
+<ng-container *ngIf="hasError">
+  <div class="mb-lg-15 alert alert-danger">
+    <div class="alert-text font-weight-bold">
+      Kaydedilemedi. Lütfen formu kontrol edip tekrar deneyin.
+    </div>
+  </div>
+</ng-container>
+<style>
+  #kt_app_toolbar{
+    display: none !important;
+  }
+</style>
+<div class="card mb-5 mb-xl-10">
+  <div
+    class="card-header border-0 cursor-pointer"
+    role="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#kt_account_profile_details"
+    aria-expanded="true"
+    aria-controls="kt_account_profile_details"
+  >
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">İşletme Ayarları</h3>
+    </div>
+  </div>
+  <div id="kt_account_profile_details" class="collapse show">
+    <form novalidate="" class="form" [formGroup]="form1">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Marka Adı</label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">İletişim Telefon No</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="tel"
+              class="form-control form-control-lg form-control-solid"
+              formControlName="phoneNumber"
+            />
+          </div>
+        </div>
+        <div class="row mb-0 border-top pb-5">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            >Satış öncesi ödüllendir</label
+          >
+          <div class="col-lg-8 d-flex align-items-center">
+            <div class="form-check form-check-solid form-switch fv-row">
+              <input
+                class="form-check-input w-45px h-30px"
+                type="checkbox"
+                formControlName="recommendationRewardGranted"
+              /><label class="form-check-label"></label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6" *ngIf="this.form1.controls['recommendationRewardGranted'].value">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Ödül Meblağı (TL)</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="number"
+              class="form-control form-control-lg form-control-solid"
+              formControlName="recommendationRewardAmount"
+              value="0"
+            />
+            <div class="text-muted mt-5">Marka Elçisi'nden gelen bir tavsiye ile görüşüp geçerli bir tavsiye olduğunu doğruladığınızda
+              satış yapılmasını beklemeden Marka Elçisine ödül hakedişi yansıtabilirsiniz. Bu sayede markanız daha fazla kişiye tavsiye edilir, marka bilinirliğiniz artar.
+              Tavsiye başına net hakediş tutarını giriniz.</div>
+          </div>
+        </div>
+        <div class="row mb-0 border-top">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            >Satış sonrası ödüllendir</label
+          >
+          <div class="col-lg-8 d-flex align-items-center">
+            <div class="form-check form-check-solid form-switch fv-row">
+              <input
+                class="form-check-input w-45px h-30px"
+                type="checkbox"
+                formControlName="salesRewardGranted"
+              /><label class="form-check-label"></label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Tavsiye Hakediş Süresi (Gün)</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="number"
+              class="form-control form-control-lg form-control-solid"
+              formControlName="salesRewardPeriod"
+            />
+            <div class="text-muted mt-5">Marka Elçisi tavsiyeyi gönderdiğinde hemen satış yapılmayabilir.
+              Ne kadar süre içerisinde satış yapılırsa Marka Elçisi'ne hakediş yansıtılacağını belirtin.
+              Çok kısa süre girerseniz Marka Elçisinde hak kaybı olabilir.
+              180 günden (6 ay) az olmaması önerilir.
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            >Ödül hesaplama yöntemi</label
+          >
+          <div class="col-lg-8 fv-row">
+            <div class="d-flex align-items-center mt-3">
+              <label class="form-check form-check-inline form-check-solid">
+                <input
+                  class="form-check-input"
+                  formControlName="salesRewardModel"
+                  type="radio"
+                  value="pe"
+                />
+                <span class="fw-bold ps-2 fs-6">Satıştan yüzde (%)</span>
+              </label>
+              <label class="form-check form-check-inline form-check-solid">
+                <input
+                  class="form-check-input"
+                  formControlName="salesRewardModel"
+                  type="radio"
+                  value="am"
+                />
+                <span class="fw-bold ps-2 fs-6">Sabit meblağ</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value && this.form1.controls['salesRewardModel'].value === 'am'">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Meblağı (TL)</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="number"
+              class="form-control form-control-lg form-control-solid"
+              formControlName="salesRewardAmount"
+              value="0"
+            />
+            <div class="text-muted mt-5">Satış gerçekleştiğinde ne kadarlık satış yapıldığından bağımsız olarak Marka Elçisine
+              sabit meblağ ödül hakedişi yansıtabilirsiniz.</div>
+          </div>
+        </div>
+        <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value && this.form1.controls['salesRewardModel'].value === 'pe'">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Oran (%)</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="number"
+              class="form-control form-control-lg form-control-solid"
+              formControlName="salesRewardPercentage"
+              value="0"
+            />
+            <div class="text-muted mt-5">Tavsiyeye satış yapıldığında Recommed size ne kadarlık bir satış yapıldığını sorar.
+              KDV hariç satış rakamınız üzerinden Marka Elçisine yüzdesel oranda hakediş yansıtır. Yüzdesel ödüllendirme,
+              Marka Elçisi'ni kazan-kazan modeline motive eder ve daha fazla kişiye tavsiye etmesine dolayısıyla cironuzun artmasına yardımcı olur.
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="save()"
+        >
+          Kaydet
+            <span clas="indicator-progress" *ngIf="this.appService.isLoading$ | async">
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

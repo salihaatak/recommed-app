@@ -18,17 +18,17 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
 
   constructor(
-    private auth: AppService,
+    private appService: AppService,
     private translationService: TranslationService
   ) {}
 
   ngOnInit(): void {
-    this.user$ = this.auth.currentUserSubject.asObservable();
+    this.user$ = this.appService.currentUserSubject.asObservable();
     this.setLanguage(this.translationService.getSelectedLanguage());
   }
 
   logout() {
-    this.auth.logout();
+    this.appService.logout();
     document.location.reload();
   }
 

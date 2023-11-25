@@ -6,7 +6,6 @@ import { HTTPService } from './auth-http';
 import { Router } from '@angular/router';
 import { ResultModel } from '../models/result.model';
 import { ApiResultModel } from '../models/api-result.mode';
-import { Recommendation } from '../models/recommendation.model';
 
 export type UserType = UserModel | undefined;
 

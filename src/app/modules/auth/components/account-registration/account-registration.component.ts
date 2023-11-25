@@ -42,7 +42,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
     this.form1 = this.fb.group(
       {
         firstName: [
-          'qwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -50,7 +50,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         lastName: [
-          'qwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -58,7 +58,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         accountName: [
-          'qwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(3),
@@ -66,7 +66,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         email: [
-          'esrefatak+' + Math.random() * 10000 + '@gmail.com',
+          '',
           Validators.compose([
             Validators.required,
             Validators.email,
@@ -75,14 +75,14 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         phoneNumber: [
-          '5335053495',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(10),
           ]),
         ],
         password: [
-          'qweqwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
@@ -90,7 +90,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           ]),
         ],
         cPassword: [
-          'qweqwe',
+          '',
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
@@ -124,7 +124,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         },
         false
       )
-      .pipe(first())
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem("accountEmail", result.data.email)

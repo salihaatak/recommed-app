@@ -85,7 +85,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.hasError = false;
     const loginSubscr = this.appService
       .login(this.form1.controls.contact.value, this.form1.controls.password.value)
-      .pipe(first())
       .subscribe((user: UserModel | undefined) => {
         if (user) {
           this.appService.me().subscribe(()=>{

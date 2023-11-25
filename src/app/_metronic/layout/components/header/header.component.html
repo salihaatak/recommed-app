@@ -31,7 +31,7 @@
   <ng-container *ngIf="!appSidebarDisplay">
     <!--begin::Logo-->
     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
-      <a routerLink="/dashboard">
+      <a [routerLink]="this.appService.getDashboardRoute()">
         <ng-container *ngIf="currentLayoutType === 'dark-header'">
           <img alt="Logo" src="https://recommed.co/media/recommed/web-logo-white-text.svg"
             class="h-20px h-lg-30px app-sidebar-logo-default" />
