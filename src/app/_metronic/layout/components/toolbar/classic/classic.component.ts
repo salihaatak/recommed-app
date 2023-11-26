@@ -4,6 +4,8 @@ import { LayoutService } from '../../../core/layout.service';
 import { ModalConfig, ModalComponent } from '../../../../../_metronic/partials';
 import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 declare global {
@@ -33,6 +35,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   filterButtonClass: string = '';
   daterangepickerButtonClass: string = '';
 
+  showToolbar: boolean = false;
+
   modalConfigRecommender: ModalConfig = {
     title: 'Nasıl paylaşmak istersiniz?',
     hideCloseButton: true,
@@ -49,10 +53,20 @@ export class ClassicComponent implements OnInit, OnDestroy {
       private layout: LayoutService,
       private zone: NgZone,
       private cdr: ChangeDetectorRef,
-      public appService: AppService
+      public appService: AppService,
+      private router: Router
       ) {}
 
   ngOnInit(): void {
+
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showToolbar = this.router.url.indexOf('/me/') >= 0 ? false : true;
+        this.cdr.detectChanges();
+      }
+    });
+
     this.updateProps();
     const subscr = this.layout.layoutConfigSubject
       .asObservable()

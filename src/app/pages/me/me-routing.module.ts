@@ -6,9 +6,6 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
-    data: {
-      geldi: 222
-    }
   },
   {
     path: 'user',

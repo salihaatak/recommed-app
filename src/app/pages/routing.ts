@@ -13,7 +13,7 @@ const Routing: Routes = [
   },
   {
     path: 'me',
-    data: { layout: 'dark-sidebar'},
+    data: { layout: 'dark-sidebar', section: 'me' },
     loadChildren: () =>
       import('./me/me.module').then((m) => m.AccountModule),
   },

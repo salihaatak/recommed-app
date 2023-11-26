@@ -16,7 +16,6 @@ export const routes: Routes = [
   {
     path: 'me',
     canActivate: [AuthGuard],
-    data: {veri: 'asdasdas'},
     loadChildren: () => {
       return import('./_metronic/layout/layout.module').then((m) => m.LayoutModule);
     }
