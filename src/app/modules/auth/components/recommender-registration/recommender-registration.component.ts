@@ -56,14 +56,6 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   initForm() {
     this.form1 = this.fb.group(
       {
-        verificationCode: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(100),
-          ]),
-        ],
         firstName: [
           '',
           Validators.compose([
