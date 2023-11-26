@@ -17,8 +17,9 @@ export class AppService implements OnDestroy {
 
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
-  currentUser$: Observable<UserType>;
-  currentUserSubject: BehaviorSubject<UserType>;
+  currentUserSubject: BehaviorSubject<UserType> = new BehaviorSubject<UserType>(undefined);
+  currentUser$: Observable<UserType> = this.currentUserSubject.asObservable();
+  currenUserValue: UserModel = new UserModel();
 
   private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
@@ -45,8 +46,6 @@ export class AppService implements OnDestroy {
     private httpService: HTTPService,
     private router: Router
   ) {
-    this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
-    this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
   // public methods

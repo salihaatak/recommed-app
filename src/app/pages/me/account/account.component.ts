@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
 })
 export class AccountComponent {
   constructor() {
-    console.log("component yüklendi!");
   }
 }

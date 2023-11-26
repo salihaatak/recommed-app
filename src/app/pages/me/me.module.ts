@@ -4,12 +4,16 @@ import { AccountComponent } from './account/account.component';
 import { MeRoutingModule } from './me-routing.module';
 import { AccountDetailComponent } from './account/detail/detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
+import { UserDetailComponent } from './user/detail/detail.component';
 
 
 @NgModule({
   declarations: [
     AccountComponent,
-    AccountDetailComponent
+    AccountDetailComponent,
+    UserComponent,
+    UserDetailComponent
   ],
   imports: [
     MeRoutingModule,
