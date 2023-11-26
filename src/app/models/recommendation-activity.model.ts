@@ -3,11 +3,12 @@ export type RecommendationActivityTypeModel =
     | 'ne'
     | 'ac'
     | 'de'
-    | 'cl'
+    | 'ca'
     | 'ta'
     | 've'
-    | 'ca'
-    | 'sa'
+    | 'in'
+    | 'wi'
+    | 'so'
     | 're';
 
 export type RecommendationActivityModel = {

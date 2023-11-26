@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         null,
         Validators.compose([
           Validators.required,
-          Validators.minLength(9),
+          Validators.minLength(10),
           Validators.maxLength(320),
         ]),
       ],

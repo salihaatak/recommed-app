@@ -18,7 +18,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
 
   constructor(
-    private appService: AppService,
+    public appService: AppService,
     private translationService: TranslationService
   ) {}
 

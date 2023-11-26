@@ -8,6 +8,7 @@ export class Recommendation {
   createdAt: string;
   createdAtFormatted: string;
   acceptedAt: string;
+  withdrawnAt: string;
   declinedAt: string;
   calledAt: string;
   talkedAt: string;

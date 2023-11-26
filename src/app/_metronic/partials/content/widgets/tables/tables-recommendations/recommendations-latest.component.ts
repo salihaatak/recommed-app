@@ -72,10 +72,28 @@ export class RecommendationsLatestComponent implements OnInit {
     ]
   };
 
+  frmWithdraw: FormGroup;
+  @ViewChild('modalWithdraw') private modalWithdraw: ModalComponent;
+  modalConfigWithdraw: ModalConfig = {
+    title: 'Tavsiyeyi Geri Çek',
+    hideCloseButton: false,
+    actions: [
+      {
+        title: "Geri Çek",
+        buttonClass: 'danger',
+        event: async (): Promise<boolean> => {
+          this.withdrawClick();
+          return true;
+        }
+      }
+    ]
+  };
+
   constructor(
     private fbSales: FormBuilder,
     private fbAccept: FormBuilder,
     private fbDecline: FormBuilder,
+    private fbWithdraw: FormBuilder,
     public appService: AppService,
     private cdr: ChangeDetectorRef,
   ) {
@@ -117,6 +135,12 @@ export class RecommendationsLatestComponent implements OnInit {
         approve: [false, Validators.compose([Validators.required])],
       },
     );
+
+    this.frmWithdraw = this.fbWithdraw.group(
+      {
+        approve: [false, Validators.compose([Validators.required])],
+      },
+    );
   }
 
   openRecommendationActivitiesModal(recommendationUid: string) {
@@ -134,33 +158,48 @@ export class RecommendationsLatestComponent implements OnInit {
 
       this.modalConfigRecommendation.actions = [];
 
-      if (!this.recommendation.acceptedAt && !this.recommendation.cancelledAt && !this.recommendation.declinedAt){
-        this.modalConfigRecommendation.actions.push({
-            title: "Kabul Et",
-            buttonClass: 'success',
-            event: async (): Promise<boolean> => {
-              this.modalAccept.open();
+      if (this.appService.role == 'o' || this.appService.role == 'u') {
 
-              return true;
-            }
-        });
+        if (!this.recommendation.withdrawnAt && !this.recommendation.acceptedAt && !this.recommendation.cancelledAt && !this.recommendation.declinedAt){
+          this.modalConfigRecommendation.actions.push({
+              title: "Kabul Et",
+              buttonClass: 'success',
+              event: async (): Promise<boolean> => {
+                this.modalAccept.open();
 
-        this.modalConfigRecommendation.actions.push({
-            title: "Reddet",
-            buttonClass: 'danger',
-            event: async (): Promise<boolean> => {
-              this.modalDecline.open();
+                return true;
+              }
+          });
 
-              return true;
-            }
-        });
+          this.modalConfigRecommendation.actions.push({
+              title: "Reddet",
+              buttonClass: 'danger',
+              event: async (): Promise<boolean> => {
+                this.modalDecline.open();
+
+                return true;
+              }
+          });
+        }
+
+        if (!this.recommendation.soldAt && (this.recommendation.acceptedAt || this.recommendation.verifiedAt)){
+          this.modalConfigRecommendation.actions?.push({
+              title: "Satış Kaydet",
+              event: async (): Promise<boolean> => {
+                this.modalSale.open();
+
+                return true;
+              }
+          });
+        }
       }
 
-      if (!this.recommendation.soldAt && (this.recommendation.acceptedAt || this.recommendation.verifiedAt)){
-        this.modalConfigRecommendation.actions?.push({
-            title: "Satış Kaydet",
+      if (['ne', 'ac', 'de', 'ca', 'ta', 've', 'in', 're'].includes(this.recommendation.status) && this.appService.role == 'r') {
+        this.modalConfigRecommendation.actions.push({
+            title: "Tavsiyeyi Geri Çek",
+            buttonClass: 'danger',
             event: async (): Promise<boolean> => {
-              this.modalSale.open();
+              this.modalWithdraw.open();
 
               return true;
             }
@@ -168,8 +207,6 @@ export class RecommendationsLatestComponent implements OnInit {
       }
 
       this.cdr.detectChanges();
-
-      //burası
     });
   }
 
@@ -252,6 +289,28 @@ export class RecommendationsLatestComponent implements OnInit {
           if (result){
             this.appService.eventEmitter.emit({type: 'recommendation'});
             this.modalDecline.close();
+          } else {
+            this.hasErrorSales = true;
+          }
+        });
+    } else {
+      this.hasErrorSales = true;
+    }
+  }
+
+  withdrawClick() {
+    this.hasErrorSales = false;
+    if (this.frmWithdraw.controls["approve"].value) {
+      this.hasErrorSales = false;
+
+      const s = this.appService
+        .post('recommendation/withdraw', {
+          uid: this.currentRecommendationUid
+        })
+        .subscribe((result: ApiResultModel | undefined) => {
+          if (result){
+            this.appService.eventEmitter.emit({type: 'recommendation'});
+            this.modalWithdraw.close();
           } else {
             this.hasErrorSales = true;
           }

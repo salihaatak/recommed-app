@@ -18,7 +18,7 @@ export class PageTitleComponent implements OnInit, OnDestroy {
   description$: Observable<string>;
   bc$: Observable<Array<PageLink>>;
 
-  show: boolean = false;
+  show: boolean = true;
 
   constructor(private pageInfo: PageInfoService, private router: Router, private cdr: ChangeDetectorRef) {}
 

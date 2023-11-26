@@ -23,7 +23,7 @@ export class AppService implements OnDestroy {
   private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
 
-  role: string;
+  role: 'r' | 'o' | 'u';
   email: string;
   phoneNumber: string;
   contact: string;

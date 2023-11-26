@@ -35,7 +35,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   filterButtonClass: string = '';
   daterangepickerButtonClass: string = '';
 
-  showToolbar: boolean = false;
+  showToolbar: boolean = true;
 
   modalConfigRecommender: ModalConfig = {
     title: 'Nasıl paylaşmak istersiniz?',

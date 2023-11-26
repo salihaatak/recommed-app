@@ -5,7 +5,17 @@
         <div class="fw-bolder d-flex align-items-center fs-5">
           {{ _user.firstName }} {{ _user.lastName }}
           <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"
-            >Pro</span
+            >
+                <ng-container *ngIf="this.appService.role === 'o'">
+                  İşletme Sahibi
+                </ng-container>
+                <ng-container *ngIf="this.appService.role === 'u'">
+                  İşletme Kullanıcısı
+                </ng-container>
+                <ng-container *ngIf="this.appService.role === 'r'">
+                  Marka Elçisi
+                </ng-container>
+            </span
           >
         </div>
         <a class="fw-bold text-muted fs-7">
@@ -23,11 +33,13 @@
     </a>
   </div>
 
-  <div class="menu-item px-5 my-1">
-    <a routerLink="/me/account" class="menu-link px-5">
-      İşletme Ayarları
-    </a>
-  </div>
+  <ng-container *ngIf="this.appService.role === 'o'">
+    <div class="menu-item px-5 my-1">
+      <a routerLink="/me/account" class="menu-link px-5">
+        İşletme Ayarları
+      </a>
+    </div>
+  </ng-container>
 
   <div class="menu-item px-5">
     <a (click)="logout()" class="menu-link px-5 cursor-pointer"> Oturumu Kapat </a>

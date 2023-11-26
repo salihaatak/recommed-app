@@ -89,8 +89,8 @@
               >
               <span
                 *ngSwitchCase="'ca'"
-                class="badge badge-light-danger fs-8 fw-bolder"
-                >İptal Edildi</span
+                class="badge badge-light-primary fs-8 fw-bolder"
+                >Arandı</span
               >
               <span
                 *ngSwitchCase="'ta'"
@@ -103,12 +103,12 @@
                 >Doğrulandı</span
               >
               <span
-                *ngSwitchCase="'cl'"
+                *ngSwitchCase="'wi'"
                 class="badge badge-light-danger fs-8 fw-bolder"
-                >İptal Edildi</span
+                >Geri Çekildi</span
               >
               <span
-                *ngSwitchCase="'sa'"
+                *ngSwitchCase="'so'"
                 class="badge badge-light-success fs-8 fw-bolder"
                 >Yararlandı</span
               >
@@ -193,11 +193,11 @@
           ></i>
           <i
             class="fa fa-genderless text-danger fs-1"
-            *ngIf="item.type === 'cl' || item.type === 're' || item.type === 'de'"
+            *ngIf="item.type === 'in' || item.type === 're' || item.type === 'de'"
           ></i>
           <i
             class="fa fa-genderless text-success fs-1"
-            *ngIf="item.type === 'sa'"
+            *ngIf="item.type === 'so'"
           ></i>
         </div>
         <!-- end::Badge-->
@@ -339,6 +339,51 @@
             <div class="fs-6 text-gray-600">
               Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız. İleride bu numaranın başkası tarafından tavsiye edilmesi mümkün olmayacaktır.
               Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
+              Daha fazla bilgi için:
+              <a class="fw-bolder" target="_blank" href="#"
+                >Kullanım Koşulları</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-check form-check-solid fv-row">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          formControlName="approve"
+          value="false"
+          id="approve"
+        /><label class="form-check-label fw-bold ps-2 fs-6 required" for="approve"
+          >Okudum onaylıyorum</label
+        >
+      </div>
+    </div>
+  </form>
+</app-modal>
+
+
+<app-modal #modalWithdraw [modalConfig]="modalConfigWithdraw">
+  <form novalidate="" class="form" id="frmWithdraw" [formGroup]="frmWithdraw">
+    <div class="card-body p-3">
+      <ng-container *ngIf="hasErrorSales">
+        <div class="mb-lg-15 alert alert-danger">
+          <div class="alert-text font-weight-bold">
+            İşlem yapılamadı. Lütfen formu tamamlayın.
+          </div>
+        </div>
+      </ng-container>
+
+      <div
+        class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6"
+      >
+        <div class="d-flex flex-stack flex-grow-1">
+          <div class="fw-bold">
+            <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
+            <div class="fs-6 text-gray-600">
+              Tavsiyeyi geri çektiğinizde artık işletme telefon numarasını Recommed üzerinde göremez.
+              İleride bu telefon numarasını tekrar tavsiye etmeniz mümkün olmaz.
+              Yaptığınız işlemden işletme özel bildirimle anında haberdar edilir.
               Daha fazla bilgi için:
               <a class="fw-bolder" target="_blank" href="#"
                 >Kullanım Koşulları</a
