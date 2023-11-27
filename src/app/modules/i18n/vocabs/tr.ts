@@ -15,6 +15,10 @@ export const locale = {
       FORGOT_PASSWORD: 'Parolamı unuttum',
       CAN_NOT_LOGIN: 'Bu bilgilerle giriş yapılamadı',
       PASSWORD: 'Parola',
+      TERMS: 'Kullanım Koşulları',
+      AGREE: `Kullanım Koşulları'nı kabul ediyorum`,
+      MORE_INFO: 'Daha fazla bilgi',
+      NEXT: 'Devam',
 
 
       SELECT: 'Dil seçiniz',

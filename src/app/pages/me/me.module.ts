@@ -6,6 +6,7 @@ import { AccountDetailComponent } from './account/detail/detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/detail/detail.component';
+import { TranslationModule } from 'src/app/modules/i18n';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { UserDetailComponent } from './user/detail/detail.component';
   imports: [
     MeRoutingModule,
     CommonModule,
+    TranslationModule,
     FormsModule,
     ReactiveFormsModule
   ]

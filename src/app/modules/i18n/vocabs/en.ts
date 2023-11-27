@@ -15,7 +15,10 @@ export const locale = {
       FORGOT_PASSWORD: 'Forgot password',
       CAN_NOT_LOGIN: 'Could not login',
       PASSWORD: 'Password',
-
+      TERMS: 'Terms & Conditions',
+      AGREE: `I agree Terms&Conditions`,
+      MORE_INFO: 'Learn more',
+      NEXT: 'Next',
 
       SELECT: 'Select language',
       HELLO: 'Hi!',

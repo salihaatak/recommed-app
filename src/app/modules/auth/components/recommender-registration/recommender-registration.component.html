@@ -190,8 +190,8 @@
     <label class="form-check form-check-inline">
       <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
       <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-        Kaydolarak <a href="https://keenthemes.com/metronic/?page=faq" target="_blank"
-          class="ms-1 link-primary">Kullanım Koşulları</a>'nı kabul ediyorum
+        Kaydolarak <a href="https://recommed.co/en/privacy.php" target="_blank"
+          class="ms-1 link-primary">{{'T.TERMS' | translate}}</a>'nı kabul ediyorum
       </span>
     </label>
   </div>
@@ -208,17 +208,17 @@
   </div>
   <!--end::Form group-->
 
+
   <!--begin::Form group-->
   <div class="d-grid mb-10">
     <button type="submit" id="kt_sign_up_submit" [disabled]="
         form1.invalid || !form1.controls['agree'].value
       " class="btn btn-primary">
       <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">Devam</span>
+        <span class="indicator-label">{{'T.NEXT' | translate}}</span>
       </ng-container>
       <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress" [style.display]="'block'">
-          Please wait...
+        <span class="indicator-progress">
           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
       </ng-container>

@@ -96,6 +96,7 @@ import { RecommenderCountComponent } from './_new/cards/recommender-count/recomm
 import { ComparePeriodComponent } from './_new/cards/compare-period/compare-period.component';
 import { ModalsModule } from '../../layout/modals/modals.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslationModule } from 'src/app/modules/i18n';
 
 
 @NgModule({
@@ -188,6 +189,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    TranslationModule,
     DropdownMenusModule,
     InlineSVGModule,
     NgApexchartsModule,

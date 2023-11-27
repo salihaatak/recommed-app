@@ -1,7 +1,7 @@
 
 <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
   <a routerLink="/auth" class="link-primary">
-    {{ 'T.BACK' | translate }} >
+    {{ 'T.BACK' | translate }}
   </a>
 </div>
 
@@ -11,7 +11,7 @@
   <div class="text-center mb-11">
     <!--begin::Title-->
     <h1 class="text-dark fw-bolder mb-3">
-      Marka Kaydı
+      İşletme Kaydı
     </h1>
     <!--end::Title-->
 
@@ -252,8 +252,8 @@
     <label class="form-check form-check-inline">
       <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
       <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-        Kaydolarak <a href="https://keenthemes.com/metronic/?page=faq" target="_blank"
-          class="ms-1 link-primary">Kullanım Koşulları</a>'nı kabul ediyorum
+        {{'T.AGREE' | translate}}. <a href="https://recommed.co/en/privacy.php" target="_blank"
+          class="ms-1 link-primary">{{'T.MORE_INFO' | translate}}</a>
       </span>
     </label>
   </div>
@@ -276,11 +276,10 @@
         form1.invalid || !form1.controls['agree'].value
       " class="btn btn-primary">
       <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">Devam</span>
+        <span class="indicator-label">{{'T.NEXT' | translate}}</span>
       </ng-container>
       <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress" [style.display]="'block'">
-          Please wait...
+        <span class="indicator-progress">
           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
       </ng-container>

@@ -68,8 +68,7 @@
         <span class="indicator-label">Devam</span>
       </ng-container>
       <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress" [style.display]="'block'">
-          Lütfen bekleyin...
+        <span class="indicator-progress">
           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
       </ng-container>
@@ -77,6 +76,11 @@
   </div>
   <!--end::Form group-->
 
+  <div class="text-gray-500 fw-semibold fs-6">
+    By using this application, you are accepting the Terms&Conditions.
+    <a href="https://recommed.co/en/privacy.php" target="_blank"
+          class="ms-1 link-primary">{{'T.MORE_INFO' | translate}}</a>
+  </div>
 
 </form>
 
