@@ -21,6 +21,7 @@ export class IntroComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
   ) {
+
     this.isLoading$ = this.appService.isLoading$;
 
     if (localStorage.getItem("token")){

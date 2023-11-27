@@ -2,7 +2,21 @@
 export const locale = {
   lang: 'tr',
   data: {
-    TRANSLATOR: {
+    T: {
+      OR: 'veya',
+      INTRO: 'Hizmet aldığınız işletmeyi çevrenize mobil uygulama üzerinden tavsiye olarak göndererek hem kaliteli hizmetle tanışmalarını sağlayın hem de düzenli ek gelir elde edin.',
+      REGISTER: 'Kaydol',
+      REGISTER_BUSINESS: 'İşletme Kaydı',
+      LOGIN_TITLE: 'Oturum Aç',
+      LOGIN: 'Giriş',
+      ARE_YOU_REGISTERED: 'Kayıtlı mısın?',
+      BACK: 'Geri',
+      EMAIL_PHONE: 'E-posta veya cep telefonu',
+      FORGOT_PASSWORD: 'Parolamı unuttum',
+      CAN_NOT_LOGIN: 'Bu bilgilerle giriş yapılamadı',
+      PASSWORD: 'Parola',
+
+
       SELECT: 'Dil seçiniz',
       HELLO: 'Merhaba!',
     },

@@ -2,8 +2,22 @@
 export const locale = {
   lang: 'en',
   data: {
-    TRANSLATOR: {
-      SELECT: 'Select your language',
+    T: {
+      OR: 'or',
+      INTRO: 'Recommend the business you received service from to your friends through the mobile application, allowing them to experience quality service and earn regular additional income.',
+      REGISTER: 'Register',
+      REGISTER_BUSINESS: 'Business Registration',
+      LOGIN_TITLE: 'Login',
+      LOGIN: 'Login',
+      ARE_YOU_REGISTERED: 'Are you registered?',
+      BACK: 'Back',
+      EMAIL_PHONE: 'E-mail or mobile phone',
+      FORGOT_PASSWORD: 'Forgot password',
+      CAN_NOT_LOGIN: 'Could not login',
+      PASSWORD: 'Password',
+
+
+      SELECT: 'Select language',
       HELLO: 'Hi!',
     },
     MENU: {

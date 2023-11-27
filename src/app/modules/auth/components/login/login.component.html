@@ -1,7 +1,7 @@
 
 <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
   <a routerLink="/auth" class="link-primary">
-    Geri
+    {{'T.BACK' | translate}}
   </a>
 </div>
 
@@ -12,7 +12,7 @@
   <!--begin::Heading-->
   <div class="text-center mb-11">
     <h1 class="text-dark fw-bolder mb-3">
-      Giriş
+      {{'T.LOGIN' | translate}}
     </h1>
     <!--begin::Subtitle-->
     <div class="text-gray-500 fw-semibold fs-6">
@@ -50,7 +50,7 @@
   <ng-container *ngIf="hasError">
     <div class="mb-lg-15 alert alert-danger">
       <div class="alert-text font-weight-bold">
-        Bu bilgilerle giriş yapılamadı
+        {{'T.CAN_NOT_LOGIN' | translate}}
       </div>
     </div>
   </ng-container>
@@ -58,7 +58,7 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="text" placeholder="E-posta veya cep telefonu" name="contact" formControlName="contact" autocomplete="off"
+    <input class="form-control bg-transparent" type="text" placeholder="{{'T.EMAIL_PHONE' | translate}}" name="contact" formControlName="contact" autocomplete="off"
       [ngClass]="{
         'is-invalid': form1.controls['contact'].invalid,
         'is-valid': form1.controls['contact'].valid
@@ -84,7 +84,7 @@
   <!--begin::Form group-->
   <div class="fv-row mb-3">
 
-    <input class="form-control bg-transparent" placeholder="Parola" type="password" name="password" autocomplete="off"
+    <input class="form-control bg-transparent" placeholder="{{'T.PASSWORD' | translate}}" type="password" name="password" autocomplete="off"
       formControlName="password" [ngClass]="{
         'is-invalid': form1.controls['password'].invalid,
         'is-valid': form1.controls['password'].valid
@@ -114,7 +114,7 @@
 
     <!--begin::Link-->
     <a routerLink="/auth/forgot-password" class="link-primary">
-      Parolamı unuttum
+      {{'T.FORGOT_PASSWORD' | translate}}
     </a>
     <!--end::Link-->
   </div>
@@ -124,13 +124,12 @@
   <div class="d-grid mb-10">
     <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
       <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress" [style.display]="'block'">
-          Please wait...
+        <span class="indicator-progress">
           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
       </ng-container>
       <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">Giriş</span>
+        <span class="indicator-label">{{'T.LOGIN' | translate}}</span>
       </ng-container>
     </button>
   </div>

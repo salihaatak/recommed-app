@@ -17,6 +17,7 @@ import { InvitationComponent } from './components/invitation/invitation.componen
 import { IntroComponent } from './components/intro/intro.component';
 import { RecommenderRegistrationComponent } from './components/recommender-registration/recommender-registration.component';
 import { RecommenderPhoneVerificationComponent } from './components/recommender-phone-verification/recommender-phone-verification.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [

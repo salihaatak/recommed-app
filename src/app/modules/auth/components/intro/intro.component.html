@@ -6,10 +6,7 @@
   </p>
   <!--begin::Subtitle-->
   <div class="text-gray-500 fw-semibold fs-6 mb-10">
-    Hizmet aldığınız işletmeyi çevrenize mobil uygulama üzerinden tavsiye olarak göndererek
-    hem kaliteli hizmetle tanışmalarını sağlayın hem de düzenli ek gelir elde edin.
-
-
+    {{ 'T.INTRO' | translate }}
   </div>
 
   <!--end::Subtitle--->
@@ -33,7 +30,7 @@
     <a routerLink="/auth/recommender/invitation"
     class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100">
       <i class="fas fa-user-alt"></i>
-      Kaydol >
+      {{ 'T.REGISTER' | translate }} >
     </a>
     <!--end::Google link--->
   </div>
@@ -45,7 +42,7 @@
     <a routerLink="account/registration"
       class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
       <i class="fas fa-building text-dark"></i>
-      İşletme Kaydı >
+      {{ 'T.REGISTER_BUSINESS' | translate }} >
     </a>
     <!--end::Google link--->
   </div>
@@ -54,7 +51,7 @@
 <!--end::Login options-->
 
 <div class="separator separator-content my-14">
-  <span class="w-125px text-gray-500 fw-semibold fs-7">veya</span>
+  <span class="w-125px text-gray-500 fw-semibold fs-7">{{ 'T.OR' | translate }}</span>
 </div>
 <!--end::Separator-->
 
@@ -76,18 +73,8 @@
 
 
 <div class="text-gray-500 text-center fw-semibold fs-6">
-  Kayıtlı mısın?
+  {{ 'T.ARE_YOU_REGISTERED' | translate }}
   <a routerLink="/auth/login" class="link-primary">
-    Giriş Yap
+    {{ 'T.LOGIN' | translate }}
   </a>
 </div>
-
-<ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="fv-plugins-message-container">
-      <span role="alert">
-        {{ message }}
-      </span>
-    </div>
-  </ng-container>
-</ng-template>

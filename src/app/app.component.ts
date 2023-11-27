@@ -39,6 +39,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.modeService.init();
-    //localStorage.clear();
+    this.translationService.setLanguage('en')
   }
 }
