@@ -8,11 +8,12 @@ export class Recommendation {
   createdAt: string;
   createdAtFormatted: string;
   acceptedAt: string;
-  withdrawnAt: string;
   declinedAt: string;
+  validatedAt: string;
+  invalidatedAt: string;
+  withdrawnAt: string;
   calledAt: string;
   talkedAt: string;
-  verifiedAt: string;
   cancelledAt: string;
   soldAt: string;
   rejectedAt: string;
