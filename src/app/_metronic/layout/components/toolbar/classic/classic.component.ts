@@ -6,6 +6,7 @@ import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 
 declare global {
@@ -37,18 +38,27 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   showToolbar: boolean = true;
 
+  @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
   modalConfigRecommender: ModalConfig = {
     title: 'Nasıl paylaşmak istersiniz?',
     hideCloseButton: true,
   };
 
+  @ViewChild('modalProvider') private modalProvider: ModalComponent;
   modalConfigProvider: ModalConfig = {
     title: 'Nasıl davet etmek istersiniz?',
     hideCloseButton: true,
   };
 
-  @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
-  @ViewChild('modalProvider') private modalProvider: ModalComponent;
+  @ViewChild('modalQr') private modalQr: ModalComponent;
+  modalConfigQr: ModalConfig = {
+    title: 'QR Göster',
+    hideCloseButton: true,
+  };
+
+  url: string;
+  accountName: string | undefined;
+
   constructor(
       private layout: LayoutService,
       private zone: NgZone,
@@ -58,8 +68,10 @@ export class ClassicComponent implements OnInit, OnDestroy {
       ) {}
 
   ngOnInit(): void {
+    this.url = environment.appUrl + 'invite/' +  this.appService.currentUserValue?.uid;
+    this.accountName = this.appService.currentUserValue?.account.name;
 
-
+    //eğer kullanıcı hesabım bölümündeyse toolbar'ı gizle
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.showToolbar = this.router.url.indexOf('/me/') >= 0 ? false : true;
@@ -143,7 +155,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnQRClick(){
-
+    return this.modalQr.open();
   }
 
   updateProps() {

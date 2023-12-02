@@ -48,28 +48,28 @@
         <a class="btn btn-primary flex-center text-nowrap w-100"
           (click)="btnSelectContactsClick()">
             <i class="fa-solid fa-address-book fs-3"></i>
-            <span class="fs-1x">Telefon Rehberim</span>
+            <span class="fs-1x">Telefon Rehberim'den Numara Gönder</span>
           </a>
       </div>
       <div class="col-md-3">
         <a class="btn btn-primary flex-center text-nowrap w-100"
           (click)="btnShareRecommenderClick()">
             <i class="fa-solid fa-share-nodes fs-3"></i>
-            <span class="fs-1x">Paylaş</span>
+            <span class="fs-1x">Link Paylaş</span>
           </a>
       </div>
       <div class="col-md-3" *ngIf="this.appService.IsAndroid">
         <a class="btn btn-primary flex-center text-nowrap w-100"
           (click)="btnWhatsappRecommenderClick()">
           <i class="fa-brands fa-whatsapp fs-3"></i>
-            <span class="fs-1x">Whatsapp</span>
+            <span class="fs-1x">Whatsapp ile Link Gönder</span>
           </a>
       </div>
       <div class="col-md-3">
         <a class="btn btn-primary flex-center text-nowrap w-100"
           (click)="btnQRClick()">
           <i class="fa-solid fa-qrcode fs-3"></i>
-            <span class="fs-1x">Kare Kod</span>
+            <span class="fs-1x">Kare Kod Göster</span>
           </a>
       </div>
     </div>
@@ -106,7 +106,25 @@
             <span class="fs-1x">{{appService.invitationCode}}</span>
         </span>
       </div>
+
+
     </div>
   </app-modal>
+
+
+  <app-modal #modalQr [modalConfig]="modalConfigQr">
+    <div class="row g-3 mb-9 flex-center">
+      <div class="col-md-4 text-center">
+
+        <qrcode [qrdata]="url" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+        <div class="text-muted mt-5">
+          Çevrenizdekiler bu kare kodu telefon kamerasına okutursa, sizin aracılığınızda <b>{{accountName}}</b> adlı işletmeye ulaştığı kayıt altına alınır.
+        </div>
+
+      </div>
+    </div>
+  </app-modal>
+
 
 </ng-container>

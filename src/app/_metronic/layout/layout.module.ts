@@ -42,6 +42,7 @@ import { ReportsComponent } from './components/toolbar/reports/reports.component
 import { SaasComponent } from './components/toolbar/saas/saas.component';
 import {SharedModule} from "../shared/shared.module";
 import { WidgetsModule } from '../../_metronic/partials';
+import { QRCodeModule } from 'angularx-qrcode';
 
 const routes: Routes = [
   {
@@ -91,7 +92,8 @@ const routes: Routes = [
     NgbTooltipModule,
     TranslateModule,
     ThemeModeModule,
-    SharedModule
+    SharedModule,
+    QRCodeModule
   ],
   exports: [RouterModule],
 })
