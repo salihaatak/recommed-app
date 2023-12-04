@@ -36,11 +36,6 @@
     <div class="mb-10 bg-light-info p-8 rounded">
       <div class="text-info">
        Cep telefonu veya e-posta adresi giriniz
-
-          <button (click)="this.reloadPage()">YENİLE</button>
-       <div>
-          Firebase Token: {{this.getFirebaseToken()}}
-       </div>
       </div>
     </div>
   </ng-container>
@@ -123,14 +118,10 @@
   <!--begin::Action-->
   <div class="d-grid mb-10">
     <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
-      <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress">
-          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-        </span>
-      </ng-container>
-      <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">{{'T.LOGIN' | translate}}</span>
-      </ng-container>
+      <span class="indicator-label">{{'T.LOGIN' | translate}}</span>
+      <span class="indicator-progress" *ngIf="this.isLoading$ | async">
+        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+      </span>
     </button>
   </div>
 

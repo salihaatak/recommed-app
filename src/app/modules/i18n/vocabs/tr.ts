@@ -19,6 +19,7 @@ export const locale = {
       AGREE: `Kullanım Koşulları'nı kabul ediyorum`,
       MORE_INFO: 'Daha fazla bilgi',
       NEXT: 'Devam',
+      INVITATION_SUBMIT: 'Ücretsiz Bilgi',
 
 
       SELECT: 'Dil seçiniz',

@@ -1,0 +1,124 @@
+
+<div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+  <a routerLink="/auth" class="link-primary">
+    Geri
+  </a>
+</div>
+
+<form class="form w-100" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="form1"
+  (ngSubmit)="submit()">
+  <!--begin::Heading-->
+  <div class="text-center mb-11">
+    <!--begin::Title-->
+    <h1 class="text-dark fw-bolder mb-3">
+      {{recommenderName}}
+    </h1>
+    <!--end::Title-->
+
+    <!--begin::Subtitle-->
+    <div class="text-gray-500 fw-semibold fs-6">
+      Kalitesi doğrulanmış güvenilir hizmete çok yakınsınız
+    </div>
+    <!--end::Subtitle--->
+  </div>
+  <!--begin::Heading-->
+
+  <!-- begin::Alert error-->
+  <ng-container *ngIf="hasError">
+    <div class="mb-lg-15 alert alert-danger">
+      <div class="alert-text font-weight-bold">
+        Numaranız kaydedilemedi. Lütfen linki ve formu kontrol edin.
+      </div>
+    </div>
+  </ng-container>
+  <!-- end::Alert error-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <input class="form-control bg-transparent" type="text" name="name" formControlName="name"
+      placeholder="Adınız Soyadınız" autocomplete="off" [ngClass]="{
+        'is-invalid': form1.controls['name'].invalid,
+        'is-valid': form1.controls['name'].valid
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Ad soyad gerekli',
+        control: form1.controls['name']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'Ad soyad en az 6 harf olmalı',
+        control: form1.controls['name']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'maxLength',
+        message: 'Ad soyad en fazla 100 harf olmalı',
+        control: form1.controls['name']
+      }"></ng-container>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <input class="form-control bg-transparent" type="text" placeholder="Cep telefonu numaranız" name="phoneNumber" formControlName="phoneNumber"
+      autocomplete="off" [ngClass]="{
+        'is-invalid': form1.controls['phoneNumber'].invalid,
+        'is-valid': form1.controls['phoneNumber'].valid
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Cep telefonu gerekli',
+        control: form1.controls['phoneNumber']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'Cep telefonu en az 10 haneli olmalı',
+        control: form1.controls['phoneNumber']
+      }"></ng-container>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8">
+    <label class="form-check form-check-inline">
+      <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
+      <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+       <a href="https://recommed.co/en/privacy.php" target="_blank"
+          class="ms-1 link-primary">{{'T.TERMS' | translate}}</a>'nı kabul ediyorum
+      </span>
+    </label>
+  </div>
+  <!--end::Form group-->
+
+
+  <!--begin::Form group-->
+  <div class="d-grid mb-10">
+    <button type="submit" id="kt_sign_up_submit" [disabled]="
+        form1.invalid || !form1.controls['agree'].value
+      " class="btn btn-primary">
+      <ng-container *ngIf="(isLoading$ | async) === false">
+        <span class="indicator-label">{{'T.INVITATION_SUBMIT' | translate}}</span>
+      </ng-container>
+      <ng-container *ngIf="isLoading$ | async">
+        <span class="indicator-progress">
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+    </button>
+  </div>
+  <!--end::Form group-->
+
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

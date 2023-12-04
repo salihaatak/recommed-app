@@ -68,7 +68,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       ) {}
 
   ngOnInit(): void {
-    this.url = environment.appUrl + 'invite/' +  this.appService.currentUserValue?.uid;
+    this.url = environment.appUrl + 'l/i/f/' +  this.appService.currentUserValue?.uid;
     this.accountName = this.appService.currentUserValue?.account.name;
 
     //eğer kullanıcı hesabım bölümündeyse toolbar'ı gizle

@@ -45,32 +45,31 @@
   <app-modal #modalRecommender [modalConfig]="modalConfigRecommender">
     <div class="row g-3 mb-9 flex-center">
       <div class="col-md-3">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnSelectContactsClick()">
-            <i class="fa-solid fa-address-book fs-3"></i>
-            <span class="fs-1x">Telefon Rehberim'den Numara Gönder</span>
-          </a>
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnSelectContactsClick()">
+          <span class="fs-1x">Telefon Rehberim'den Numara Gönder</span>
+          <i class="fa-solid fa-address-book fs-3"></i>
+        </a>
       </div>
+
       <div class="col-md-3">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnShareRecommenderClick()">
-            <i class="fa-solid fa-share-nodes fs-3"></i>
-            <span class="fs-1x">Link Paylaş</span>
-          </a>
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareRecommenderClick()">
+          <span class="fs-1x">Link Paylaş</span>
+          <i class="fa-solid fa-share-nodes fs-3"></i>
+        </a>
       </div>
+
       <div class="col-md-3" *ngIf="this.appService.IsAndroid">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnWhatsappRecommenderClick()">
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappRecommenderClick()">
+          <span class="fs-1x">Whatsapp ile Link Gönder</span>
           <i class="fa-brands fa-whatsapp fs-3"></i>
-            <span class="fs-1x">Whatsapp ile Link Gönder</span>
-          </a>
+        </a>
       </div>
+
       <div class="col-md-3">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnQRClick()">
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRClick()">
+          <span class="fs-1x">Kare Kod Göster</span>
           <i class="fa-solid fa-qrcode fs-3"></i>
-            <span class="fs-1x">Kare Kod Göster</span>
-          </a>
+        </a>
       </div>
     </div>
   </app-modal>
@@ -78,37 +77,34 @@
   <app-modal #modalProvider [modalConfig]="modalConfigProvider">
     <div class="row g-3 mb-9 flex-center">
       <div class="col-md-4">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnShareProviderClick()">
-            <i class="fa-solid fa-share-nodes fs-3"></i>
-            <span class="fs-1x">Paylaş</span>
-          </a>
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareProviderClick()">
+          <span class="fs-1x">Paylaş</span>
+          <i class="fa-solid fa-share-nodes fs-3"></i>
+        </a>
       </div>
+
       <div class="col-md-4" *ngIf="this.appService.IsAndroid">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnWhatsappProviderClick()">
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappProviderClick()">
+          <span class="fs-1x">Whatsapp</span>
           <i class="fa-brands fa-whatsapp fs-3"></i>
-            <span class="fs-1x">Whatsapp</span>
-          </a>
-      </div>
-      <div class="col-md-4">
-        <a class="btn btn-primary flex-center text-nowrap w-100"
-          (click)="btnQRClick()">
-          <i class="fa-solid fa-qrcode fs-3"></i>
-            <span class="fs-1x">Kare Kod</span>
-          </a>
+        </a>
       </div>
 
       <div class="col-md-4">
-        <span class=" flex-center text-nowrap w-100"
-          >
-            <span class="fs-1x">Davet Kodu:</span>
-            <span class="fs-1x">{{appService.invitationCode}}</span>
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRClick()">
+          <span class="fs-1x">Kare Kod</span>
+          <i class="fa-solid fa-qrcode fs-3"></i>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
+          <span class="fs-1x">Davet Kodu:</span>
+          <span class="fs-1x">{{appService.invitationCode}}</span>
         </span>
       </div>
-
-
     </div>
+
   </app-modal>
 
 

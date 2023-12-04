@@ -19,6 +19,7 @@ export const locale = {
       AGREE: `I agree Terms&Conditions`,
       MORE_INFO: 'Learn more',
       NEXT: 'Next',
+      INVITATION_SUBMIT: 'Send Form',
 
       SELECT: 'Select language',
       HELLO: 'Hi!',

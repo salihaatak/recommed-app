@@ -59,7 +59,7 @@
                 <span class="text-muted fw-bold text-muted d-block fs-7">
                   {{ item.createdAtFormatted }}
                   <ng-container *ngIf="this.appService.role !== 'r'">
-                    tarihinde {{item.by?.createdBy.name}} isimli Marka Elçisi tarafından
+                    tarihinde {{item.by?.createdBy?.name}} isimli Marka Elçisi tarafından
                   </ng-container>
                 </span>
               </div>

@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigate([appService.getDashboardRoute()]);
     }
   }
 
@@ -93,34 +93,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else {
           this.hasError = true;
         }
-
       });
     this.unsubscribe.push(loginSubscr);
   }
-
-  /*
-  btnGetLocationClick(){
-    window.WebView.postMessage(JSON.stringify({
-      type: "getLocation"
-    }));
-  }
-
-  btnLikeClick(){
-    window.WebView.postMessage(JSON.stringify({
-      type: "like"
-    }))
-  }
-  */
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  getFirebaseToken(){
-    return localStorage.getItem("firebase_token")
-  }
-
-  reloadPage(){
-    window.location.reload()
-  }
 }
