@@ -63,7 +63,7 @@ export class PageInfoService {
   public calculateTitle() {
     const asideTitle = this.calculateTitleInMenu('kt_app_sidebar');
     const headerTitle = this.calculateTitleInMenu('kt_app_header_wrapper');
-    const title = this.appService.role == 'r' ? 'İşletme Hesabı' : 'Marka Elçisi Hesabı';
+    const title = this.appService.role == 'r' ? 'Marka Elçisi Hesabı' : 'İşletme Hesabı';
     this.setTitle(title);
   }
 

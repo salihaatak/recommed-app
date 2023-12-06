@@ -87,6 +87,21 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(s);
   }
 
+  delete() {
+    this.hasError = false;
+    this.unsubscribe.push(this.appService
+      .post(
+        'user/delete-me'
+      )
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          this.appService.logout()
+        } else {
+          this.hasError = true;
+        }
+      }));
+  }
+
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
