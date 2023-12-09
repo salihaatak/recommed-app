@@ -12,7 +12,9 @@ export class ProviderSummaryComponent implements OnInit {
   @Input() color: string = '';
   @Input() img: string = '';
 
-  summary: any = {};
+  summary: any = {
+    recommendationCount: 0
+  };
   percentage: string;
 
   constructor(

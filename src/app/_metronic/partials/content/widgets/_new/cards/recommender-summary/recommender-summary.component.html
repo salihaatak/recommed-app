@@ -1,6 +1,6 @@
 <!--begin::Card widget 20-->
 <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end" [ngClass]="cssClass"
-  [ngStyle]="{'background-color': color, 'background-image': 'url(' + img + ')'}">
+  [ngStyle]="{'background-color': color, 'background-image': 'url(' + img + ')'}" *ngIf="summary?.recommendationCount > 0">
   <!--begin::Header-->
   <div class="card-header pt-5">
     <!--begin::Title-->

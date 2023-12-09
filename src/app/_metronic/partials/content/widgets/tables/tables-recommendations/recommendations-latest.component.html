@@ -1,34 +1,43 @@
 <!-- begin::Header -->
 
-<div class="card-header border-0 pt-5">
-  <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">{{
-      this.appService.role === "r"
-        ? "Yaptığınız Tavsiyeler"
-        : "Gelen Tavsiyeler"
-    }}</span>
-    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="false"
-      >Tavsiyeye dokunarak detay durumu takip edebilir ve işlem
-      yapabilirsiniz</span
-    >
-  </h3>
-  <div
-    class="card-toolbar"
-    data-bs-toggle="tooltip"
-    data-bs-placement="top"
-    data-bs-trigger="hover"
-    title="Click to add a user"
+<div
+  class="card-header border-0 pt-5"
+  *ngIf="this.recommendations?.length"
   >
-    <span class="btn">
-      <i class="fa-solid fa-rotate" (click)="loadRecommendations()"></i>
-    </span>
-  </div>
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label fw-bolder fs-3 mb-1">{{
+        this.appService.role === "r"
+          ? "Yaptığınız Tavsiyeler"
+          : "Gelen Tavsiyeler"
+      }}</span>
+
+    </h3>
+    <div
+      class="card-toolbar"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      data-bs-trigger="hover"
+    >
+      <span class="btn">
+        <i class="fa-solid fa-rotate" (click)="loadRecommendations()"></i>
+      </span>
+    </div>
 </div>
 <!-- end::Header -->
 <!-- begin::Body -->
 <div class="card-body py-3">
+  <div class="text-muted mt-1 fw-bold fs-7 mt-9 mb-9" *ngIf="!this.recommendations?.length">
+    <ng-container *ngIf="this.appService.role === 'r'">
+      Henüz hiç tavsiyeniz yok. Tavsiye Et Kazan düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek gelir fırsatı demek :)
+    </ng-container>
+    <ng-container *ngIf="this.appService.role !== 'r'">
+      Henüz tavsiyeyle size gelen bir müşteri adayı yok. Sizden memnun olan eski müşterilerinizi Marka Elçisi Davet Et düğmesiyle davet edin.
+      Buralar yeni müşterilerle dolsun! :)
+    </ng-container>
+  </div>
+
   <!-- begin::Table container -->
-  <div class="table-responsive">
+  <div class="table-responsive" *ngIf="this.recommendations?.length">
     <!-- begin::Table -->
     <table
       class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
