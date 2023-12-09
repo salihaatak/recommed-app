@@ -7,12 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/detail/detail.component';
 import { TranslationModule } from 'src/app/modules/i18n';
+import { AccountDownloadComponent } from './account/download/download.component';
 
 
 @NgModule({
   declarations: [
     AccountComponent,
     AccountDetailComponent,
+    AccountDownloadComponent,
     UserComponent,
     UserDetailComponent
   ],
