@@ -27,7 +27,7 @@ export class AccountDownloadComponent implements OnInit, OnDestroy {
     this.form1 = this.formBuilder1.group(
       {
         email: [
-          '',
+          this.appService.currentUserValue?.email,
           Validators.compose([
             Validators.required,
             Validators.minLength(5),
