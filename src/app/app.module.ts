@@ -14,13 +14,17 @@ import { AppService } from './modules/auth/services/app.service';
 import { FakeAPIService } from './_fake/fake-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+
 // #fake-end#
 
 function appInitializer(appService: AppService) {
+
+
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore
       appService.me().subscribe().add(resolve);
+
     });
   };
 }
@@ -56,6 +60,8 @@ function appInitializer(appService: AppService) {
   bootstrap: [AppComponent],
 })
 export class AppModule {
+
+
   constructor(
     private route: ActivatedRoute
   ) {
@@ -66,6 +72,7 @@ export class AppModule {
       if (urlParameters.get("device_id")){
         localStorage.setItem("device_id", urlParameters.get("device_id") || "");
       }
+
 
 
   }

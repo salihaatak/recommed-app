@@ -6,6 +6,8 @@ import { HTTPService } from './auth-http';
 import { Router } from '@angular/router';
 import { ResultModel } from '../models/result.model';
 import { ApiResultModel } from '../models/api-result.mode';
+import { io, Socket } from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 export type UserType = UserModel | undefined;
 
@@ -15,10 +17,15 @@ export type UserType = UserModel | undefined;
 export class AppService implements OnDestroy {
   eventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
+  private socket: Socket = io(environment.wsUrl, {
+    reconnection: true,
+    reconnectionAttempts: 20,
+  });
+
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
   currentUserSubject: BehaviorSubject<UserType> = new BehaviorSubject<UserType>(undefined);
-  currentUser$: Observable<UserType> = this.currentUserSubject.asObservable();
+  currentUserObservable: Observable<UserType> = this.currentUserSubject.asObservable();
   currenUserValue: UserModel = new UserModel();
 
   private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -29,6 +36,7 @@ export class AppService implements OnDestroy {
   phoneNumber: string;
   contact: string;
   invitationCode: string;
+  socketConnectedBefore: boolean = false;
 
   get IsAndroid(): boolean {
     return navigator.userAgent.toLowerCase().indexOf("android") > -1;
@@ -46,6 +54,38 @@ export class AppService implements OnDestroy {
     private httpService: HTTPService,
     private router: Router
   ) {
+
+  }
+
+  socketConnect(uid: string) {
+    this.socket.on('connect', () => {
+      console.log('Bağlandı');
+      if (this.socketConnectedBefore) {
+        console.log('Bağlantı tekrar kuruldu!');
+        this.eventEmitter.emit({type: 'recommendation'});
+      }
+      this.socketConnectedBefore = true;
+    });
+
+    console.log('Dinlemeye başladım. User: ' + uid);
+    this.socket.on(uid, (data: any) => {
+      console.log('Sunucudan mesaj aldım:', JSON.stringify(data));
+
+      switch(data?.type){
+        case "recommendation":
+          this.eventEmitter.emit({type: 'recommendation'});
+        break;
+      }
+
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('Bağlantı koptu!');
+    });
+
+    this.socket.on('reconnect', () => {
+
+    });
   }
 
   // public methods
@@ -73,7 +113,7 @@ export class AppService implements OnDestroy {
   }
 
   me(): Observable<UserType> {
-    if (!localStorage.getItem("token")) {
+    if (!localStorage.getItem('token') || this.currentUserValue) {
       return of(undefined);
     }
 
@@ -85,6 +125,7 @@ export class AppService implements OnDestroy {
           this.role = result.data.user.role;
           this.invitationCode = result.data.user.account.invitationCode;
           this.currentUserSubject.next(result.data.user);
+          this.socketConnect(result.data.user.uid);
         } else {
           this.logout();
         }

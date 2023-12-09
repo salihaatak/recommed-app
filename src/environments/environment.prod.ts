@@ -7,6 +7,7 @@ export const environment = {
   appVersion: 'v8.1.8',
   USERDATA_KEY: 'token',
   isMockEnabled: true,
+  wsUrl: 'https://api.recommed.co/',
   apiUrl: 'https://api.recommed.co/api/',
   appUrl: 'http://recommed.co/app/',
   appThemeName: 'Metronic',

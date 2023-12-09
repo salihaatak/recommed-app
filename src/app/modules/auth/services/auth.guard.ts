@@ -15,7 +15,7 @@ export class AuthGuard  {
       return true;
     }
 
-    if (localStorage.getItem("token")){
+    if (localStorage.getItem('token')){
       const a = await this.appService.me().toPromise();
       this.appService.currentUserSubject.next(a);
       return true;

@@ -14,7 +14,7 @@ export class HTTPService {
   post(url: string, payload: any, addAuth: boolean = true): Observable<any> {
     let headers: HttpHeaders = new HttpHeaders();
     if (addAuth){
-      headers = headers.set("Authorization", "Bearer " + localStorage.getItem("token"));
+      headers = headers.set("Authorization", "Bearer " + localStorage.getItem('token'));
     }
     return this.http.post(
       environment.apiUrl + url,
