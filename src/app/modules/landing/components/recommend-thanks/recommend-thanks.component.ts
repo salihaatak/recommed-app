@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/modules/auth';
 
 @Component({
-  selector: 'app-invite-thanks',
-  templateUrl: './invite-thanks.component.html',
-  styleUrls: ['./invite-thanks.component.scss'],
+  selector: 'app-recommend-thanks',
+  templateUrl: './recommend-thanks.component.html',
+  styleUrls: ['./recommend-thanks.component.scss'],
 })
-export class InviteThanksComponent implements OnInit, OnDestroy {
+export class RecommendThanksComponent implements OnInit, OnDestroy {
   hasError: boolean;
   returnUrl: string;
   isLoading$: Observable<boolean>;

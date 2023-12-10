@@ -5,16 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
 import { TranslationModule } from '../i18n/translation.module';
-import { IntroComponent } from './components/intro/intro.component';
 import { InviteComponent } from './components/invite/invite.component';
+import { RecommendComponent } from './components/recommend/recommend.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { InviteThanksComponent } from './components/invite-thanks/invite-thanks.component';
+import { RecommendThanksComponent } from './components/recommend-thanks/recommend-thanks.component';
 
 @NgModule({
   declarations: [
+    RecommendComponent,
     InviteComponent,
-    IntroComponent,
-    InviteThanksComponent,
+    RecommendThanksComponent,
     LandingComponent,
   ],
   imports: [

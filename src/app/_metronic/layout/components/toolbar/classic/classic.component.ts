@@ -50,14 +50,19 @@ export class ClassicComponent implements OnInit, OnDestroy {
     hideCloseButton: true,
   };
 
-  @ViewChild('modalQr') private modalQr: ModalComponent;
-  modalConfigQr: ModalConfig = {
-    title: 'QR Göster',
+  @ViewChild('modalQrRecommend') private modalQrRecommend: ModalComponent;
+  modalConfigQrRecommend: ModalConfig = {
+    title: 'Kare Kodu Kameranıza Gösterin',
     hideCloseButton: true,
   };
+  urlRecommend: string;
 
-  url: string;
-  accountName: string | undefined;
+  @ViewChild('modalQrInvite') private modalQrInvite: ModalComponent;
+  modalConfigQrInvite: ModalConfig = {
+    title: 'Kare Kodu Kameranıza Gösterin',
+    hideCloseButton: true,
+  };
+  urlInvite: string;
 
   constructor(
       private layout: LayoutService,
@@ -68,8 +73,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
       ) {}
 
   ngOnInit(): void {
-    this.url = environment.appUrl + 'l/i/f/' +  this.appService.currentUserValue?.uid;
-    this.accountName = this.appService.currentUserValue?.account.name;
+    this.urlRecommend = environment.appUrl + 'l/r/' +  this.appService.currentUserValue?.uid;
+    this.urlInvite = environment.appUrl + 'l/i/' +  this.appService.currentUserValue?.account.invitationCode;
 
     //eğer kullanıcı hesabım bölümündeyse toolbar'ı gizle
     this.router.events.subscribe((event) => {
@@ -122,7 +127,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
-      link: "https://recommed.co/login.php",
+      link: this.urlRecommend,
       image: "https://recommed.co/media/putbell/lock.png"
     }))
   }
@@ -130,8 +135,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   btnShareProviderClick(){
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
-      text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Marka Elçisi davet kodunuz: ${this.appService.invitationCode}. Mobil uygulamamızı kurmak için hemen dokunun. `,
-      link: "https://apps.apple.com/tr/app/putbell/id1583996467",
+      text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Sınırlı sayıda kişiye sunulan bu imkanı kaçırmayın. Davet kodunuz: ${this.appService.currentUserValue?.account.invitationCode}.`,
+      link: this.urlInvite,
       image: "https://recommed.co/media/putbell/lock.png"
     }))
   }
@@ -140,7 +145,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
-      link: "https://recommed.co/login.php",
+      link: this.urlRecommend,
       image: "https://recommed.co/media/putbell/lock.png"
     }))
   }
@@ -149,13 +154,17 @@ export class ClassicComponent implements OnInit, OnDestroy {
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
-      link: "https://recommed.co/login.php",
+      link: this.urlInvite,
       image: "https://recommed.co/media/putbell/lock.png"
     }))
   }
 
-  btnQRClick(){
-    return this.modalQr.open();
+  btnQRRecommendClick(){
+    return this.modalQrRecommend.open();
+  }
+
+  btnQRInviteClick(){
+    return this.modalQrInvite.open();
   }
 
   updateProps() {

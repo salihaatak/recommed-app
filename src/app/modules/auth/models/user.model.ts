@@ -1,5 +1,4 @@
 import { AuthModel } from './auth.model';
-import { AddressModel } from './address.model';
 
 export class UserModel extends AuthModel {
   uid: string;
@@ -11,6 +10,7 @@ export class UserModel extends AuthModel {
   phoneNumber: string;
   account: {
     name: string;
+    invitationCode: string;
   };
 
   setUser(_user: unknown) {
@@ -22,5 +22,9 @@ export class UserModel extends AuthModel {
     this.firstName = user.firstName || '';
     this.lastName = user.lastName || '';
     this.email = user.email || '';
+    this.account = {
+      name: user.account.name || '',
+      invitationCode: user.account.invitationCode || ''
+    }
   }
 }

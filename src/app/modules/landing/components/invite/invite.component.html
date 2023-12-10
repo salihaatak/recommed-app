@@ -1,124 +1,75 @@
 
-<div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-  <a routerLink="/auth" class="link-primary">
-    Geri
+<!--begin::Heading-->
+<div class="text-center mb-11">
+  <p class="fw-bolder mb-10 fs-3">
+      {{this.accountName}}
+  </p>
+  <!--begin::Subtitle-->
+  <div class="text-gray-500 fw-semibold fs-6 mb-10">
+    Hizmet aldığınız bu işletmeyi çevrenize mobil uygulama üzerinden tavsiye edin.
+    Hem kaliteli hizmetle tanışmalarını sağlayın hem de düzenli ek gelir elde edin.
+    Sınırlı sayıda kişiye sunulan bu adil, şeffaf ve avantajlı teklifi kaçırmayın.
+  </div>
+
+  <p class="fw-bolder text-gray-600 mb-20 fs-3" style="font-family: 'Courier New', Courier, monospace;">
+    Davet Kodu: {{this.invitationCode}}
+  </p>
+
+  <!--end::Subtitle--->
+  <!-- <div class="text-gray-400 fw-bold fs-4">
+    New Here?
+    <a
+      routerLink="/auth/registration"
+      id="kt_login_signup"
+      class="link-primary fw-bolder"
+      >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a
+    >
+  </div> -->
+</div>
+<!--end::Heading-->
+
+<!--begin::Login options-->
+<div class="row g-3 mb-9">
+  <!--begin::Col-->
+  <div class="col-md-6">
+    <!--begin::Google link--->
+    <a href="https://play.google.com/store/apps/details?id=com.hk.recommed"
+    class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
+      <i class="fa-brands fa-google-play fa-solid fs-1"></i>
+      Google Play
+    </a>
+    <!--end::Google link--->
+  </div>
+  <!--end::Col-->
+
+  <!--begin::Col-->
+  <div class="col-md-6">
+    <!--begin::Google link--->
+    <a href="https://apps.apple.com/tr/app/recommed/id6468917213"
+    class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
+      <i class="fa-brands fa-app-store-ios fa-solid fs-1"></i>
+      AppStore
+    </a>
+    <!--end::Google link--->
+  </div>
+  <!--end::Col-->
+</div>
+<!--end::Login options-->
+
+<div class="separator separator-content my-14">
+  <span class="w-125px text-gray-500 fw-semibold fs-7">Kurdun mu?</span>
+</div>
+<!--end::Separator-->
+
+
+
+<div class="text-gray-500 text-center fw-semibold fs-6">
+  <a routerLink="/auth/login" class="link-primary">
+    Uygulamayı Aç
   </a>
 </div>
 
-<form class="form w-100" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="form1"
-  (ngSubmit)="submit()">
-  <!--begin::Heading-->
-  <div class="text-center mb-11">
-    <!--begin::Title-->
-    <h1 class="text-dark fw-bolder mb-3">
-      {{recommenderName}}
-    </h1>
-    <!--end::Title-->
 
-    <!--begin::Subtitle-->
-    <div class="text-gray-500 fw-semibold fs-6">
-      Kalitesi doğrulanmış güvenilir hizmete çok yakınsınız
-    </div>
-    <!--end::Subtitle--->
-  </div>
-  <!--begin::Heading-->
-
-  <!-- begin::Alert error-->
-  <ng-container *ngIf="hasError">
-    <div class="mb-lg-15 alert alert-danger">
-      <div class="alert-text font-weight-bold">
-        Numaranız kaydedilemedi. Lütfen linki ve formu kontrol edin.
-      </div>
-    </div>
-  </ng-container>
-  <!-- end::Alert error-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="text" name="name" formControlName="name"
-      placeholder="Adınız Soyadınız" autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['name'].invalid,
-        'is-valid': form1.controls['name'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Ad soyad gerekli',
-        control: form1.controls['name']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'Ad soyad en az 6 harf olmalı',
-        control: form1.controls['name']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'Ad soyad en fazla 100 harf olmalı',
-        control: form1.controls['name']
-      }"></ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="text" placeholder="Cep telefonu numaranız" name="phoneNumber" formControlName="phoneNumber"
-      autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['phoneNumber'].invalid,
-        'is-valid': form1.controls['phoneNumber'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Cep telefonu gerekli',
-        control: form1.controls['phoneNumber']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'Cep telefonu en az 10 haneli olmalı',
-        control: form1.controls['phoneNumber']
-      }"></ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <label class="form-check form-check-inline">
-      <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
-      <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-       <a href="https://recommed.co/en/privacy.php" target="_blank"
-          class="ms-1 link-primary">{{'T.TERMS' | translate}}</a>'nı kabul ediyorum
-      </span>
-    </label>
-  </div>
-  <!--end::Form group-->
-
-
-  <!--begin::Form group-->
-  <div class="d-grid mb-10">
-    <button type="submit" id="kt_sign_up_submit" [disabled]="
-        form1.invalid || !form1.controls['agree'].value
-      " class="btn btn-primary">
-      <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">{{'T.INVITATION_SUBMIT' | translate}}</span>
-      </ng-container>
-      <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress">
-          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-        </span>
-      </ng-container>
-    </button>
-  </div>
-  <!--end::Form group-->
-
-
-</form>
-
-<ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="fv-plugins-message-container">
-      <div class="fv-help-block">
-        <span role="alert">
-          {{ message }}
-        </span>
-      </div>
-    </div>
-  </ng-container>
-</ng-template>
+<div class="text-gray-500 text-center fw-semibold fs-6 mt-20">
+  Powered by <b>Recommed</b>
+</div>

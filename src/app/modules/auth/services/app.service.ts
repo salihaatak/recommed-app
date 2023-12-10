@@ -19,14 +19,13 @@ export class AppService implements OnDestroy {
 
   private socket: Socket = io(environment.wsUrl, {
     reconnection: true,
-    reconnectionAttempts: 20,
+    reconnectionAttempts: 9999,
   });
 
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
   currentUserSubject: BehaviorSubject<UserType> = new BehaviorSubject<UserType>(undefined);
   currentUserObservable: Observable<UserType> = this.currentUserSubject.asObservable();
-  currenUserValue: UserModel = new UserModel();
 
   private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
@@ -35,7 +34,6 @@ export class AppService implements OnDestroy {
   email: string;
   phoneNumber: string;
   contact: string;
-  invitationCode: string;
   socketConnectedBefore: boolean = false;
 
   get IsAndroid(): boolean {
@@ -123,7 +121,6 @@ export class AppService implements OnDestroy {
       map((result: any) => {
         if (result) {
           this.role = result.data.user.role;
-          this.invitationCode = result.data.user.account.invitationCode;
           this.currentUserSubject.next(result.data.user);
           this.socketConnect(result.data.user.uid);
         } else {

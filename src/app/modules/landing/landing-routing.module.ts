@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './landing.component';
-import { IntroComponent } from './components/intro/intro.component';
 import { InviteComponent } from './components/invite/invite.component';
-import { InviteThanksComponent } from './components/invite-thanks/invite-thanks.component';
+import { RecommendComponent } from './components/recommend/recommend.component';
+import { RecommendThanksComponent } from './components/recommend-thanks/recommend-thanks.component';
 
 const routes: Routes = [
   {
@@ -11,17 +11,16 @@ const routes: Routes = [
     component: LandingComponent,
     children: [
       {
-        path: '',
-        component: IntroComponent,
-        data: { returnUrl: window.location.pathname },
-      },
-      {
-        path: 'i/thanks',
-        component: InviteThanksComponent,
-      },
-      {
-        path: 'i/f/:recommenderUid',
+        path: 'i/:invitationCode',
         component: InviteComponent,
+      },
+      {
+        path: 'r/thanks',
+        component: RecommendThanksComponent,
+      },
+      {
+        path: 'r/:recommenderUid',
+        component: RecommendComponent,
       },
       //{ path: '', redirectTo: 'login', pathMatch: 'full' },
       //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
