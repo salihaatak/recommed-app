@@ -110,7 +110,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         'account/register',
         {
           firstName: this.form1.controls["firstName"].value,
-          lastName: this.form1.controls["firstName"].value,
+          lastName: this.form1.controls["lastName"].value,
           accountName: this.form1.controls["accountName"].value,
           phoneNumber: this.form1.controls["phoneNumber"].value,
           password: this.form1.controls["password"].value,
