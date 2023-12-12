@@ -148,14 +148,14 @@ export class AppService implements OnDestroy {
     }
   }
 
-  sendPhoneVerificationCode(email: string): Observable<any> {
+  // TODO: Bunu da post method'una geçir kaldır
+  sendPhoneVerificationCode(phoneNumber: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("account/send-phone-verification-code", {email: email}, false).pipe(
+    return this.httpService.post("account/send-phone-verification-code", {phoneNumber: phoneNumber}, false).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
         return true;
       }),
-      //switchMap(() => this.login(user.email, user.password)),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);

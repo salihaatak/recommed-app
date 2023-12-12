@@ -12,6 +12,7 @@ export const locale = {
       ARE_YOU_REGISTERED: 'Are you registered?',
       BACK: 'Back',
       EMAIL_PHONE: 'E-mail or mobile phone',
+      PHONE: 'Mobile phone',
       FORGOT_PASSWORD: 'Forgot password',
       CAN_NOT_LOGIN: 'Could not login',
       PASSWORD: 'Password',

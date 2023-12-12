@@ -12,6 +12,7 @@ export const locale = {
       ARE_YOU_REGISTERED: 'Kayıtlı mısın?',
       BACK: 'Geri',
       EMAIL_PHONE: 'E-posta veya cep telefonu',
+      PHONE: 'Cep telefonu',
       FORGOT_PASSWORD: 'Parolamı unuttum',
       CAN_NOT_LOGIN: 'Bu bilgilerle giriş yapılamadı',
       PASSWORD: 'Parola',

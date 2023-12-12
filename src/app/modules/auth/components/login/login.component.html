@@ -53,24 +53,24 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="text" placeholder="{{'T.EMAIL_PHONE' | translate}}" name="contact" formControlName="contact" autocomplete="off"
+    <input class="form-control bg-transparent" type="text" placeholder="{{'T.PHONE' | translate}}" name="contact" formControlName="contact" autocomplete="off"
       [ngClass]="{
         'is-invalid': form1.controls['contact'].invalid,
         'is-valid': form1.controls['contact'].valid
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Email or phone is required',
+        message: 'Cep telefonu gerekli',
         control: form1.controls['contact']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minLength',
-        message: 'Should have at least 9 symbols',
+        message: 'En az 10 hane olmalı',
         control: form1.controls['contact']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'maxLength',
-        message: 'Should have maximum 360 symbols',
+        message: 'En fazla 360 hane olabilir',
         control: form1.controls['contact']
       }"></ng-container>
   </div>

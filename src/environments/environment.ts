@@ -9,7 +9,7 @@ export const environment = {
   isMockEnabled: true,
   wsUrl: 'https://localhost/',
   apiUrl: 'https://localhost/api/',
-  appUrl: 'http://localhost:4200/app/',
+  appUrl: 'http://localhost:4200/',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',
   appHTMLIntegration:

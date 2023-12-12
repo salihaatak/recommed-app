@@ -68,7 +68,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         email: [
           '',
           Validators.compose([
-            Validators.required,
             Validators.email,
             Validators.minLength(3),
             Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
@@ -126,11 +125,10 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          localStorage.setItem("accountEmail", result.data.email)
+          localStorage.setItem("accountUid", result.data.uid)
           localStorage.setItem("accountPhone", result.data.phoneNumber)
-          this.appService.email = this.form1.controls["email"].value
           this.appService.phoneNumber = this.form1.controls["phoneNumber"].value
-          this.router.navigate(['/auth/account/registration-email-verification']);
+          this.router.navigate(['/auth/account/registration-phone-verification']);
         } else {
           this.hasError = true;
         }

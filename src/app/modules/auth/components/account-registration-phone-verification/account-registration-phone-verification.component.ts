@@ -37,7 +37,7 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
     this.initForm();
 
     const registrationSubscr = this.appService
-      .sendPhoneVerificationCode(this.appService.email)
+      .sendPhoneVerificationCode(this.appService.phoneNumber)
       .subscribe((user: UserModel) => {
       });
     this.unsubscribe.push(registrationSubscr);
@@ -64,8 +64,8 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
       .post(
         'account/verify-phone',
         {
-          email: this.appService.email,
-          code: this.form1.controls["phoneVerificationCode"].value
+          phoneNumber: this.appService.phoneNumber,
+          verificationCode: this.form1.controls["phoneVerificationCode"].value
         },
         false
       )
