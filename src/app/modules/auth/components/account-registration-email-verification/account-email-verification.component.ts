@@ -16,7 +16,6 @@ import { ApiResultModel } from '../../models/api-result.mode';
 export class AccountRegistrationEmailVerificationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
-  isLoading$: Observable<boolean>;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -26,7 +25,6 @@ export class AccountRegistrationEmailVerificationComponent implements OnInit, On
     public appService: AppService,
     private router: Router
   ) {
-    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
       this.router.navigate(['/']);

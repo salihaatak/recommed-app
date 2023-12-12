@@ -16,7 +16,6 @@ import { ApiResultModel } from '../../models/api-result.mode';
 export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
-  isLoading$: Observable<boolean>;
   accountName: string;
   invitationCode: string | null;
 
@@ -25,11 +24,10 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private appService: AppService,
+    public appService: AppService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
       this.router.navigate(['/']);

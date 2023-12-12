@@ -64,14 +64,8 @@
     <button type="submit" id="kt_sign_up_submit" [disabled]="
         form1.invalid
       " class="btn btn-primary">
-      <ng-container *ngIf="(isLoading$ | async) === false">
-        <span class="indicator-label">Devam</span>
-      </ng-container>
-      <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress">
-          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-        </span>
-      </ng-container>
+      Devam
+      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
     </button>
   </div>
   <!--end::Form group-->

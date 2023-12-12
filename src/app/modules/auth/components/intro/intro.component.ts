@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class IntroComponent implements OnInit, OnDestroy {
   hasError: boolean;
   returnUrl: string;
-  isLoading$: Observable<boolean>;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -21,8 +20,6 @@ export class IntroComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-
-    this.isLoading$ = this.appService.isLoading$;
 
     if (localStorage.getItem("token")){
       this.appService.me().subscribe(()=>{

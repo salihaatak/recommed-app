@@ -11,7 +11,6 @@ import { AppService } from 'src/app/modules/auth';
 export class RecommendThanksComponent implements OnInit, OnDestroy {
   hasError: boolean;
   returnUrl: string;
-  isLoading$: Observable<boolean>;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -20,7 +19,6 @@ export class RecommendThanksComponent implements OnInit, OnDestroy {
     private appService: AppService,
   ) {
 
-    this.isLoading$ = this.appService.isLoading$;
   }
 
   ngOnInit(): void {

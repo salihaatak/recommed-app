@@ -39,6 +39,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.modeService.init();
-    this.translationService.setLanguage('tr')
+    this.translationService.setLanguage('en')
   }
 }

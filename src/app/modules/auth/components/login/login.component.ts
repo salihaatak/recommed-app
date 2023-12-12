@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   returnUrl: string;
-  isLoading$: Observable<boolean>;
 
   public contacts: string;
   public location: string;
@@ -31,13 +30,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private appService: AppService,
+    public appService: AppService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone,
     private cdr: ChangeDetectorRef
   ) {
-    this.isLoading$ = this.appService.isLoading$;
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
       this.router.navigate([appService.getDashboardRoute()]);

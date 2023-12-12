@@ -118,10 +118,8 @@
   <!--begin::Action-->
   <div class="d-grid mb-10">
     <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
-      <span class="indicator-label">{{'T.LOGIN' | translate}}</span>
-      <span class="indicator-progress" *ngIf="this.isLoading$ | async">
-        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-      </span>
+      {{'T.LOGIN' | translate}}
+      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
     </button>
   </div>
 

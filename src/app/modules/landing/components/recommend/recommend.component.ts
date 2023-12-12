@@ -13,7 +13,6 @@ import { AppService } from 'src/app/modules/auth';
 export class RecommendComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean = false;
-  isLoading$: Observable<boolean>;
   recommenderName: string;
   recommenderUid: string | null;
 
@@ -21,11 +20,10 @@ export class RecommendComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private appService: AppService,
+    public appService: AppService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.isLoading$ = this.appService.isLoading$;
   }
 
   ngOnInit(): void {

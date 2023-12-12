@@ -12,19 +12,4 @@ export class UserModel extends AuthModel {
     name: string;
     invitationCode: string;
   };
-
-  setUser(_user: unknown) {
-    const user = _user as UserModel;
-
-    this.uid = user.uid;
-    this.role = user.role;
-    this.account.name = user.account?.name;
-    this.firstName = user.firstName || '';
-    this.lastName = user.lastName || '';
-    this.email = user.email || '';
-    this.account = {
-      name: user.account.name || '',
-      invitationCode: user.account.invitationCode || ''
-    }
-  }
 }

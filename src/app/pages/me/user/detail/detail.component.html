@@ -70,9 +70,7 @@
           (click)="save()"
         >
           Kaydet
-            <span clas="indicator-progress" *ngIf="this.appService.isLoading$ | async">
-              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-            </span>
+          <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
         </button>
       </div>
     </form>
@@ -106,9 +104,7 @@
           (click)="delete()"
         >
           Hesabımı Sil
-            <span clas="indicator-progress" *ngIf="this.appService.isLoading$ | async">
-              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-            </span>
+          <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
         </button>
       </div>
     </form>
