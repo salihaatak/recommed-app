@@ -7,6 +7,8 @@ import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
+import * as intlTelInput from 'intl-tel-input';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recommender-registration',
@@ -18,6 +20,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   hasError: boolean;
   accountName: string;
   invitationCode: string | null;
+  phoneNumber: intlTelInput.Plugin;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -26,7 +29,8 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public appService: AppService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private httpService: HttpClient
   ) {
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
@@ -70,6 +74,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
+        /*
         phoneNumber: [
           '',
           Validators.compose([
@@ -77,6 +82,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
             Validators.minLength(10),
           ]),
         ],
+        */
         password: [
           '',
           Validators.compose([
@@ -100,6 +106,18 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
         validator: ConfirmPasswordValidator.MatchPassword,
       }
     );
+
+    const tel = document.querySelector("#phoneNumber");
+    if (tel) {
+      this.phoneNumber = intlTelInput(tel, {
+        //initialCountry: 'tr',
+        separateDialCode: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js',
+      });
+      this.httpService.get("https://ipapi.co/json").subscribe((result: any) => {
+        this.phoneNumber.setCountry(result.country_code);
+      });
+    }
   }
 
   submit() {
@@ -113,7 +131,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           invitationCode: this.invitationCode,
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
-          phoneNumber: this.form1.controls["phoneNumber"].value,
+          phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
           password: this.form1.controls["password"].value,
           optin: this.form1.controls["optin"].value
         },
@@ -121,7 +139,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.appService.phoneNumber = this.form1.controls["phoneNumber"].value;
+          this.appService.phoneNumber = this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164);
           this.router.navigate(['/auth/recommender/phone-verification']);
         } else {
           this.hasError = true;

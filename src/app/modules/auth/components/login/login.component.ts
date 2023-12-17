@@ -5,7 +5,8 @@ import { first } from 'rxjs/operators';
 import { UserModel } from '../../models/user.model';
 import { AppService } from '../../services/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import * as intlTelInput from 'intl-tel-input';
+import { HttpClient } from '@angular/common/http';
 declare global {
   interface Window { WebView: any; }
   interface Window { selectContactsCallbackTS: any; }
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   returnUrl: string;
+  phoneNumber: intlTelInput.Plugin;
 
   public contacts: string;
   public location: string;
@@ -34,7 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private httpService: HttpClient
   ) {
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
@@ -60,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.form1 = this.fb.group({
+      /*
       contact: [
         null,
         Validators.compose([
@@ -68,21 +72,29 @@ export class LoginComponent implements OnInit, OnDestroy {
           Validators.maxLength(320),
         ]),
       ],
+      */
       password: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(100),
-        ]),
+        null
       ],
     });
+
+    const tel = document.querySelector("#phoneNumberLogin");
+    if (tel) {
+      this.phoneNumber = intlTelInput(tel, {
+        //initialCountry: 'tr',
+        separateDialCode: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js',
+      });
+      this.httpService.get("https://ipapi.co/json").subscribe((result: any) => {
+        this.phoneNumber.setCountry(result.country_code);
+      });
+    }
   }
 
   submit() {
     this.hasError = false;
     const loginSubscr = this.appService
-      .login(this.form1.controls.contact.value, this.form1.controls.password.value)
+      .login(this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164), this.form1.controls.password.value)
       .subscribe((user: UserModel | undefined) => {
         if (user) {
           this.appService.me().subscribe(()=>{

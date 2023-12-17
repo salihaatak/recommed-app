@@ -1,6 +1,12 @@
+.iti {
+  display: block !important;
+}
 :host {
   width: 100%;
   @media (min-width: 992px) {
+    .iti {
+      border: red($color: #000000);
+    }
     .login-form {
       width: 100%;
       max-width: 450px;

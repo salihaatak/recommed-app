@@ -87,9 +87,9 @@ export class AppService implements OnDestroy {
   }
 
   // public methods
-  login(contact: string, password: string): Observable<UserType> {
+  login(phoneNumber: string, password: string): Observable<UserType> {
     this.isLoadingSubject.next(true);
-    return this.httpService.post("user/login", {contact: contact, password: password}, false).pipe(
+    return this.httpService.post("user/login", {phoneNumber: phoneNumber, password: password}, false).pipe(
       map(
         (result: ResultModel) => {
           if (result.success){

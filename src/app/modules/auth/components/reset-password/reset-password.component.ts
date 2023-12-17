@@ -61,7 +61,7 @@ export class ResetPasswordComponent implements OnInit {
           Validators.maxLength(100),
         ]),
       ],
-  });
+    });
   }
 
   submit() {

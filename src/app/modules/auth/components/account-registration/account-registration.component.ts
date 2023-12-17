@@ -5,17 +5,20 @@ import { Router } from '@angular/router';
 import { AppService } from '../../services/app.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../../models/user.model';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
+import * as intlTelInput from 'intl-tel-input';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-account-registration',
   templateUrl: './account-registration.component.html',
-  styleUrls: ['./account-registration.component.scss'],
+  styleUrls: ['./account-registration.component.scss', "./a.css"],
 })
 export class AccountRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
+  phoneNumber: intlTelInput.Plugin;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -23,7 +26,8 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     public appService: AppService,
-    private router: Router
+    private router: Router,
+    private httpService: HttpClient
   ) {
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
@@ -71,6 +75,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
             Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
           ]),
         ],
+        /*
         phoneNumber: [
           '',
           Validators.compose([
@@ -78,6 +83,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
             Validators.minLength(10),
           ]),
         ],
+        */
         password: [
           '',
           Validators.compose([
@@ -101,6 +107,18 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         validator: ConfirmPasswordValidator.MatchPassword,
       }
     );
+
+    const tel = document.querySelector("#phoneNumber");
+    if (tel) {
+      this.phoneNumber = intlTelInput(tel, {
+        //initialCountry: 'tr',
+        separateDialCode: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js',
+      });
+      this.httpService.get("https://ipapi.co/json").subscribe((result: any) => {
+        this.phoneNumber.setCountry(result.country_code);
+      });
+    }
   }
 
   submit() {
@@ -112,7 +130,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
           accountName: this.form1.controls["accountName"].value,
-          phoneNumber: this.form1.controls["phoneNumber"].value,
+          phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
           password: this.form1.controls["password"].value,
           email: this.form1.controls["email"].value,
           optin: this.form1.controls["agreeOptin"].value,
@@ -125,7 +143,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         if (result?.success) {
           localStorage.setItem("accountUid", result.data.uid)
           localStorage.setItem("accountPhone", result.data.phoneNumber)
-          this.appService.phoneNumber = this.form1.controls["phoneNumber"].value
+          this.appService.phoneNumber = this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164)
           this.router.navigate(['/auth/account/registration-phone-verification']);
         } else {
           this.hasError = true;
