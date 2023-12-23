@@ -4,6 +4,9 @@ import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResultModel } from '../../models/api-result.mode';
 import { AppService } from 'src/app/modules/auth';
+import * as CryptoJS from 'crypto-js';
+import * as intlTelInput from 'intl-tel-input';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recommend',
@@ -14,7 +17,9 @@ export class RecommendComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean = false;
   recommenderName: string;
-  recommenderUid: string | null;
+  recommenderUid: string;
+  encryptionKey: string;
+  phoneNumber: intlTelInput.Plugin;
 
   private unsubscribe: Subscription[] = [];
 
@@ -22,13 +27,16 @@ export class RecommendComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public appService: AppService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private httpService: HttpClient
   ) {
   }
 
   ngOnInit(): void {
-    this.recommenderUid = this.route.snapshot.paramMap.get('recommenderUid');
-    if (this.recommenderUid){
+    this.recommenderUid = this.route.snapshot.paramMap.get('recommenderUid') || "";
+    this.encryptionKey = this.route.snapshot.paramMap.get('encryptionKey') || "";
+
+    if (this.recommenderUid && this.encryptionKey){
       const subscr = this.appService
       .post("user/get-recommender", {uid: this.recommenderUid}, false)
       .subscribe((result: ApiResultModel | undefined) => {
@@ -54,6 +62,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
+        /*
         phoneNumber: [
           '',
           Validators.compose([
@@ -61,9 +70,22 @@ export class RecommendComponent implements OnInit, OnDestroy {
             Validators.minLength(10),
           ]),
         ],
+        */
         agree: [true, Validators.compose([Validators.required])],
       }
     );
+
+    const tel = document.querySelector("#phoneNumber");
+    if (tel) {
+      this.phoneNumber = intlTelInput(tel, {
+        //initialCountry: 'tr',
+        separateDialCode: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js',
+      });
+      this.httpService.get("https://ipapi.co/json").subscribe((result: any) => {
+        this.phoneNumber.setCountry(result.country_code);
+      });
+    }
   }
 
   submit() {
@@ -74,7 +96,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
         {
           recommenderUid: this.recommenderUid,
           name: this.form1.controls["name"].value,
-          phoneNumber: this.form1.controls["phoneNumber"].value,
+          phoneNumber: CryptoJS.AES.encrypt(this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164), this.encryptionKey).toString() ,
         },
         false
       )

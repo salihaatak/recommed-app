@@ -134,6 +134,7 @@ export class AppService implements OnDestroy {
 
   logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("encryptionKey");
     this.currentUserSubject.next(undefined);
     this.router.navigate(['/auth'], {
       queryParams: {},
@@ -179,6 +180,39 @@ export class AppService implements OnDestroy {
         this.isLoadingSubject.next(false)
       })
     );
+  }
+
+  generateRandomString(length: number = 10): string {
+    const characters = 'ABCDEFGHJKMNPRSTUVXYZabcdefghjkmnprstuvwxyz123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  }
+
+
+  mask(text: string, maskDigits = 2): string {
+    let r = '';
+
+    if (text) {
+        const textLength = text.length;
+
+        const visibleDigits = textLength - maskDigits; // Maskelemeden önce görünür bırakılacak karakter sayısı
+
+        // Maskelenmiş karakter sayısı kadar "*" içeren bir dize oluştur
+        const mask = '*'.repeat(maskDigits);
+
+        // Maskelenmiş karakterleri yerine koyarak sonuç dizesini oluştur
+        const maskedText = text.substring(0, visibleDigits) + mask;
+
+        r = maskedText;
+    }
+
+    return r;
   }
 
   ngOnDestroy() {

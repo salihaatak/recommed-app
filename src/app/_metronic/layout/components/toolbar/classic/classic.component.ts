@@ -7,6 +7,7 @@ import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import * as CryptoJS from 'crypto-js';
 
 
 declare global {
@@ -37,6 +38,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   daterangepickerButtonClass: string = '';
 
   showToolbar: boolean = true;
+
+  encryptionKey: string;
 
   @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
   modalConfigRecommender: ModalConfig = {
@@ -73,8 +76,9 @@ export class ClassicComponent implements OnInit, OnDestroy {
       ) {}
 
   ngOnInit(): void {
-    this.urlRecommend = environment.appUrl + 'l/r/' +  this.appService.currentUserValue?.uid;
-    this.urlInvite = environment.appUrl + 'l/i/' +  this.appService.currentUserValue?.account.invitationCode;
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
+    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}/${this.encryptionKey}`;
+    this.urlInvite = environment.appUrl + 'l/i/' +  this.encryptionKey;
 
     //eğer kullanıcı hesabım bölümündeyse toolbar'ı gizle
     this.router.events.subscribe((event) => {
@@ -96,10 +100,18 @@ export class ClassicComponent implements OnInit, OnDestroy {
       zone: this.zone,
       componentFn: (val: any) => {
         this.modalRecommender.close();
-        this.appService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
-          this.appService.eventEmitter.emit({type: 'recommendation'});
-        })
-        this.cdr.detectChanges();
+        if (val && val.length) {
+          let _encrypted = val;
+          for (let i=0; i<val.length; i++) {
+            for (let j=0; j<val[i].contacts.length; j++) {
+              val[i].contacts[j] = CryptoJS.AES.encrypt(val[i].contacts[j], localStorage.getItem("encryptionKey") || "").toString()
+            }
+          }
+          this.appService.post("user/recommend", _encrypted).subscribe((result: ApiResultModel | undefined) => {
+            this.appService.eventEmitter.emit({type: 'recommendation'});
+          })
+          this.cdr.detectChanges();
+        }
       },
       component: this
     }
@@ -128,7 +140,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       type: "nativeShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
       link: this.urlRecommend,
-      image: "https://recommed.co/media/putbell/lock.png"
+      image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))
   }
 
@@ -137,7 +149,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       type: "nativeShare",
       text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Sınırlı sayıda kişiye sunulan bu imkanı kaçırmayın. Davet kodunuz: ${this.appService.currentUserValue?.account.invitationCode}.`,
       link: this.urlInvite,
-      image: "https://recommed.co/media/putbell/lock.png"
+      image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))
   }
 
@@ -146,7 +158,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
       link: this.urlRecommend,
-      image: "https://recommed.co/media/putbell/lock.png"
+      image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))
   }
 
@@ -155,7 +167,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
       link: this.urlInvite,
-      image: "https://recommed.co/media/putbell/lock.png"
+      image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))
   }
 

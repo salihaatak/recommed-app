@@ -7,6 +7,7 @@ import { ConfirmPasswordValidator } from '../account-registration/confirm-passwo
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-account-registration--phone-verification',
@@ -58,18 +59,23 @@ export class AccountRegistrationPhoneVerificationComponent implements OnInit, On
 
   submit() {
     this.hasError = false;
+
+    const encryptionKey: string = this.appService.generateRandomString(6);
+
     const s = this.appService
       .post(
         'account/verify-phone',
         {
           phoneNumber: this.appService.phoneNumber,
-          verificationCode: this.form1.controls["phoneVerificationCode"].value
+          verificationCode: this.form1.controls["phoneVerificationCode"].value,
+          hashedEncryptionKey: CryptoJS.SHA256(encryptionKey).toString(CryptoJS.enc.Hex)
         },
         false
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           localStorage.setItem('token', result?.data.token)
+          localStorage.setItem("encryptionKey", encryptionKey);
           this.appService.me().subscribe(()=>{
             this.router.navigate([this.appService.getDashboardRoute()]);
           })

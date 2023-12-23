@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-account-registration',
   templateUrl: './account-registration.component.html',
-  styleUrls: ['./account-registration.component.scss', "./a.css"],
+  styleUrls: ['./account-registration.component.scss'],
 })
 export class AccountRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;

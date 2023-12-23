@@ -56,21 +56,24 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="text" placeholder="Cep telefonu numaranız" name="phoneNumber" formControlName="phoneNumber"
-      autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['phoneNumber'].invalid,
-        'is-valid': form1.controls['phoneNumber'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Cep telefonu gerekli',
-        control: form1.controls['phoneNumber']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'Cep telefonu en az 10 haneli olmalı',
-        control: form1.controls['phoneNumber']
-      }"></ng-container>
+    <input class="form-control" type="tel" id="phoneNumber" name="phoneNumber">
+    <!--
+      <input class="form-control bg-transparent" type="text" placeholder="Cep telefonu numaranız" name="phoneNumber" formControlName="phoneNumber"
+        autocomplete="off" [ngClass]="{
+          'is-invalid': form1.controls['phoneNumber'].invalid,
+          'is-valid': form1.controls['phoneNumber'].valid
+        }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Cep telefonu gerekli',
+          control: form1.controls['phoneNumber']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'Cep telefonu en az 10 haneli olmalı',
+          control: form1.controls['phoneNumber']
+        }"></ng-container>
+    -->
   </div>
   <!--end::Form group-->
 

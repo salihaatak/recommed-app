@@ -49,10 +49,6 @@ const routes: Routes = [
         component: RecommenderRegistrationComponent,
       },
       {
-        path: 'recommender/registration/:invitationCode',
-        component: RecommenderRegistrationComponent,
-      },
-      {
         path: 'recommender/phone-verification',
         component: RecommenderPhoneVerificationComponent,
       },

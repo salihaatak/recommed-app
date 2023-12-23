@@ -5,6 +5,7 @@ import { Recommendation } from 'src/app/modules/auth/models/recommendation.model
 import { ModalConfig, ModalComponent } from '../../../../../../_metronic/partials';
 import { RecommendationActivityModel} from '../../../../../../models/recommendation-activity.model'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-recommendations-latest',
@@ -202,6 +203,20 @@ export class RecommendationsLatestComponent implements OnInit {
   loadRecommendation () {
     return this.appService.post("recommendation/get", {uid: this.currentRecommendationUid}).subscribe((result: ApiResultModel | undefined) => {
       this.recommendation = result?.data.recommendation;
+
+      const decryptedPhoneNumber = CryptoJS.AES.decrypt(this.recommendation.phoneNumber, localStorage.getItem("encryptionKey") || "").toString(CryptoJS.enc.Utf8);
+
+      console.log(this.recommendation.phoneNumber);
+      console.log(localStorage.getItem("encryptionKey"));
+      console.log(decryptedPhoneNumber);
+      if (decryptedPhoneNumber){
+        this.recommendation.phoneNumber = decryptedPhoneNumber;
+      }
+
+      if (this.recommendation.phoneNumberHidden) {
+        this.recommendation.phoneNumber = this.appService.mask(this.recommendation.phoneNumber);
+      }
+
       this.activities = result?.data.activities;
       this.modalConfigRecommendation.title = `Tavsiye Detayı`;
 

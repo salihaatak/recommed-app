@@ -6,6 +6,7 @@ import { AppService } from '../../services/app.service';
 import { UserModel } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-invitation',
@@ -51,11 +52,16 @@ export class InvitationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
+    const encryptionKey = this.form1.controls["invitationCode"].value;
+    localStorage.setItem("encryptionKey", encryptionKey);
+
     const subscr = this.appService
-      .post("user/verify-invitation", {invitationCode: this.form1.controls["invitationCode"].value}, false)
+      .post("user/check-invitation", {
+        hashedEncryptionKey: CryptoJS.SHA256(encryptionKey).toString(CryptoJS.enc.Hex)
+      }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.router.navigate(['/auth/recommender/registration/', result?.data.invitationCode]);
+          this.router.navigate(['/auth/recommender/registration/']);
         } else {
           this.hasError = true;
         }

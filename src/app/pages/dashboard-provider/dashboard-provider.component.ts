@@ -7,13 +7,12 @@ import { AppService } from 'src/app/modules/auth';
   styleUrls: ['./dashboard-provider.component.scss'],
 })
 export class DashboardProviderComponent implements OnInit {
+
   constructor(private appService: AppService) {
   }
 
+
   ngOnInit(): void {
-
   }
-
-
 
 }

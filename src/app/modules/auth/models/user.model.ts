@@ -11,5 +11,6 @@ export class UserModel extends AuthModel {
   account: {
     name: string;
     invitationCode: string;
+    hashedEncryptionKey: string;
   };
 }

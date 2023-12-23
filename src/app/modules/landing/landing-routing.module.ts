@@ -19,7 +19,7 @@ const routes: Routes = [
         component: RecommendThanksComponent,
       },
       {
-        path: 'r/:recommenderUid',
+        path: 'r/:recommenderUid/:encryptionKey',
         component: RecommendComponent,
       },
       //{ path: '', redirectTo: 'login', pathMatch: 'full' },

@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 import * as intlTelInput from 'intl-tel-input';
 import { HttpClient } from '@angular/common/http';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-recommender-registration',
@@ -19,7 +20,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   accountName: string;
-  invitationCode: string | null;
+  encryptionKey: string;
   phoneNumber: intlTelInput.Plugin;
 
   // private fields
@@ -39,11 +40,11 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
-    if (this.invitationCode){
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
+    if (this.encryptionKey){
       const subscr = this.appService
-      .post("user/verify-invitation", {invitationCode: this.invitationCode}, false)
-      .subscribe((result: ApiResultModel | undefined) => {
+      .post("user/check-invitation", {hashedEncryptionKey: CryptoJS.SHA256(this.encryptionKey).toString()}, false)
+      .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;
         } else {
@@ -128,7 +129,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
         {
           firebaseToken: localStorage.getItem("firebase_token"),
           deviceId: localStorage.getItem("device_id"),
-          invitationCode: this.invitationCode,
+          hashedEncryptionKey: CryptoJS.SHA256(localStorage.getItem("encryptionKey") || "").toString(CryptoJS.enc.Hex),
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
