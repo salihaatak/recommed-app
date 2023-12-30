@@ -100,7 +100,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
-        agree: [true, Validators.compose([Validators.required])],
+        agree: [false, Validators.compose([Validators.required])],
         agreeOptin: [false, Validators.compose([Validators.required])],
       },
       {

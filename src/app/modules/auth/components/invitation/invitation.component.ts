@@ -42,8 +42,7 @@ export class InvitationComponent implements OnInit, OnDestroy {
         invitationCode: [
           '',
           Validators.compose([
-            Validators.required,
-            Validators.minLength(4)
+            Validators.required
           ]),
         ]
       }

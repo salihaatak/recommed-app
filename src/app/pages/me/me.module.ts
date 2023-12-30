@@ -8,6 +8,7 @@ import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user/detail/detail.component';
 import { TranslationModule } from 'src/app/modules/i18n';
 import { AccountDownloadComponent } from './account/download/download.component';
+import { UserWalletComponent } from './user/wallet/wallet.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AccountDownloadComponent } from './account/download/download.component'
     AccountDetailComponent,
     AccountDownloadComponent,
     UserComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserWalletComponent
   ],
   imports: [
     MeRoutingModule,

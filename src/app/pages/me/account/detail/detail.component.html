@@ -50,21 +50,9 @@
             />
           </div>
         </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 col-form-label fw-bold fs-6"
-            ><span class="required">E-posta</span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="email"
-              class="form-control form-control-lg form-control-solid"
-              formControlName="email"
-            />
-          </div>
-        </div>
         <div class="row mb-0 border-top pb-5">
           <label class="col-lg-4 col-form-label fw-bold fs-6"
-            >Satış öncesi ödüllendir</label
+            >Tavsiyeleri ödüllendir</label
           >
           <div class="col-lg-8 d-flex align-items-center">
             <div class="form-check form-check-solid form-switch fv-row">
@@ -94,7 +82,7 @@
         </div>
         <div class="row mb-0 border-top">
           <label class="col-lg-4 col-form-label fw-bold fs-6"
-            >Satış sonrası ödüllendir</label
+            >Satışları ödüllendir</label
           >
           <div class="col-lg-8 d-flex align-items-center">
             <div class="form-check form-check-solid form-switch fv-row">
@@ -108,7 +96,7 @@
         </div>
         <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value">
           <label class="col-lg-4 col-form-label fw-bold fs-6"
-            ><span class="required">Tavsiye Hakediş Süresi (Gün)</span></label
+            ><span class="required">Zaman dilimi (Gün)</span></label
           >
           <div class="col-lg-8 fv-row">
             <input
@@ -152,7 +140,7 @@
         </div>
         <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value && this.form1.controls['salesRewardModel'].value === 'am'">
           <label class="col-lg-4 col-form-label fw-bold fs-6"
-            ><span class="required">Meblağı (TL)</span></label
+            ><span class="required">Meblağ (TL)</span></label
           >
           <div class="col-lg-8 fv-row">
             <input

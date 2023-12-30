@@ -147,7 +147,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   btnShareProviderClick(){
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
-      text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Sınırlı sayıda kişiye sunulan bu imkanı kaçırmayın. Davet kodunuz: ${this.appService.currentUserValue?.account.invitationCode}.`,
+      text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Sınırlı sayıda kişiye sunulan bu imkanı kaçırmayın.`,
       link: this.urlInvite,
       image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))

@@ -3,6 +3,7 @@ import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from '../../models/api-result.mode';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-invite',
@@ -29,7 +30,7 @@ export class InviteComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
     this.unsubscribe.push(this.appService
-      .post("user/verify-invitation", {invitationCode: this.invitationCode}, false)
+      .post("user/check-invitation", {hashedEncryptionKey: CryptoJS.SHA256(this.route.snapshot.paramMap.get('invitationCode') || "").toString()}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;

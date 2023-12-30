@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo1": {
+    "recommed": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo1",
+            "outputPath": "dist/recommed",
             "allowedCommonJsDependencies": [
               "object-path",
               "apexcharts",
@@ -81,18 +81,22 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo1:build:production"
+              "browserTarget": "recommed:build:production"
             },
             "development": {
-              "browserTarget": "demo1:build:development"
+              "browserTarget": "recommed:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "host": "192.168.1.5",
+            "port": 4200
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo1:build"
+            "browserTarget": "recommed:build"
           }
         },
         "test": {
