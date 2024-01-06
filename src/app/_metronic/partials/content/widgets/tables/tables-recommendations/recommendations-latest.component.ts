@@ -269,7 +269,7 @@ export class RecommendationsLatestComponent implements OnInit {
 
         if (!this.recommendation.soldAt && this.recommendation.validatedAt){
           this.modalConfigRecommendation.actions?.push({
-              title: "Satış Kaydet",
+              title: "Satış Bildir",
               buttonClass: 'success',
               event: async (): Promise<boolean> => {
                 this.modalSale.open();

@@ -44,26 +44,26 @@ export class ClassicComponent implements OnInit, OnDestroy {
   @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
   modalConfigRecommender: ModalConfig = {
     title: 'Nasıl paylaşmak istersiniz?',
-    hideCloseButton: true,
+    hideCloseButton: false,
   };
 
   @ViewChild('modalProvider') private modalProvider: ModalComponent;
   modalConfigProvider: ModalConfig = {
     title: 'Nasıl davet etmek istersiniz?',
-    hideCloseButton: true,
+    hideCloseButton: false,
   };
 
   @ViewChild('modalQrRecommend') private modalQrRecommend: ModalComponent;
   modalConfigQrRecommend: ModalConfig = {
     title: 'Kare Kodu Kameranıza Gösterin',
-    hideCloseButton: true,
+    hideCloseButton: false,
   };
   urlRecommend: string;
 
   @ViewChild('modalQrInvite') private modalQrInvite: ModalComponent;
   modalConfigQrInvite: ModalConfig = {
     title: 'Kare Kodu Kameranıza Gösterin',
-    hideCloseButton: true,
+    hideCloseButton: false,
   };
   urlInvite: string;
 

@@ -8,6 +8,7 @@ import { ResultModel } from '../models/result.model';
 import { ApiResultModel } from '../models/api-result.mode';
 import { io, Socket } from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+import { Location } from '@angular/common';
 
 export type UserType = UserModel | undefined;
 
@@ -50,7 +51,8 @@ export class AppService implements OnDestroy {
 
   constructor(
     private httpService: HTTPService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
 
   }
@@ -213,6 +215,10 @@ export class AppService implements OnDestroy {
     }
 
     return r;
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   ngOnDestroy() {

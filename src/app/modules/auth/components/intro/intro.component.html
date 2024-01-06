@@ -22,37 +22,82 @@
 </div>
 <!--end::Heading-->
 
-<!--begin::Login options-->
-<div class="row g-3 mb-9">
-  <!--begin::Col-->
-  <div class="col-md-6">
-    <!--begin::Google link--->
-    <a routerLink="/auth/recommender/invitation"
-    class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100">
-      <i class="fa-solid fa-coins fs-3"></i>
-      Tavsiye Et Kazan >
-    </a>
-    <!--end::Google link--->
-  </div>
-  <!--end::Col-->
 
-  <!--begin::Col-->
-  <div class="col-md-6">
-    <!--begin::Google link--->
-    <a routerLink="account/registration"
-      class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-      {{ 'T.REGISTER_BUSINESS' | translate }}
-    </a>
-    <!--end::Google link--->
+<form class="form w-100" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="form1"
+  (ngSubmit)="submit()">
+
+  <!-- begin::Alert error-->
+  <ng-container *ngIf="hasError">
+    <div class="mb-lg-15 alert alert-danger">
+      <div class="alert-text font-weight-bold">
+        Davet kodu doğrulanamadı. Lütfen büyük küçük harfi doğru girdiğinizden emin olun.
+      </div>
+    </div>
+  </ng-container>
+  <!-- end::Alert error-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-8 text-center">
+
+    <label class="form-label  fs-6">Davet Kodu:</label>
+
+
+    <input class="form-control bg-white text-center" type="text" name="invitationCode" formControlName="invitationCode"
+      placeholder="* * * * * *" autocomplete="off" [ngClass]="{
+      }" />
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Davet kodu gerekli',
+        control: form1.controls['invitationCode']
+      }"></ng-container>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'minlength',
+        message: 'En az 4 haneli olmalı',
+        control: form1.controls['invitationCode']
+      }"></ng-container>
   </div>
-  <!--end::Col-->
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="d-grid mb-10">
+    <button type="submit" id="kt_sign_up_submit" [disabled]="
+        form1.invalid
+      " class="btn btn-primary">
+      Devam >
+      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+    </button>
+  </div>
+  <!--end::Form group-->
+
+
+
+</form>
+
+
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+
+<div class="text-center">
+  <div class="fw-semibold text-gray-500">İşletmeniz mi var?:</div>
+  <a class="fw-bold" routerLink="account/registration">
+    Kaydolun
+  </a>
 </div>
-<!--end::Login options-->
 
 <div class="separator separator-content my-14">
   <span class="w-125px text-gray-500 fw-semibold fs-7">{{ 'T.OR' | translate }}</span>
 </div>
-<!--end::Separator-->
 
 
 <!--
@@ -66,9 +111,9 @@
 -->
 
 
-<div class="text-gray-500 text-center fw-semibold fs-6">
-  {{ 'T.ARE_YOU_REGISTERED' | translate }}
-  <a routerLink="/auth/login" class="link-primary">
+<div class=" text-center fs-6">
+  <div class="fw-semibold text-gray-500">{{ 'T.ARE_YOU_REGISTERED' | translate }}:</div>
+  <a routerLink="/auth/login" class="fw-bold">
     {{ 'T.LOGIN' | translate }}
   </a>
 </div>

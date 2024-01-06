@@ -6,7 +6,7 @@ export const locale = {
       OR: 'or',
       INTRO: 'Recommend the business you received service from to your friends through the mobile application, allowing them to experience quality service and earn regular additional income.',
       REGISTER: 'Register',
-      REGISTER_BUSINESS: 'Business Registration',
+      REGISTER_BUSINESS: 'Business registration',
       LOGIN_TITLE: 'Login',
       LOGIN: 'Login',
       ARE_YOU_REGISTERED: 'Are you registered?',
