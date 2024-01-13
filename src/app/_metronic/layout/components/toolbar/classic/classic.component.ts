@@ -77,8 +77,6 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.encryptionKey = localStorage.getItem("encryptionKey") || "";
-    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}/${this.encryptionKey}`;
-    this.urlInvite = environment.appUrl + 'l/i/' +  this.encryptionKey;
 
     //eğer kullanıcı hesabım bölümündeyse toolbar'ı gizle
     this.router.events.subscribe((event) => {
@@ -118,10 +116,12 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   async openModalRecommender() {
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
     return await this.modalRecommender.open();
   }
 
   async openModalProvider() {
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
     return await this.modalProvider.open();
   }
 
@@ -136,6 +136,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnShareRecommenderClick(){
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
+    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}/${this.encryptionKey}`;
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -145,6 +147,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnShareProviderClick(){
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
+    this.urlInvite = environment.appUrl + 'l/i/' +  this.encryptionKey;
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: `Merhaba! Çevrenize bizi tavsiye ederek ek gelir elde etmek ister misiniz? Sınırlı sayıda kişiye sunulan bu imkanı kaçırmayın.`,
@@ -154,6 +158,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnWhatsappRecommenderClick(){
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
+    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}/${this.encryptionKey}`;
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -163,6 +169,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnWhatsappProviderClick(){
+    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
+    this.urlInvite = environment.appUrl + 'l/i/' +  this.encryptionKey;
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -172,10 +180,12 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnQRRecommendClick(){
+    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}/${this.encryptionKey}`;
     return this.modalQrRecommend.open();
   }
 
   btnQRInviteClick(){
+    this.urlInvite = environment.appUrl + 'l/i/' +  this.encryptionKey;
     return this.modalQrInvite.open();
   }
 

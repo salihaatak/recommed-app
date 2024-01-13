@@ -136,7 +136,7 @@ export class AppService implements OnDestroy {
 
   logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("encryptionKey");
+    //localStorage.removeItem("encryptionKey");
     this.currentUserSubject.next(undefined);
     this.router.navigate(['/auth'], {
       queryParams: {},
@@ -185,7 +185,7 @@ export class AppService implements OnDestroy {
   }
 
   generateRandomString(length: number = 10): string {
-    const characters = 'ABCDEFGHJKMNPRSTUVXYZabcdefghjkmnprstuvwxyz123456789';
+    const characters = 'abcdefhkmnprstuvyz23456789';
     let result = '';
 
     for (let i = 0; i < length; i++) {
@@ -195,7 +195,6 @@ export class AppService implements OnDestroy {
 
     return result;
   }
-
 
   mask(text: string, maskDigits = 2): string {
     let r = '';
