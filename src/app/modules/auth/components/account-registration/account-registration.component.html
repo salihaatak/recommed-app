@@ -49,6 +49,7 @@
   <div class="fv-row mb-8">
     <label class="form-label fw-bolder text-dark fs-6">Marka Adı</label>
     <input class="form-control bg-transparent" type="text" name="accountName" formControlName="accountName"
+    [(ngModel)]="accountRegistrationService.accountData.name"
       placeholder="Marka" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['accountName'].invalid,
         'is-valid': form1.controls['accountName'].valid
@@ -75,6 +76,7 @@
   <div class="fv-row mb-8">
     <label class="form-label fw-bolder text-dark fs-6">Adınız</label>
     <input class="form-control bg-transparent" type="text" name="firstName" formControlName="firstName"
+    [(ngModel)]="accountRegistrationService.accountData.firstName"
       placeholder="Adınız" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['firstName'].invalid,
         'is-valid': form1.controls['firstName'].valid
@@ -101,7 +103,8 @@
   <div class="fv-row mb-8">
     <label class="form-label fw-bolder text-dark fs-6">Soyadınız</label>
     <input class="form-control bg-transparent" type="text" name="lastName" formControlName="lastName"
-      placeholder="Soyadınız" autocomplete="off" [ngClass]="{
+    [(ngModel)]="accountRegistrationService.accountData.lastName"
+    placeholder="Soyadınız" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['lastName'].invalid,
         'is-valid': form1.controls['lastName'].valid
       }" />
@@ -124,61 +127,26 @@
   <!--end::Form group-->
 
   <!--begin::Form group-->
-  <div class="fv-row mb-8" *ngIf="false">
-    <label class="form-label fw-bolder text-dark fs-6">E-posta</label>
-    <input class="form-control bg-transparent" type="email" placeholder="Email" name="email" formControlName="email"
-      autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['email'].invalid,
-        'is-valid': form1.controls['email'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'E-posta gerekli',
-        control: form1.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'email',
-        message: 'E-posta geçersiz',
-        control: form1.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'E-posta en az 3 karakterli olmalı',
-        control: form1.controls['email']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'E-posta en fazla 360 karakterli olmalı',
-        control: form1.controls['email']
-      }"></ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
   <div class="fv-row mb-8">
     <label class="form-label fw-bolder text-dark fs-6">Cep Telefonu</label>
-    <div class="">
-      <input class="form-control" type="tel" id="phoneNumber" name="phoneNumber">
-
-    </div>
-    <!--
-    <input class="form-control bg-transparent" type="tel" placeholder="Cep telefonu numarası" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber"
-      autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['phoneNumber'].invalid,
-        'is-valid': form1.controls['phoneNumber'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+    <div>
+      <input class="form-control" type="tel" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber"
+        [(ngModel)]="accountRegistrationService.accountData.phoneNumber"
+        [ngClass]="{
+          'is-invalid': form1.controls['phoneNumber'].invalid,
+          'is-valid': form1.controls['phoneNumber'].valid
+        }">
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
         message: 'Cep telefonu gerekli',
         control: form1.controls['phoneNumber']
       }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Cep telefonu en az 10 haneli olmalı',
+        message: 'Cep telefonu en az 10 karakter olmalı',
         control: form1.controls['phoneNumber']
       }"></ng-container>
-    -->
-
+    </div>
   </div>
   <!--end::Form group-->
 
@@ -186,7 +154,8 @@
   <div class="fv-row mb-8">
     <label class="form-label fw-bolder text-dark fs-6">Password</label>
     <input class="form-control bg-transparent" type="password" placeholder="Password" name="password"
-      formControlName="password" autocomplete="off" [ngClass]="{
+    [(ngModel)]="accountRegistrationService.accountData.password"
+    formControlName="password" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['password'].invalid,
         'is-valid': form1.controls['password'].valid
       }" />
@@ -212,7 +181,8 @@
   <div class="fv-row mb-8">
     <label class="form-label fw-bolder text-dark fs-6">Parola (Doğrulama)</label>
     <input class="form-control bg-transparent" type="password" placeholder="Confirm password" name="cPassword"
-      autocomplete="off" formControlName="cPassword" [ngClass]="{
+    [(ngModel)]="accountRegistrationService.accountData.cPassword"
+    autocomplete="off" formControlName="cPassword" [ngClass]="{
         'is-invalid': form1.controls['cPassword'].invalid,
         'is-valid': form1.controls['cPassword'].valid
       }" />
@@ -247,10 +217,20 @@
   <!--begin::Form group-->
   <div class="fv-row mb-8">
     <label class="form-check form-check-inline">
-      <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
+      <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input"
+      [(ngModel)]="accountRegistrationService.accountData.agree"
+      [ngClass]="{
+        'is-invalid': form1.controls['agree'].invalid,
+        'is-valid': form1.controls['agree'].valid
+      }" />
       <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
         {{'T.AGREE' | translate}}. {{'T.MORE_INFO' | translate}}
       </span>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Lütfen onaylayın',
+        control: form1.controls['agree']
+      }"></ng-container>
     </label>
   </div>
   <!--end::Form group-->

@@ -296,6 +296,10 @@ export class RecommendationsLatestComponent implements OnInit {
     });
   }
 
+  phoneCall(tel: string){
+    window.location.href = 'tel:' + tel;
+  }
+
   openSalesModal(recommendationUid: string) {
     this.loadRecommendation().add(() => {
       this.hasError = false;

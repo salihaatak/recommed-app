@@ -9,6 +9,7 @@ import { first, map } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 import * as intlTelInput from 'intl-tel-input';
 import { HttpClient } from '@angular/common/http';
+import { AccountRegistrationService } from '../../services/account-registration.service';
 
 @Component({
   selector: 'app-account-registration',
@@ -27,7 +28,8 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public appService: AppService,
     private router: Router,
-    private httpService: HttpClient
+    private httpService: HttpClient,
+    public accountRegistrationService: AccountRegistrationService
   ) {
     // redirect to home if already logged in
     if (this.appService.currentUserValue) {
@@ -67,15 +69,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
-        email: [
-          '',
-          Validators.compose([
-            Validators.email,
-            Validators.minLength(3),
-            Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
-          ]),
-        ],
-        /*
         phoneNumber: [
           '',
           Validators.compose([
@@ -83,7 +76,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
             Validators.minLength(10),
           ]),
         ],
-        */
         password: [
           '',
           Validators.compose([
@@ -132,7 +124,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           accountName: this.form1.controls["accountName"].value,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
           password: this.form1.controls["password"].value,
-          email: this.form1.controls["email"].value,
           optin: this.form1.controls["agreeOptin"].value,
           firebaseToken: localStorage.getItem("firebase_token"),
           deviceId: localStorage.getItem("device_id")

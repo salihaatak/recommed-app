@@ -1,5 +1,9 @@
 .iti {
   display: block !important;
+  width: 100% !important;
+}
+body{
+  display: none;
 }
 :host {
   width: 100%;

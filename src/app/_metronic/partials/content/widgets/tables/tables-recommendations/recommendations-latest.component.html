@@ -161,7 +161,9 @@
           </div>
           <div *ngIf="!recommendation?.phoneNumberHidden" class="ml-10">
             <i class="fa-solid fa-phone"></i>
-            {{recommendation ? recommendation.phoneNumber : ''}}
+            <a (click)="phoneCall(recommendation ? recommendation.phoneNumber : '')">
+              {{recommendation ? recommendation.phoneNumber : ''}}
+            </a>
           </div>
         </div>
         <div class="fw-normal fs-8 text-muted" *ngIf="recommendation?.phoneNumberHidden">
