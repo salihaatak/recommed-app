@@ -89,6 +89,7 @@ import { SharedModule } from "../../../shared/shared.module";
 
 //recommed
 
+import { RecommendersComponent } from './tables/recommenders/recommenders.component'
 import { RecommendationsLatestComponent } from './tables/tables-recommendations/recommendations-latest.component'
 import { RecommenderSummaryComponent } from './_new/cards/recommender-summary/recommender-summary.component';
 import { ProviderSummaryComponent } from './_new/cards/provider-summary/provider-summary.component';
@@ -182,6 +183,7 @@ import { TranslationModule } from 'src/app/modules/i18n';
     CardsWidget18Component,
 
     RecommendationsLatestComponent,
+    RecommendersComponent,
     RecommenderSummaryComponent,
     ProviderSummaryComponent,
     RecommenderCountComponent,
@@ -282,6 +284,7 @@ import { TranslationModule } from 'src/app/modules/i18n';
     TablesWidget16Component,
     CardsWidget18Component,
 
+    RecommendersComponent,
     RecommendationsLatestComponent,
     RecommenderSummaryComponent,
     ProviderSummaryComponent,

@@ -1,0 +1,75 @@
+<div class="row gy-5 gx-xl-8" *ngIf="this.recommenders?.length">
+  <div class="col-xl-8">
+      <div
+      class="card-header border-0 pt-5"
+
+      >
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Sağlık Elçileriniz</span>
+
+        </h3>
+        <div
+          class="card-toolbar"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-trigger="hover"
+        >
+          <span class="btn">
+            <i class="fa-solid fa-rotate" (click)="load()"></i>
+          </span>
+        </div>
+      </div>
+      <!-- end::Header -->
+      <!-- begin::Body -->
+      <div class="card-body py-3">
+      <!-- begin::Table container -->
+      <div class="table-responsive">
+        <!-- begin::Table -->
+        <table
+          class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+        >
+          <!-- begin::Table head -->
+          <thead>
+            <tr class="fw-bolder text-muted">
+              <th class="min-w-150px">İsim</th>
+              <th class="min-w-120px">Tavsiye</th>
+              <th class="min-w-120px">Skor</th>
+            </tr>
+          </thead>
+          <!-- end::Table head -->
+          <!-- begin::Table body -->
+          <tbody>
+            <tr
+              *ngFor="let item of this.recommenders"
+            >
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="symbol symbol-25px me-5">
+                    <img src="./assets/media/avatars/blank.png" alt="" />
+                  </div>
+                  <div class="d-flex justify-content-start flex-column">
+                    <span class="text-dark fw-bolder fs-6">
+                      {{ item.name }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center">
+                {{item.total}}
+              </td>
+              <td class="text-center">
+                {{item.sold}}
+              </td>
+            </tr>
+          </tbody>
+          <!-- end::Table body -->
+        </table>
+        <!-- end::Table -->
+      </div>
+      <!-- end::Table container -->
+      </div>
+      <!-- begin::Body -->
+
+  </div>
+</div>
+

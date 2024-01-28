@@ -9,6 +9,7 @@ export class UserModel extends AuthModel {
   email: string;
   phoneNumber: string;
   account: {
+    uid: string;
     name: string;
     invitationCode: string;
     hashedEncryptionKey: string;
