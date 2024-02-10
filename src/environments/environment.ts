@@ -7,9 +7,9 @@ export const environment = {
   appVersion: 'v8.1.8',
   USERDATA_KEY: 'token',
   isMockEnabled: true,
-  wsUrl: 'https://192.168.1.22/',
-  apiUrl: 'https://192.168.1.22/api/',
-  appUrl: 'http://192.168.1.22:4200/',
+  wsUrl: 'https://192.168.1.42/',
+  apiUrl: 'https://192.168.1.42/api/',
+  appUrl: 'http://192.168.1.42:4200/',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',
   appHTMLIntegration:
