@@ -9,6 +9,7 @@ import { InviteComponent } from './components/invite/invite.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RecommendThanksComponent } from './components/recommend-thanks/recommend-thanks.component';
+import { LandingRecommenderComponent } from './components/recommender/recommender.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RecommendThanksComponent } from './components/recommend-thanks/recommen
     InviteComponent,
     RecommendThanksComponent,
     LandingComponent,
+    LandingRecommenderComponent
   ],
   imports: [
     CommonModule,
