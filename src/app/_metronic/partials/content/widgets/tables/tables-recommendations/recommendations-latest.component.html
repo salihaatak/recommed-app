@@ -31,7 +31,7 @@
       Henüz hiç tavsiyeniz yok. Tavsiye Et Kazan düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek gelir fırsatı demek :)
     </ng-container>
     <ng-container *ngIf="this.appService.role !== 'r'">
-      Henüz hiç gelen bir tavsiye müşteri yok. Sizden memnun olan eski müşterilerinizi Sağlık Elçisi Davet Et düğmesiyle davet edin.
+      Henüz hiç gelen bir tavsiye müşteri yok. Sizden memnun olan eski müşterilerinizi Marka Elçisi Davet Et düğmesiyle davet edin.
     </ng-container>
   </div>
 
@@ -67,7 +67,7 @@
                 <span class="text-muted fw-bold text-muted d-block fs-7">
                   {{ item.createdAtFormatted }}
                   <ng-container *ngIf="this.appService.role !== 'r'">
-                    tarihinde {{item.by?.createdBy?.name}} isimli Sağlık Elçisi tarafından
+                    tarihinde {{item.by?.createdBy?.name}} isimli Marka Elçisi tarafından
                   </ng-container>
                 </span>
               </div>
@@ -173,7 +173,7 @@
     </div>
 
     <div class="row mb-4">
-      <label class="col-3 fw-bold text-muted">Sağlık Elçisi</label>
+      <label class="col-3 fw-bold text-muted">Marka Elçisi</label>
 
       <div class="col-9 fv-row">
         <span class="fw-bold fs-6">{{recommendation ? recommendation.by?.createdBy.name : ''}}</span>
@@ -265,7 +265,7 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Sağlık Elçisine ödül hakedişi kayıt altına alınacak ve mesajla
+              Marka Elçisine ödül hakedişi kayıt altına alınacak ve mesajla
               haber verilecektir. Tutarı doğru girdiğinizden emin olun.
               Müşteriye bir mesaj gönderilmeyecektir.
             </div>
@@ -305,9 +305,9 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Sağlık Elçisi bir hakediş elde eder.
+              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Marka Elçisi bir hakediş elde eder.
               Lütfen telefon numarasını ve ismi kendi kayıtlarınızda kontrol edin. Aktif görüştüğünüz bir kişiyse kabul etmeyin.
-              Yaptığınız işlemden Sağlık Elçisi özel bildirimle haberdar edilir.
+              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
 
             </div>
           </div>
@@ -347,7 +347,7 @@
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
               Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız. İleride bu numaranın başkası tarafından tavsiye edilmesi mümkün olmayacaktır.
-              Yaptığınız işlemden Sağlık Elçisi özel bildirimle haberdar edilir.
+              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
 
             </div>
           </div>
@@ -429,9 +429,9 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Sağlık Elçisi bir hakediş elde eder.
+              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Marka Elçisi bir hakediş elde eder.
               Lütfen telefon numarasını ve ismi kendi kayıtlarınızda kontrol edin. Aktif görüştüğünüz bir kişiyse kabul etmeyin.
-              Yaptığınız işlemden Sağlık Elçisi özel bildirimle haberdar edilir.
+              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
 
             </div>
           </div>
@@ -471,7 +471,7 @@
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
               Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız. İleride bu numaranın başkası tarafından tavsiye edilmesi mümkün olmayacaktır.
-              Yaptığınız işlemden Sağlık Elçisi özel bildirimle haberdar edilir.
+              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
 
             </div>
           </div>
