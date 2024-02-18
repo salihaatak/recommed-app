@@ -27,10 +27,12 @@ export class InviteComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {;
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
     this.unsubscribe.push(this.appService
-      .post("user/check-invitation", {hashedEncryptionKey: CryptoJS.SHA256(this.route.snapshot.paramMap.get('invitationCode') || "").toString()}, false)
+      .post("user/check-invitation", {
+        invitationCode: this.route.snapshot.paramMap.get('invitationCode')
+      }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;

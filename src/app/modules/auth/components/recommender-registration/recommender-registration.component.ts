@@ -20,7 +20,6 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   hasError: boolean;
   accountName: string;
-  encryptionKey: string;
   phoneNumber: intlTelInput.Plugin;
 
   // private fields
@@ -29,8 +28,8 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     public appService: AppService,
+    public route: ActivatedRoute,
     private router: Router,
-    private route: ActivatedRoute,
     private httpService: HttpClient
   ) {
     // redirect to home if already logged in
@@ -40,10 +39,9 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.encryptionKey = localStorage.getItem("encryptionKey") || "";
-    if (this.encryptionKey){
+    if (this.route.snapshot.paramMap.get('invitationCode')){
       const subscr = this.appService
-      .post("user/check-invitation", {hashedEncryptionKey: CryptoJS.SHA256(this.encryptionKey).toString()}, false)
+      .post("user/check-invitation", {invitationCode: this.route.snapshot.paramMap.get('invitationCode')}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;
@@ -129,7 +127,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
         {
           firebaseToken: localStorage.getItem("firebase_token"),
           deviceId: localStorage.getItem("device_id"),
-          hashedEncryptionKey: CryptoJS.SHA256(localStorage.getItem("encryptionKey") || "").toString(CryptoJS.enc.Hex),
+          invitationCode: this.route.snapshot.paramMap.get('invitationCode'),
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),

@@ -7,6 +7,7 @@ import { AppService } from '../../services/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as intlTelInput from 'intl-tel-input';
 import { HttpClient } from '@angular/common/http';
+import { ApiResultModel } from '../../models/api-result.mode';
 declare global {
   interface Window { WebView: any; }
   interface Window { selectContactsCallbackTS: any; }
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   hasError: boolean;
   returnUrl: string;
   phoneNumber: intlTelInput.Plugin;
+  phoneEntered: boolean = false;
 
   public contacts: string;
   public location: string;
@@ -63,17 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.form1 = this.fb.group({
-      /*
-      contact: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(320),
-        ]),
-      ],
-      */
-      password: [
+      verificationCode: [
         null
       ],
     });
@@ -91,12 +83,44 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  back(){
+    this.phoneEntered = false;
+  }
+
+  sendVerificationCode(){
+    const s = this.appService
+      .post(
+        "user/send-login-verification-code",
+        {
+          phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
+        },
+        false
+      )
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          this.phoneEntered = true;
+        } else {
+          this.hasError = true;
+        }
+      });
+    this.unsubscribe.push(s);
+
+  }
+
   submit() {
     this.hasError = false;
-    const loginSubscr = this.appService
-      .login(this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164), this.form1.controls.password.value)
-      .subscribe((user: UserModel | undefined) => {
-        if (user) {
+    const s = this.appService
+      .post(
+        "user/login-with-verification-code",
+        {
+          phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
+          verificationCode: this.form1.controls["verificationCode"].value
+        },
+        false
+      )
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          localStorage.setItem("token", result.data.token);
           this.appService.me().subscribe(()=>{
             this.router.navigate([this.appService.getDashboardRoute()]);
           })
@@ -104,7 +128,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.hasError = true;
         }
       });
-    this.unsubscribe.push(loginSubscr);
+    this.unsubscribe.push(s);
   }
 
   ngOnDestroy() {

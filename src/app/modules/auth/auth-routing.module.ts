@@ -45,7 +45,7 @@ const routes: Routes = [
         component: InvitationComponent,
       },
       {
-        path: 'recommender/registration',
+        path: 'recommender/registration/:invitationCode',
         component: RecommenderRegistrationComponent,
       },
       {

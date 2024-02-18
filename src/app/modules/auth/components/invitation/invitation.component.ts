@@ -51,12 +51,10 @@ export class InvitationComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const encryptionKey = this.form1.controls["invitationCode"].value;
-    localStorage.setItem("encryptionKey", encryptionKey);
 
     const subscr = this.appService
       .post("user/check-invitation", {
-        hashedEncryptionKey: CryptoJS.SHA256(encryptionKey).toString(CryptoJS.enc.Hex)
+        invitationCode: this.form1.controls["invitationCode"].value
       }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {

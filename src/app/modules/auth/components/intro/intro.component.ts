@@ -54,16 +54,14 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const encryptionKey = this.form1.controls["invitationCode"].value;
-    localStorage.setItem("encryptionKey", encryptionKey);
 
     const subscr = this.appService
       .post("user/check-invitation", {
-        hashedEncryptionKey: CryptoJS.SHA256(encryptionKey).toString(CryptoJS.enc.Hex)
+        invitationCode: this.form1.controls["invitationCode"].value
       }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.router.navigate(['/auth/recommender/registration/']);
+          this.router.navigate(['/auth/recommender/registration/' + this.form1.controls["invitationCode"].value]);
         } else {
           this.hasError = true;
         }

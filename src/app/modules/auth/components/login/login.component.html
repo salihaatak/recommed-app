@@ -1,133 +1,92 @@
 
-<div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-  <a routerLink="/auth" class="link-primary">
-    {{'T.BACK' | translate}}
-  </a>
-</div>
 
 
 <!--begin::Form-->
 <form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" id="kt_login_signin_form"
   (ngSubmit)="submit()">
-  <!--begin::Heading-->
-  <div class="text-center mb-11">
-    <h1 class="text-dark fw-bolder mb-3">
-      {{'T.LOGIN' | translate}}
-    </h1>
-    <!--begin::Subtitle-->
-    <div class="text-gray-500 fw-semibold fs-6">
 
-    </div>
-    <!--end::Subtitle--->
-    <!-- <div class="text-gray-400 fw-bold fs-4">
-      New Here?
-      <a
-        routerLink="/auth/registration"
-        id="kt_login_signup"
-        class="link-primary fw-bolder"
-        >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a
-      >
-    </div> -->
-  </div>
-  <!--end::Heading-->
 
-  <!--
-  <ng-container *ngIf="!hasError">
-    <div class="mb-10 bg-light-info p-8 rounded">
-      <div class="text-info">
-       Cep telefonu veya e-posta adresi giriniz
+      <!-- begin::Alert error-->
+      <ng-container *ngIf="hasError">
+        <div class="mb-lg-15 alert alert-danger">
+          <div class="alert-text font-weight-bold">
+            {{'T.CAN_NOT_LOGIN' | translate}}
+          </div>
+        </div>
+      </ng-container>
+      <!-- end::Alert error-->
+
+
+      <div *ngIf="!this.phoneEntered">
+        <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+          <a routerLink="/auth" class="link-primary">
+            {{'T.BACK' | translate}}
+          </a>
+        </div>
       </div>
-    </div>
-  </ng-container>
-  -->
 
-  <!-- begin::Alert error-->
-  <ng-container *ngIf="hasError">
-    <div class="mb-lg-15 alert alert-danger">
-      <div class="alert-text font-weight-bold">
-        {{'T.CAN_NOT_LOGIN' | translate}}
+
+      <div *ngIf="this.phoneEntered">
+        <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+          <a (click)="back()" class="link-primary">
+            {{'T.BACK' | translate}}
+          </a>
+        </div>
       </div>
+
+
+      <!--begin::Heading-->
+      <div class="text-center mb-11">
+        <h1 class="text-dark fw-bolder mb-3">
+          {{'T.LOGIN' | translate}}
+        </h1>
+      </div>
+      <!--end::Heading-->
+
+
+      <!--begin::Form group-->
+      <div class="fv-row mb-4">
+        <input class="form-control" type="tel" id="phoneNumberLogin" name="phoneNumber">
+      </div>
+
+
+      <!--begin::Action-->
+      <div class="d-grid mb-10" *ngIf="!this.phoneEntered">
+        <button type="button" (click)="sendVerificationCode()" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
+          Devam
+          <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+        </button>
+      </div>
+
+
+
+    <div class="fv-row mb-3" *ngIf="this.phoneEntered">
+
+      <input class="form-control" placeholder="SMS Giriş Kodu" type="number" name="verificationCode" autocomplete="off"
+        formControlName="verificationCode" />
+
     </div>
-  </ng-container>
-  <!-- end::Alert error-->
 
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <input class="form-control" type="tel" id="phoneNumberLogin" name="phoneNumber">
+    <!--begin::Action-->
+    <div class="d-grid mb-10" *ngIf="this.phoneEntered">
+      <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
+        {{'T.LOGIN' | translate}}
+        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+      </button>
+    </div>
 
-    <!--
-    <input class="form-control bg-transparent" type="text" placeholder="{{'T.PHONE' | translate}}" name="contact" formControlName="contact" autocomplete="off"
-      [ngClass]="{
-        'is-invalid': form1.controls['contact'].invalid,
-        'is-valid': form1.controls['contact'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Cep telefonu gerekli',
-        control: form1.controls['contact']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minLength',
-        message: 'En az 10 hane olmalı',
-        control: form1.controls['contact']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'En fazla 360 hane olabilir',
-        control: form1.controls['contact']
-      }"></ng-container>
-    -->
-
-  </div>
   <!--end::Form group-->
 
-  <!--begin::Form group-->
-  <div class="fv-row mb-3">
 
-    <input class="form-control bg-transparent" placeholder="{{'T.PASSWORD' | translate}}" type="password" name="password" autocomplete="off"
-      formControlName="password" />
 
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Wrapper-->
-  <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-    <div></div>
-
-    <!--begin::Link-->
-    <a routerLink="/auth/forgot-password" class="link-primary">
-      {{'T.FORGOT_PASSWORD' | translate}}
-    </a>
-    <!--end::Link-->
-  </div>
-  <!--end::Wrapper-->
-
-  <!--begin::Action-->
-  <div class="d-grid mb-10">
-    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
-      {{'T.LOGIN' | translate}}
-      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
-    </button>
-  </div>
-
-  <!--
-  <div class="d-grid mb-10">
-    <button type="button" (click)="btnGetLocationClick()" id="kt_sign_in_submit" class="btn btn-primary">
-        <span class="indicator-label">Konum</span>
-    </button>
-    {{location}}
-  </div>
-
-  <div class="d-grid mb-10">
-    <button type="button" (click)="btnLikeClick()" id="kt_sign_in_submit" class="btn btn-primary">
-        <span class="indicator-label">Like</span>
-    </button>
-  </div>
-  -->
 
   <!--end::Action-->
 </form>
 <!--end::Form-->
+
+
+
+
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
   <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">

@@ -18,7 +18,6 @@ export class RecommendComponent implements OnInit, OnDestroy {
   hasError: boolean = false;
   recommenderName: string;
   recommenderUid: string;
-  encryptionKey: string;
   phoneNumber: intlTelInput.Plugin;
 
   private unsubscribe: Subscription[] = [];
@@ -34,9 +33,8 @@ export class RecommendComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.recommenderUid = this.route.snapshot.paramMap.get('recommenderUid') || "";
-    this.encryptionKey = this.route.snapshot.paramMap.get('encryptionKey') || "";
 
-    if (this.recommenderUid && this.encryptionKey){
+    if (this.recommenderUid){
       const subscr = this.appService
       .post("user/get-recommender", {uid: this.recommenderUid}, false)
       .subscribe((result: ApiResultModel | undefined) => {
@@ -96,7 +94,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
         {
           recommenderUid: this.recommenderUid,
           name: this.form1.controls["name"].value,
-          phoneNumber: CryptoJS.AES.encrypt(this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164), this.encryptionKey).toString() ,
+          phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
         },
         false
       )

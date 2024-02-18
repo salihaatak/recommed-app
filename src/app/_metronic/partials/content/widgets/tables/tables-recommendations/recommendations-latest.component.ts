@@ -204,14 +204,7 @@ export class RecommendationsLatestComponent implements OnInit {
     return this.appService.post("recommendation/get", {uid: this.currentRecommendationUid}).subscribe((result: ApiResultModel | undefined) => {
       this.recommendation = result?.data.recommendation;
 
-      const decryptedPhoneNumber = CryptoJS.AES.decrypt(this.recommendation.phoneNumber, localStorage.getItem("encryptionKey") || "").toString(CryptoJS.enc.Utf8);
-
-      console.log(this.recommendation.phoneNumber);
-      console.log(localStorage.getItem("encryptionKey"));
-      console.log(decryptedPhoneNumber);
-      if (decryptedPhoneNumber){
-        this.recommendation.phoneNumber = decryptedPhoneNumber;
-      }
+      this.recommendation.phoneNumber = this.recommendation.phoneNumber;
 
       if (this.recommendation.phoneNumberHidden) {
         this.recommendation.phoneNumber = this.appService.mask(this.recommendation.phoneNumber);

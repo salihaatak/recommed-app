@@ -1,8 +1,8 @@
 
 <!--begin::Heading-->
 <div class="text-center mb-11">
-  <p class="text-dark fw-bolder mb-20">
-    <img alt="Logo" src="https://recommed.co/media/recommed/web-logo-colored-text.svg" class="h-30px" />
+  <p class="text-dark fw-bolder mb-20 fs-5">
+   TAVSİYEYLE YAYILAN KALİTE
   </p>
   <!--begin::Subtitle-->
   <div class="text-gray-500 fw-semibold fs-6 mb-10">
@@ -40,7 +40,7 @@
   <div class="fv-row mb-8 text-center">
 
     <label class="form-label  fs-6">Doğrulama Kodu:</label>
-    <input class="form-control bg-white text-center" type="text" name="invitationCode" formControlName="invitationCode"
+    <input class="form-control bg-white text-center" type="number" name="invitationCode" formControlName="invitationCode"
       placeholder="* * * * * *" autocomplete="off" [ngClass]="{
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -87,9 +87,9 @@
 
 
 <div class="text-center">
-  <div class="fw-semibold text-gray-500">İşletmeniz mi var?:</div>
+  <div class="fw-semibold text-gray-500">İşletmen mi var?:</div>
   <a class="fw-bold" routerLink="account/registration">
-    Kaydolun
+    Kaydol
   </a>
 </div>
 

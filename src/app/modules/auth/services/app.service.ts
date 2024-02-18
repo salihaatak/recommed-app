@@ -136,7 +136,6 @@ export class AppService implements OnDestroy {
 
   logout() {
     localStorage.removeItem("token");
-    //localStorage.removeItem("encryptionKey");
     this.currentUserSubject.next(undefined);
     this.router.navigate(['/auth'], {
       queryParams: {},

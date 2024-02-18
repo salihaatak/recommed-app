@@ -20,7 +20,7 @@ const routes: Routes = [
         component: RecommendThanksComponent,
       },
       {
-        path: 'r/:recommenderUid/:encryptionKey',
+        path: 'r/:recommenderUid',
         component: RecommendComponent,
       },
       {
