@@ -30,7 +30,7 @@
   <ng-container *ngIf="hasError">
     <div class="mb-lg-15 alert alert-danger">
       <div class="alert-text font-weight-bold">
-        Davet kodu doğrulanamadı. Lütfen büyük küçük harfi doğru girdiğinizden emin olun.
+        Doğrulama kodu geçerli değil. Lütfen büyük küçük harfi doğru girdiğinizden emin olun.
       </div>
     </div>
   </ng-container>
@@ -39,15 +39,13 @@
   <!--begin::Form group-->
   <div class="fv-row mb-8 text-center">
 
-    <label class="form-label  fs-6">Davet Kodu:</label>
-
-
+    <label class="form-label  fs-6">Doğrulama Kodu:</label>
     <input class="form-control bg-white text-center" type="text" name="invitationCode" formControlName="invitationCode"
       placeholder="* * * * * *" autocomplete="off" [ngClass]="{
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Davet kodu gerekli',
+        message: 'Doğrulama kodu gerekli',
         control: form1.controls['invitationCode']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
