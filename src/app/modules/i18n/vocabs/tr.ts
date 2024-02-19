@@ -4,7 +4,7 @@ export const locale = {
   data: {
     T: {
       OR: 'veya',
-      INTRO: 'Aldığınız hizmeti çevrenize tavsiye ederek hem kaliteli hizmetle tanışmalarını sağlayın hem de düzenli ek gelir elde edin.',
+      INTRO: 'Aldığınız hizmeti çevrenize tavsiye ederek hayatlarını değiştirirken aynı zamanda işletmenizin size özel cazip avantalarından yararlanın',
       //INTRO: 'Kazandıran Recommed modeli: Hizmet aldığınız işletmeyi çevrenize tavsiye ederek işletmeye yeni müşteri kazandırırsınız. Bunun karşılığında işletme sosyal medya reklamlarına ödeme yapmak yerine size ödeme yapar.',
       REGISTER: 'Kaydol',
       REGISTER_BUSINESS: 'İşletme kaydı',
