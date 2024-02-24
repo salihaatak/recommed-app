@@ -36,37 +36,6 @@ export class IntroComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initForm();
-  }
-
-  initForm() {
-    this.form1 = this.fb.group(
-      {
-        invitationCode: [
-          '',
-          Validators.compose([
-            Validators.required,
-          ]),
-        ]
-      }
-    );
-  }
-
-  submit() {
-    this.hasError = false;
-
-    const subscr = this.appService
-      .post("user/check-invitation", {
-        invitationCode: this.form1.controls["invitationCode"].value
-      }, false)
-      .subscribe((result: ApiResultModel | undefined) => {
-        if (result?.success) {
-          this.router.navigate(['/auth/recommender/registration/' + this.form1.controls["invitationCode"].value]);
-        } else {
-          this.hasError = true;
-        }
-      });
-    this.unsubscribe.push(subscr);
   }
 
   ngOnDestroy() {

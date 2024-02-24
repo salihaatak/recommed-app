@@ -58,7 +58,7 @@ export class InvitationComponent implements OnInit, OnDestroy {
       }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.router.navigate(['/auth/recommender/registration/']);
+          this.router.navigate(['/l/i/' + this.form1.controls["invitationCode"].value]);
         } else {
           this.hasError = true;
         }

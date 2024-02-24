@@ -1,42 +1,117 @@
 
 <!--begin::Heading-->
 <div class="text-center mb-11">
-  <p class="fw-bolder mb-10 fs-3">
+  <p class="pacifico-header" *ngIf="!this.phoneVerified">
+    Tavsiyeyle yayılan mutluluk!
+   </p>
+
+  <p class="fw-bolder mb-10 fs-3" *ngIf="!this.phoneVerified">
     {{this.accountName}}
     <i class="fa-solid fa-certificate text-primary"></i>
   </p>
   <!--begin::Subtitle-->
-  <div class="text-gray-500 fw-semibold fs-6 mb-10">
-
-    Bizi çevrenize tavsiye ederek
-    hem kaliteli hizmetle tanışmalarını sağlayın hem de düzenli ek gelir elde edin.
-    Sınırlı sayıda hastamıza sunduğumuz bu faydalı, şeffaf ve avantajlı teklifi kaçırmayın.
+  <div class="text-gray-500 fw-semibold fs-6 mb-10" *ngIf="!this.phoneEntered && !this.phoneVerified">
+    Aldığınız hizmeti çevrenize Recommed üzerinden tavsiye ederek
+    <span>ücretsiz kapsamlı muayene hakkı</span> elde etmelerini ve <span>tüm hizmetlerde %10 indirim</span> kazanmalarını sağlayabilirsiniz.
+    Üstelik her tavsiyede sizi cazip fırsatlar bekliyor!
   </div>
 
-  <p class="text-gray-600 fs-6">
-    Doğrulama Kodu:
-  </p>
+    <!--begin::Form-->
+    <form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" id="kt_login_signin_form" *ngIf="!phoneVerified">
 
-  <p class="fw-bolder text-gray-600 mb-20 fs-1" style="font-family: 'Courier New', Courier, monospace;">
-    {{this.invitationCode}}
-  </p>
 
-  <!--end::Subtitle--->
-  <!-- <div class="text-gray-400 fw-bold fs-4">
-    New Here?
-    <a
-      routerLink="/auth/registration"
-      id="kt_login_signup"
-      class="link-primary fw-bolder"
-      >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a
-    >
-  </div> -->
+          <!-- begin::Alert error-->
+          <ng-container *ngIf="hasError">
+            <div class="mb-lg-15 alert alert-danger">
+              <div class="alert-text font-weight-bold">
+                {{'T.CAN_NOT_LOGIN' | translate}}
+              </div>
+            </div>
+          </ng-container>
+          <!-- end::Alert error-->
+
+
+          <div *ngIf="this.phoneEntered">
+            <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+              <a (click)="back()" class="link-primary">
+                {{'T.BACK' | translate}}
+              </a>
+            </div>
+          </div>
+
+
+          <!--begin::Heading-->
+          <div class="text-center mb-11" *ngIf="!this.phoneEntered">
+            <b class="text-dark fw-bolder mb-3">
+              Telefon Doğrulaması:
+            </b>
+          </div>
+          <!--end::Heading-->
+
+          <!--begin::Heading-->
+          <div class="text-center mb-11" *ngIf="this.phoneEntered">
+            <b class="text-dark fw-bolder mb-3">
+              Kodu Giriniz:
+            </b>
+          </div>
+          <!--end::Heading-->
+
+          <!--begin::Form group-->
+          <div class="fv-row mb-4">
+            <input class="form-control" type="tel" id="phoneNumberLogin" name="phoneNumber">
+          </div>
+
+
+          <!--begin::Action-->
+          <div class="d-grid mb-10" *ngIf="!this.phoneEntered">
+            <button type="button" (click)="sendVerificationCode()" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
+              Devam
+              <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+            </button>
+          </div>
+
+
+
+        <div class="fv-row mb-3" *ngIf="this.phoneEntered">
+
+          <input class="form-control" placeholder="Tek Kullanımlık SMS Şifre" type="number" pattern="\d*" name="verificationCode" autocomplete="off"
+            formControlName="verificationCode" />
+
+        </div>
+
+        <!--begin::Action-->
+        <div class="d-grid mb-10" *ngIf="this.phoneEntered">
+          <button (click)="submit()" type="button" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
+            Devam
+            <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+          </button>
+        </div>
+
+      <!--end::Form group-->
+
+
+
+
+      <!--end::Action-->
+    </form>
+    <!--end::Form-->
+
+
 </div>
 <!--end::Heading-->
 
 <!--begin::Login options-->
-<div class="row g-3 mb-9">
-  <!--begin::Col-->
+<div class="row g-3 mb-9" *ngIf="this.phoneVerified">
+  <div class="text-center mb-11">
+    <h2 class="text-dark fw-bolder mb-3">
+      Başlamaya hazırsın!
+    </h2>
+  </div>
+  <div class="text-gray-500 fw-semibold fs-6 mb-10">
+    Doktorunu tavsiye etmeye başlamak için hemen sana uygun uygulamayı kur:
+  </div>
+
+    <!--begin::Col-->
   <div class="col-md-6">
     <!--begin::Google link--->
     <a href="https://play.google.com/store/apps/details?id=com.hk.recommed"
@@ -62,20 +137,3 @@
 </div>
 <!--end::Login options-->
 
-<div class="separator separator-content my-14" *ngIf="false">
-  <span class="w-125px text-gray-500 fw-semibold fs-7">Kurdun mu?</span>
-</div>
-<!--end::Separator-->
-
-
-
-<div class="text-gray-500 text-center fw-semibold fs-6" *ngIf="false">
-  <a routerLink="/auth/login" class="link-primary">
-    Uygulamayı Aç
-  </a>
-</div>
-
-
-<div class="text-gray-500 text-center fw-semibold fs-6 mt-20">
-  Powered by <b>Recommed</b>
-</div>

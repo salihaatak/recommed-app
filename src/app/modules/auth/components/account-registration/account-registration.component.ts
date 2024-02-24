@@ -76,22 +76,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
             Validators.minLength(10),
           ]),
         ],
-        password: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(100),
-          ]),
-        ],
-        cPassword: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(100),
-          ]),
-        ],
         agree: [false, Validators.compose([Validators.required])],
         agreeOptin: [false, Validators.compose([Validators.required])],
       },
@@ -123,7 +107,6 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
           lastName: this.form1.controls["lastName"].value,
           accountName: this.form1.controls["accountName"].value,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
-          password: this.form1.controls["password"].value,
           optin: this.form1.controls["agreeOptin"].value,
           firebaseToken: localStorage.getItem("firebase_token"),
           deviceId: localStorage.getItem("device_id")

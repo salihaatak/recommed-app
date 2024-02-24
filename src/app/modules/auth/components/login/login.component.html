@@ -1,99 +1,117 @@
 
 
+<ng-container *ngIf="error">
+  <div class="mb-lg-15 alert alert-danger">
+    <div class="alert-text font-weight-bold">
+      {{error}}
+    </div>
+  </div>
+</ng-container>
 
-<!--begin::Form-->
-<form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" id="kt_login_signin_form"
-  (ngSubmit)="submit()">
-
-
-      <!-- begin::Alert error-->
-      <ng-container *ngIf="hasError">
-        <div class="mb-lg-15 alert alert-danger">
-          <div class="alert-text font-weight-bold">
-            {{'T.CAN_NOT_LOGIN' | translate}}
-          </div>
-        </div>
-      </ng-container>
-      <!-- end::Alert error-->
-
-
+<form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" >
       <div *ngIf="!this.phoneEntered">
+            <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+              <a routerLink="/auth" class="link-primary">
+                {{'T.BACK' | translate}}
+              </a>
+            </div>
+
+            <div class="text-center mb-11">
+              <h1 class="text-dark fw-bolder mb-3">
+                Giriş
+              </h1>
+            </div>
+
+            <div class="fv-row mb-10">
+              <input class="form-control" type="tel" id="phoneNumberLogin" name="phoneNumber">
+            </div>
+
+            <div class="d-grid" *ngIf="!this.phoneEntered">
+              <button type="button" (click)="sendLoginVerificationCode()" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
+                Devam
+                <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+              </button>
+            </div>
+      </div>
+
+
+      <div *ngIf="this.phoneEntered && !this.loginVerificationCodeEntered">
+            <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+              <a href="auth/login" class="link-primary">
+                {{'T.BACK' | translate}}
+              </a>
+            </div>
+
+            <div class="text-center mb-11">
+              <h1 class="text-dark fw-bolder mb-3">
+                Cep Telefonu Kontrolü
+              </h1>
+            </div>
+
+            <input class="form-control mb-10" placeholder="Tek Kullanımlık SMS Şifre" type="number" pattern="\d*" name="loginVerificationCode" autocomplete="off"
+            formControlName="loginVerificationCode" />
+
+            <div class="d-grid">
+              <button type="button" (click)="submit();" class="btn btn-primary" [disabled]="form1.invalid">
+                {{'T.LOGIN' | translate}}
+                <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+              </button>
+
+            </div>
+      </div>
+
+      <div *ngIf="this.loginVerificationCodeEntered">
         <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-          <a routerLink="/auth" class="link-primary">
+          <a href="auth/login" class="link-primary">
             {{'T.BACK' | translate}}
           </a>
         </div>
-      </div>
 
-
-      <div *ngIf="this.phoneEntered">
-        <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-          <a (click)="back()" class="link-primary">
-            {{'T.BACK' | translate}}
-          </a>
+        <div class="text-center mb-11">
+          <h1 class="text-dark fw-bolder mb-3">
+            Doğrulama
+          </h1>
         </div>
+
+        <input class="form-control mb-10" placeholder="Doğrulama Kodu" type="number" pattern="\d*" name="invitationCode" autocomplete="off"
+        formControlName="invitationCode" *ngIf="!this.invitationCode" />
+
+        <input class="form-control mb-10" placeholder="Adınız" type="text" name="firstName" autocomplete="off"
+        formControlName="firstName" />
+
+        <input class="form-control mb-10" placeholder="Soyadınız" type="text" name="lastName" autocomplete="off"
+        formControlName="lastName" />
+
+
+        <div class="fv-row mb-10">
+          <label class="form-check form-check-inline">
+            <input id="kt_login_optin_agree" type="radio" formControlName="sex" value="m" class="form-check-input" />
+            <span for="kt_login_optin_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+              Erkek
+            </span>
+          </label>
+          <label class="form-check form-check-inline">
+            <input id="kt_login_optin_agree" type="radio" formControlName="sex" value="f" class="form-check-input" />
+            <span for="kt_login_optin_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+              Kadın
+            </span>
+          </label>
+        </div>
+
+
+
+        <div class="d-grid">
+          <button type="button" (click)="loginWithInvitationCode();" class="btn btn-primary" [disabled]="form1.invalid">
+            {{'T.LOGIN' | translate}}
+            <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+          </button>
+
+        </div>
+
       </div>
 
 
-      <!--begin::Heading-->
-      <div class="text-center mb-11">
-        <h1 class="text-dark fw-bolder mb-3">
-          {{'T.LOGIN' | translate}}
-        </h1>
-      </div>
-      <!--end::Heading-->
-
-
-      <!--begin::Form group-->
-      <div class="fv-row mb-4">
-        <input class="form-control" type="tel" id="phoneNumberLogin" name="phoneNumber">
-      </div>
-
-
-      <!--begin::Action-->
-      <div class="d-grid mb-10" *ngIf="!this.phoneEntered">
-        <button type="button" (click)="sendVerificationCode()" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
-          Devam
-          <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
-        </button>
-      </div>
-
-
-
-    <div class="fv-row mb-3" *ngIf="this.phoneEntered">
-
-      <input class="form-control" placeholder="SMS Giriş Kodu" type="number" name="verificationCode" autocomplete="off"
-        formControlName="verificationCode" />
-
-    </div>
-
-    <!--begin::Action-->
-    <div class="d-grid mb-10" *ngIf="this.phoneEntered">
-      <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
-        {{'T.LOGIN' | translate}}
-        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
-      </button>
-    </div>
-
-  <!--end::Form group-->
-
-
-
-
-  <!--end::Action-->
 </form>
-<!--end::Form-->
 
 
 
-
-
-<ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="fv-plugins-message-container">
-      <span role="alert">
-        {{ message }}
-      </span>
-    </div>
-  </ng-container>
-</ng-template>

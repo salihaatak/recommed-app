@@ -73,31 +73,6 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
-        /*
-        phoneNumber: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(10),
-          ]),
-        ],
-        */
-        password: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(100),
-          ]),
-        ],
-        cPassword: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(100),
-          ]),
-        ],
         agree: [true, Validators.compose([Validators.required])],
         optin: [false, Validators.compose([Validators.required])],
       },
@@ -131,7 +106,6 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
-          password: this.form1.controls["password"].value,
           optin: this.form1.controls["optin"].value
         },
         false

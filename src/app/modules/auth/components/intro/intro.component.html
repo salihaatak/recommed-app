@@ -1,13 +1,38 @@
 
 <!--begin::Heading-->
-<div class="text-center mb-11">
-  <p class="pacifico-header">
+<div class="mb-11">
+  <p class="pacifico-header text-center">
    Tavsiyeyle yayılan mutluluk!
   </p>
   <!--begin::Subtitle-->
-  <div class="text-gray-500 fw-semibold fs-6 mb-10 ">
-    Aldığınız kaliteli hizmeti çevrenize tavsiye ederek hayatlarına güzel bir dokunuş yapabilirsiniz.
-    Üstelik onlar ücretsiz muayene hakkı elde ederken siz cazip avantalarından yararlanabilirsiniz!
+  <div class="text-center fw-semibold fs-4 mb-10 ">
+    <div style="
+    display: inline-block;
+    padding: 7px 10px;
+    background: #a3faff;
+    color: black;
+    font-size: 13px; margin-bottom: 9px;
+"><i class="fa-solid fa-star" style="color: black;"></i> Ücretsiz kapsamlı muayene hakkı</div>
+    <div style="
+    display: inline-block;
+    padding: 7px 10px;
+    background: #a3faff;
+    color: black;
+    font-size: 13px; margin-bottom: 9px;
+"><i class="fa-solid fa-star" style="color: black;"></i> Tüm hizmetlerde %10 indirim</div>
+
+  <div style="margin-top: 10px;">
+    Aldığınız hizmeti çevrenize Recommed üzerinden tavsiye ederek bu avantajlardan yararlanmalarını sağlayabilirsiniz.
+    Size ayrıca sunulan cazip kampanyayı öğrenmek için hemen kaydolun!
+  </div>
+
+  </div>
+  <div *ngIf="false">
+    <ol>
+      <li>Cep telefonunuzu girerek kaydolun</li>
+      <li>Tavsiye Et Kazan düğmesine dokunun</li>
+      <li>Telefon rehberinizden seçerek, Whatsapp üzerinden veya karekod göstererek tavsiye edin</li>
+    </ol>
   </div>
   <!--end::Subtitle--->
   <!-- <div class="text-gray-400 fw-bold fs-4">
@@ -22,96 +47,17 @@
 </div>
 <!--end::Heading-->
 
+<div class="d-grid mb-10">
 
-<form class="form w-100" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="form1"
-  (ngSubmit)="submit()">
-
-  <!-- begin::Alert error-->
-  <ng-container *ngIf="hasError">
-    <div class="mb-lg-15 alert alert-danger">
-      <div class="alert-text font-weight-bold">
-        Doğrulama kodu geçerli değil. Lütfen büyük küçük harfi doğru girdiğinizden emin olun.
-      </div>
-    </div>
-  </ng-container>
-  <!-- end::Alert error-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8 text-center">
-
-    <label class="form-label  fs-6">Doğrulama Kodu:</label>
-    <input class="form-control bg-white text-center" type="number" name="invitationCode" formControlName="invitationCode"
-      placeholder="* * * * * *" autocomplete="off" [ngClass]="{
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Doğrulama kodu gerekli',
-        control: form1.controls['invitationCode']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'En az 4 haneli olmalı',
-        control: form1.controls['invitationCode']
-      }"></ng-container>
+      <a routerLink="/auth/login" class="btn btn-primary">
+        Başla
+      </a>
   </div>
-  <!--end::Form group-->
 
-  <!--begin::Form group-->
-  <div class="d-grid mb-10">
-    <button type="submit" id="kt_sign_up_submit" [disabled]="
-        form1.invalid
-      " class="btn btn-primary">
-      Devam >
-      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
-    </button>
-  </div>
-  <!--end::Form group-->
-
-
-
-</form>
-
-
-
-<ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="fv-plugins-message-container">
-      <div class="fv-help-block">
-        <span role="alert">
-          {{ message }}
-        </span>
-      </div>
-    </div>
-  </ng-container>
-</ng-template>
 
 
 <div class="text-center">
-  <div class="fw-semibold text-gray-500">İşletmen mi var?:</div>
   <a class="fw-bold" routerLink="account/registration">
-    Kaydol
-  </a>
-</div>
-
-<div class="separator separator-content my-14">
-  <span class="w-125px text-gray-500 fw-semibold fs-7">{{ 'T.OR' | translate }}</span>
-</div>
-
-
-<!--
-<ng-container *ngIf="!hasError">
-  <div class="mb-10 bg-light-info p-8 rounded">
-    <div class="text-info">
-      Cep telefonu veya e-posta adresi giriniz
-    </div>
-  </div>
-</ng-container>
--->
-
-
-<div class=" text-center fs-6">
-  <div class="fw-semibold text-gray-500">{{ 'T.ARE_YOU_REGISTERED' | translate }}:</div>
-  <a routerLink="/auth/login" class="fw-bold">
-    {{ 'T.LOGIN' | translate }}
+    İşletme Kaydı >>
   </a>
 </div>

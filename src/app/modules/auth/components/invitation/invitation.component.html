@@ -35,7 +35,7 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="text" name="invitationCode" formControlName="invitationCode"
+    <input class="form-control bg-transparent" type="number" name="invitationCode" pattern="\d*" formControlName="invitationCode"
       placeholder="Doğrulama kodu" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['invitationCode'].invalid,
         'is-valid': form1.controls['invitationCode'].valid

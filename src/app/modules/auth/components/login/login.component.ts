@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, NgZone, ApplicationRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, NgZone, ApplicationRef, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -19,12 +19,14 @@ declare global {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   form1: FormGroup;
-  hasError: boolean;
+  error: string | undefined | null;
   returnUrl: string;
   phoneNumber: intlTelInput.Plugin;
   phoneEntered: boolean = false;
+  loginVerificationCodeEntered: boolean = false;
+  invitationCode: string;
 
   public contacts: string;
   public location: string;
@@ -63,13 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  initForm() {
-    this.form1 = this.fb.group({
-      verificationCode: [
-        null
-      ],
-    });
-
+  renderPhoneNumberInput() {
     const tel = document.querySelector("#phoneNumberLogin");
     if (tel) {
       this.phoneNumber = intlTelInput(tel, {
@@ -83,11 +79,31 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  back(){
-    this.phoneEntered = false;
+  ngAfterViewInit(): void {
+    this.renderPhoneNumberInput();
   }
 
-  sendVerificationCode(){
+  initForm() {
+    this.form1 = this.fb.group({
+      loginVerificationCode: [
+        null
+      ],
+      invitationCode: [
+        null
+      ],
+      firstName: [
+        null
+      ],
+      lastName: [
+        null
+      ],
+      sex: [
+        null
+      ],
+    });
+  }
+
+  sendLoginVerificationCode(){
     const s = this.appService
       .post(
         "user/send-login-verification-code",
@@ -100,7 +116,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (result?.success) {
           this.phoneEntered = true;
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       });
     this.unsubscribe.push(s);
@@ -108,13 +124,47 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.hasError = false;
+    this.error = null;
     const s = this.appService
       .post(
         "user/login-with-verification-code",
         {
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
-          verificationCode: this.form1.controls["verificationCode"].value
+          loginVerificationCode: this.form1.controls["loginVerificationCode"].value
+        },
+        false
+      )
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result?.success) {
+          if (result.data.token) {
+            localStorage.setItem("token", result.data.token);
+            this.appService.me().subscribe(()=>{
+              this.router.navigate([this.appService.getDashboardRoute()]);
+            })
+          } else {
+            this.loginVerificationCodeEntered = true;
+            this.invitationCode = result.data.invitationCode;
+            this.form1.get('invitationCode')?.setValue(result.data.invitationCode)
+          }
+        } else {
+          this.error = result?.message;
+        }
+      });
+    this.unsubscribe.push(s);
+  }
+
+  loginWithInvitationCode() {
+    this.error = null;
+    const s = this.appService
+      .post(
+        "user/login-with-invitation-code",
+        {
+          phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
+          loginVerificationCode: this.form1.controls["loginVerificationCode"].value,
+          invitationCode: this.form1.controls["invitationCode"].value,
+          firstName: this.form1.controls["firstName"].value,
+          lastName: this.form1.controls["lastName"].value,
+          sex: this.form1.controls["sex"].value,
         },
         false
       )
@@ -125,7 +175,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate([this.appService.getDashboardRoute()]);
           })
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       });
     this.unsubscribe.push(s);

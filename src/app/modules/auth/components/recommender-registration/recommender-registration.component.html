@@ -133,66 +133,6 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="password" placeholder="Password" name="password"
-      formControlName="password" autocomplete="off" [ngClass]="{
-        'is-invalid': form1.controls['password'].invalid,
-        'is-valid': form1.controls['password'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Parola gerekli',
-        control: form1.controls['password']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'Parola en az 6 karakterli olmalı',
-        control: form1.controls['password']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'Parola en fazla 100 karakterli olmalı',
-        control: form1.controls['password']
-      }"></ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
-    <input class="form-control bg-transparent" type="password" placeholder="Confirm password" name="cPassword"
-      autocomplete="off" formControlName="cPassword" [ngClass]="{
-        'is-invalid': form1.controls['cPassword'].invalid,
-        'is-valid': form1.controls['cPassword'].valid
-      }" />
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'required',
-        message: 'Parola doğrulaması gerekli',
-        control: form1.controls['cPassword']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'minlength',
-        message: 'Parola doğrulama en az 6 karakterli olmalı',
-        control: form1.controls['cPassword']
-      }"></ng-container>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-        validation: 'maxLength',
-        message: 'Parola doğrulaması en fazla 100 karakterli olmalı',
-        control: form1.controls['cPassword']
-      }"></ng-container>
-    <ng-container *ngIf="
-        form1.controls['cPassword'].errors &&
-        form1.controls['cPassword'].errors.ConfirmPassword
-      ">
-      <div class="fv-plugins-message-container">
-        <div class="fv-help-block">
-          Parola ve parola doğrulama uyuşmuyor
-        </div>
-      </div>
-    </ng-container>
-  </div>
-  <!--end::Form group-->
-
-  <!--begin::Form group-->
-  <div class="fv-row mb-8">
     <label class="form-check form-check-inline">
       <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input" />
       <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
