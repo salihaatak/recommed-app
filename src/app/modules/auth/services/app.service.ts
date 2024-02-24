@@ -36,6 +36,7 @@ export class AppService implements OnDestroy {
   phoneNumber: string;
   contact: string;
   socketConnectedBefore: boolean = false;
+  public logo: string = 'https://recommed.co/media/recommed/web-logo-colored-text.svg';
 
   get IsAndroid(): boolean {
     return navigator.userAgent.toLowerCase().indexOf("android") > -1;
@@ -124,6 +125,9 @@ export class AppService implements OnDestroy {
         if (result) {
           this.role = result.data.user.role;
           this.currentUserSubject.next(result.data.user);
+          if (result.data.user?.account?.logo){
+            this.logo = result.data.user?.account?.logo;
+          }
           this.socketConnect(result.data.user.uid);
         } else {
           this.logout();

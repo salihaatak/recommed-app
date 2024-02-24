@@ -1,6 +1,6 @@
 
 <!--begin::Heading-->
-<div class="text-center mb-11">
+<div class="text-center mb-11 p-10">
   <p class="pacifico-header" *ngIf="!this.phoneVerified">
     Tavsiyeyle yayılan mutluluk!
    </p>
@@ -10,10 +10,9 @@
     <i class="fa-solid fa-certificate text-primary"></i>
   </p>
   <!--begin::Subtitle-->
-  <div class="text-gray-500 fw-semibold fs-6 mb-10" *ngIf="!this.phoneEntered && !this.phoneVerified">
-    Aldığınız hizmeti çevrenize Recommed üzerinden tavsiye ederek
-    <span>ücretsiz kapsamlı muayene hakkı</span> elde etmelerini ve <span>tüm hizmetlerde %10 indirim</span> kazanmalarını sağlayabilirsiniz.
-    Üstelik her tavsiyede sizi cazip fırsatlar bekliyor!
+  <div class="text-gray-500 fw-semibold fs-6 mb-10" *ngIf="!this.phoneVerified">
+    Aldığınız hizmeti Recommed üzerinden tavsiye ederek çevrenize yardımcı olmak ister misiniz?
+    Üstelik her tavsiyede sizi cazip ödüller bekliyor!
   </div>
 
     <!--begin::Form-->
@@ -41,17 +40,9 @@
 
 
           <!--begin::Heading-->
-          <div class="text-center mb-11" *ngIf="!this.phoneEntered">
+          <div class="text-center mb-11">
             <b class="text-dark fw-bolder mb-3">
-              Telefon Doğrulaması:
-            </b>
-          </div>
-          <!--end::Heading-->
-
-          <!--begin::Heading-->
-          <div class="text-center mb-11" *ngIf="this.phoneEntered">
-            <b class="text-dark fw-bolder mb-3">
-              Kodu Giriniz:
+              Telefon Numaranız:
             </b>
           </div>
           <!--end::Heading-->
@@ -72,7 +63,7 @@
 
 
 
-        <div class="fv-row mb-3" *ngIf="this.phoneEntered">
+        <div class="d-grid mb-3" *ngIf="this.phoneEntered">
 
           <input class="form-control" placeholder="Tek Kullanımlık SMS Şifre" type="number" pattern="\d*" name="verificationCode" autocomplete="off"
             formControlName="verificationCode" />
@@ -101,13 +92,13 @@
 <!--end::Heading-->
 
 <!--begin::Login options-->
-<div class="row g-3 mb-9" *ngIf="this.phoneVerified">
+<div class="row g-3 mb-9 p-10" *ngIf="this.phoneVerified">
   <div class="text-center mb-11">
     <h2 class="text-dark fw-bolder mb-3">
       Başlamaya hazırsın!
     </h2>
   </div>
-  <div class="text-gray-500 fw-semibold fs-6 mb-10">
+  <div class="fw-semibold fs-6 mb-10">
     Doktorunu tavsiye etmeye başlamak için hemen sana uygun uygulamayı kur:
   </div>
 

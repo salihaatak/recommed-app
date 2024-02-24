@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecommendComponent implements OnInit, OnDestroy {
   form1: FormGroup;
-  hasError: boolean = false;
+  error: any;
   recommenderName: string;
   recommenderUid: string;
   phoneNumber: intlTelInput.Plugin;
@@ -41,7 +41,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
         if (result?.success) {
           this.recommenderName = result.data.name;
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       });
       this.unsubscribe.push(subscr);
@@ -60,16 +60,6 @@ export class RecommendComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
-        /*
-        phoneNumber: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(10),
-          ]),
-        ],
-        */
-        agree: [true, Validators.compose([Validators.required])],
       }
     );
 
@@ -87,7 +77,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.hasError = false;
+    this.error = null;
     const s = this.appService
       .post(
         "user/recommend-via-landing",
@@ -102,7 +92,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
         if (result?.success) {
           this.router.navigate(['l/r/thanks']);
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       });
     this.unsubscribe.push(s);
