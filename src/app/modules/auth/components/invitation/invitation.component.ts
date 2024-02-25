@@ -53,7 +53,7 @@ export class InvitationComponent implements OnInit, OnDestroy {
     this.hasError = false;
 
     const subscr = this.appService
-      .post("user/check-invitation", {
+      .post("account/get-by-invitation-code", {
         invitationCode: this.form1.controls["invitationCode"].value
       }, false)
       .subscribe((result: ApiResultModel | undefined) => {

@@ -13,7 +13,7 @@
   <!--begin::Body-->
   <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 order-1 order-lg-1">
     <!--begin::Form-->
-    <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+    <div class="d-flex flex-center flex-column flex-lg-row-fluid" style="max-width: 500px !important; margin-left: auto; margin-right: auto;">
       <!--begin::Wrapper-->
         <router-outlet></router-outlet>
       <!--end::Wrapper-->
@@ -36,7 +36,7 @@
   </div>
   <!--end::Body-->
 
-  <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-2 order-lg-2"
+  <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-2 order-lg-2" *ngIf="false"
     [ngStyle]="{'background-image': 'url(./assets/media/misc/auth-bg.png)'}">
     <div class="d-flex flex-column flex-center py-15 px-5 px-md-15 w-100">
       <img class="mx-auto w-100 w-md-50 w-xl-500px mb-10 mb-lg-20" src="./assets/media/misc/intro.webp" alt="" />

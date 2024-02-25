@@ -1,59 +1,79 @@
+<img *ngIf="this.account?.serviceImage && !this.phoneEntered && !this.phoneVerified" class="w-100" [src]="this.account?.serviceImage" />
 
 <!--begin::Heading-->
-<div class="text-center mb-11 p-10">
-  <p class="pacifico-header" *ngIf="!this.phoneVerified">
-    Tavsiyeyle yayılan mutluluk!
-   </p>
+<div class="text-center p-10">
 
-  <p class="fw-bolder mb-10 fs-3" *ngIf="!this.phoneVerified">
-    {{this.accountName}}
-    <i class="fa-solid fa-certificate text-primary"></i>
-  </p>
-  <!--begin::Subtitle-->
-  <div class="text-gray-500 fw-semibold fs-6 mb-10" *ngIf="!this.phoneVerified">
-    Aldığınız hizmeti Recommed üzerinden tavsiye ederek çevrenize yardımcı olmak ister misiniz?
-    Üstelik her tavsiyede sizi cazip ödüller bekliyor!
-  </div>
+  <div *ngIf="!this.phoneEntered && !this.phoneVerified">
+
+    <div *ngIf="this.account?.logo">
+      <img [src]="this.account?.logo" class="h-55px mb-10">
+    </div>
+    <p *ngIf="!this.account?.logo" class="fw-bolder mb-10 fs-3">
+      {{this.account?.name}}
+      <i class="fa-solid fa-certificate text-primary"></i>
+    </p>
+    <p class="pacifico-header" style="font-size: 24px !important;">
+      Tavsiyeyle yayılan mutluluk!
+    </p>
+      <div class="text-gray-500 fw-semibold fs-6 mb-5">
+        Tavsiye Ettiğiniz Kişilere Sunulacak Avantajlar:
+      </div>
+      <div *ngFor="let item of promotions">
+        <div>
+          <div class="promotion"><i class="fa-solid fa-star"></i> {{item}}</div>
+        </div>
+      </div>
+
+      <div class="fw-semibold fs-6 mb-10 mt-10" *ngIf="!this.phoneVerified">
+        {{this.account?.name}} ile yaşadığınız dönüşümü çevrenize tavsiye ederek mutluluğu kolayca yayabilirsiniz.
+        Sizin yaptığınız tavsiye sayesinde çevrenizdeki herkes özel avantajlara sahip olacaklar.
+        Üstelik her tavsiyede sizi cazip ödüller bekliyor!
+      </div>
+    </div>
+
+    <!-- begin::Alert error-->
+    <ng-container *ngIf="error">
+      <div class="mb-lg-15 alert alert-danger">
+        <div class="alert-text font-weight-bold">
+          {{error}}
+        </div>
+      </div>
+    </ng-container>
+    <!-- end::Alert error-->
 
     <!--begin::Form-->
     <form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" id="kt_login_signin_form" *ngIf="!phoneVerified">
 
 
-          <!-- begin::Alert error-->
-          <ng-container *ngIf="hasError">
-            <div class="mb-lg-15 alert alert-danger">
-              <div class="alert-text font-weight-bold">
-                {{'T.CAN_NOT_LOGIN' | translate}}
-              </div>
-            </div>
-          </ng-container>
-          <!-- end::Alert error-->
-
 
           <div *ngIf="this.phoneEntered">
             <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-              <a (click)="back()" class="link-primary">
+              <a [href]="'l/i/' + this.invitationCode" class="link-primary">
                 {{'T.BACK' | translate}}
               </a>
             </div>
           </div>
 
-
-          <!--begin::Heading-->
-          <div class="text-center mb-11">
+          <div class="text-center mb-11" *ngIf="!this.phoneEntered">
             <b class="text-dark fw-bolder mb-3">
-              Telefon Numaranız:
+              İncelemek İçin Formu Doldurun:
             </b>
           </div>
-          <!--end::Heading-->
 
-          <!--begin::Form group-->
-          <div class="fv-row mb-4">
+          <div class="fv-row mb-4" *ngIf="!this.phoneEntered">
             <input class="form-control" type="tel" id="phoneNumberLogin" name="phoneNumber">
           </div>
 
+          <div class="fv-row mb-8" *ngIf="!this.phoneEntered">
+            <input class="form-control" type="text" name="firstName" formControlName="firstName"
+              placeholder="Adınız" autocomplete="off" />
+          </div>
 
-          <!--begin::Action-->
+          <div class="fv-row mb-8" *ngIf="!this.phoneEntered">
+            <input class="form-control" type="text" name="lastName" formControlName="lastName"
+              placeholder="Soyadınız" autocomplete="off" />
+          </div>
+
           <div class="d-grid mb-10" *ngIf="!this.phoneEntered">
             <button type="button" (click)="sendVerificationCode()" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
               Devam
@@ -73,7 +93,7 @@
         <!--begin::Action-->
         <div class="d-grid mb-10" *ngIf="this.phoneEntered">
           <button (click)="submit()" type="button" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">
-            Devam
+            Başla
             <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
           </button>
         </div>
@@ -93,38 +113,53 @@
 
 <!--begin::Login options-->
 <div class="row g-3 mb-9 p-10" *ngIf="this.phoneVerified">
-  <div class="text-center mb-11">
-    <h2 class="text-dark fw-bolder mb-3">
-      Başlamaya hazırsın!
+  <div class="text-center mb-20">
+    <div *ngIf="this.account?.logo">
+      <img [src]="this.account?.logo" class="h-55px mb-10">
+    </div>
+    <p *ngIf="!this.account?.logo" class="fw-bolder mb-10 fs-3">
+      {{this.account?.name}}
+      <i class="fa-solid fa-certificate text-primary"></i>
+    </p>
+  </div>
+
+    <h2 class="text-dark text-center fw-bolder mb-3">
+      Aşağıdaki linki çevrenizle paylaşmanız yeterli!
     </h2>
-  </div>
-  <div class="fw-semibold fs-6 mb-10">
-    Doktorunu tavsiye etmeye başlamak için hemen sana uygun uygulamayı kur:
+
+  <div class="fw-semibold fs-6 mb-10 text-center">
+    Bu link size özeldir. Önce kopyalayıp sonra arkadaş gruplarınız, aile gruplarınız veya iş gruplarınızda toplu olarak gönderebilirsiniz.
+    Linki kullanan her kişi için size SMS ile bilgi gelecek ve size cazip ödüllerimiz olacak!
   </div>
 
-    <!--begin::Col-->
-  <div class="col-md-6">
-    <!--begin::Google link--->
-    <a href="https://play.google.com/store/apps/details?id=com.hk.recommed"
-    class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
-      <i class="fa-brands fa-google-play fa-solid fs-1"></i>
-      Google Play
-    </a>
-    <!--end::Google link--->
+  <div>
+    <input class="form-control bg-transparent mb-5" readonly="readonly" [value]="this.recommendationUrl">
   </div>
-  <!--end::Col-->
+  <div>
+    <span style="color: green; font-weight: bold;" *ngIf="this.copied">Link kopyalandı!</span>
+  </div>
+  <a (click)="copy();" href="javascript:;" class="btn btn-primary"><b>Kopyala</b></a>
+  <a (click)="share();" href="javascript:;" class="btn btn-primary"><b>Paylaş</b></a>
 
-  <!--begin::Col-->
-  <div class="col-md-6">
-    <!--begin::Google link--->
-    <a href="https://apps.apple.com/tr/app/recommed/id6468917213"
-    class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
-      <i class="fa-brands fa-app-store-ios fa-solid fs-1"></i>
-      AppStore
-    </a>
-    <!--end::Google link--->
+
+  <div *ngIf="false">
+      <div class="col-md-6">
+        <a href="https://play.google.com/store/apps/details?id=com.hk.recommed"
+        class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
+          <i class="fa-brands fa-google-play fa-solid fs-1"></i>
+          Google Play
+        </a>
+      </div>
+
+      <div class="col-md-6">
+        <a href="https://apps.apple.com/tr/app/recommed/id6468917213"
+        class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
+          <i class="fa-brands fa-app-store-ios fa-solid fs-1"></i>
+          AppStore
+        </a>
+      </div>
+
   </div>
-  <!--end::Col-->
 </div>
 <!--end::Login options-->
 

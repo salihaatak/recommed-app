@@ -56,9 +56,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       .post('user/me')
       .subscribe((result: ApiResultModel | undefined) => {
         this.form1.setValue({
-          firstName: this.appService.currentUserSubject.getValue()?.firstName,
-          lastName: this.appService.currentUserSubject.getValue()?.lastName,
-          phoneNumber: this.appService.currentUserSubject.getValue()?.phoneNumber,
+          firstName: result?.data.user.firstName,
+          lastName: result?.data.user.lastName,
+          phoneNumber: result?.data.user.phoneNumber,
         })
       });
     this.unsubscribe.push(s);

@@ -4,12 +4,9 @@ import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from '../../services/app.service';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
-import { UserModel } from '../../models/user.model';
-import { first } from 'rxjs/operators';
 import { ApiResultModel } from '../../models/api-result.mode';
 import * as intlTelInput from 'intl-tel-input';
 import { HttpClient } from '@angular/common/http';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-recommender-registration',
@@ -41,7 +38,7 @@ export class RecommenderRegistrationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get('invitationCode')){
       const subscr = this.appService
-      .post("user/check-invitation", {invitationCode: this.route.snapshot.paramMap.get('invitationCode')}, false)
+      .post("account/get-by-invitation-code", {invitationCode: this.route.snapshot.paramMap.get('invitationCode')}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.accountName = result.data.name;

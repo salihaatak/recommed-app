@@ -14,13 +14,22 @@ import { HttpClient } from '@angular/common/http';
 })
 export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   form1: FormGroup;
-  hasError: boolean;
+  error: any;
   returnUrl: string;
-  accountName: any;
+  promotions: string[] | undefined;
+  account: {
+    name: string,
+    logo: string,
+    serviceImage: string,
+    promotions: string
+  } | null;
   invitationCode: string | null;
+  recommendationUrl: string;
   phoneEntered: boolean = false;
   phoneVerified: boolean = false;
   phoneNumber: intlTelInput.Plugin;
+  copied: boolean = false;
+  sharable: boolean = false;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -36,7 +45,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {
   }
 
-  ngAfterViewInit(): void {
+  renderPhoneNumber() {
     const tel = document.querySelector("#phoneNumberLogin");
     if (tel) {
       this.phoneNumber = intlTelInput(tel, {
@@ -48,34 +57,44 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
         this.phoneNumber.setCountry(result.country_code);
       });
     }
+
+  }
+  ngAfterViewInit(): void {
+    this.renderPhoneNumber();
+    if (typeof navigator.share === 'function') {
+      this.sharable = true;
+    }
   }
 
   ngOnInit(): void {;
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
     this.unsubscribe.push(this.appService
-      .post("user/check-invitation", {
+      .post("account/get-by-invitation-code", {
         invitationCode: this.route.snapshot.paramMap.get('invitationCode')
       }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.accountName = result.data.name;
+          this.account = result.data;
+          this.promotions = this.account?.promotions.split(';');
           this.cdr.detectChanges();
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       }));
 
-    this.form1 = this.fb.group({
-      verificationCode: [
-        null
-      ],
-    });
+      this.form1 = this.fb.group({
+        verificationCode: [
+          null
+        ],
+        firstName: [
+          null
+        ],
+        lastName: [
+          null
+        ],
+      });
 
 
-  }
-
-  back(){
-    this.phoneEntered = false;
   }
 
   sendVerificationCode(){
@@ -85,36 +104,68 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
         {
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
           invitationCode: this.invitationCode,
+          firstName: this.form1.controls["firstName"].value,
+          lastName: this.form1.controls["lastName"].value,
         },
         false
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.phoneEntered = true;
+          this.error = null;
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       });
     this.unsubscribe.push(s);
+  }
 
+  copy(){
+    const inputElement = document.createElement('input');
+    inputElement.value = this.recommendationUrl;
+    document.body.appendChild(inputElement);
+    inputElement.select();
+    document.execCommand('copy');
+    document.body.removeChild(inputElement);
+    this.copied = true;
+  }
+
+  share() {
+    if (navigator.share) {
+      navigator.share({
+        title: this.account?.name,
+        text: "Çok memnun kaldım. Size de tavsiye ediyorum. Bu linkle başvuranlara cazip avantajlar var.",
+        url: this.recommendationUrl,
+      })
+      .then(() => console.log('Successfully shared'))
+      .catch((error) => console.log('Error sharing:', error));
+    } else {
+      console.log('Web Share API not supported.');
+      // Fallback behavior
+    }
   }
 
   submit() {
-    this.hasError = false;
+    this.error = null;
     const s = this.appService
       .post(
         "user/accept-invitation-verify",
         {
+          invitationCode: this.invitationCode,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
-          verificationCode: this.form1.controls["verificationCode"].value
+          verificationCode: this.form1.controls["verificationCode"].value,
+          firstName: this.form1.controls["firstName"].value,
+          lastName: this.form1.controls["lastName"].value,
         },
         false
       )
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
           this.phoneVerified = true;
+          this.error = null;
+          this.recommendationUrl = `https://www.recommed.co/app/l/r/${result.data.uid}`;
         } else {
-          this.hasError = true;
+          this.error = result?.message;
         }
       });
     this.unsubscribe.push(s);

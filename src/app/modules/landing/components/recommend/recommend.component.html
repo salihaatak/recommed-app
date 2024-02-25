@@ -1,4 +1,4 @@
-<img class="mx-auto w-100 w-md-50 w-xl-500px" src="assets/media/misc/dentist.png"
+<img *ngIf="this.recommender?.account?.serviceImage" class="mx-auto w-100 w-md-50 w-xl-500px" [src]="this.recommender?.account?.serviceImage"
 alt="" />
 
 <div class="p-15">
@@ -7,45 +7,33 @@ alt="" />
   (ngSubmit)="submit()">
   <!--begin::Heading-->
     <div class="text-center mb-11">
-
-      <div class="text-gray-500 fw-semibold fs-6">
+      <div class="text-gray-500 fw-semibold fs-6 abc">
         Tavsiye Eden:
       </div>
       <p class="text-dark fw-bolder mb-5 fs-3">
-        {{recommenderName}}
+        {{this.recommender?.name}}
       </p>
 
-      <div class="text-gray-500 fw-semibold fs-6 mb-5">
-        Kazanacağınız Avantaj:
-      </div>
+        <div class="text-gray-500 fw-semibold fs-6 mb-5">
+          Tavsiye Sayesinde Elde Edeceğiniz Özel Avantajlar:
+        </div>
 
-      <div class="text-center fw-semibold fs-4 mb-10 ">
-        <div style="
-        display: inline-block;
-        padding: 7px 10px;
-        background: #a3faff;
-        color: black;
-        font-size: 13px; margin-bottom: 9px;
-    "><i class="fa-solid fa-star" style="color: black;"></i> Ücretsiz kapsamlı muayene hakkı</div>
-        <div style="
-        display: inline-block;
-        padding: 7px 10px;
-        background: #a3faff;
-        color: black;
-        font-size: 13px; margin-bottom: 9px; display: none;
-    "><i class="fa-solid fa-star" style="color: black;"></i> Tüm hizmetlerde %10 indirim</div>
+        <div class="text-center fw-semibold fs-4 mb-10 ">
+          <div *ngFor="let item of promotions">
+            <div>
+              <div class="promotion"><i class="fa-solid fa-star"></i> {{item}}</div>
+            </div>
+          </div>
 
-      <div style="margin-top: 10px;">
-        Yüksek müşteri memnuniyetine sahip kliniğimiz,
-        tavsiyeyle ulaşan hastalarımıza özel avantajlar sunuyor. Hizmet alımı zorunlu değildir.
-        Bilgi almak için numaranızı bırakabilirsiniz:.
-      </div>
-
-    </div>
+          <div style="margin-top: 10px;">
+            Yüksek müşteri memnuniyetine sahip kliniğimiz,
+            tavsiyeyle ulaşan hastalarımıza özel avantajlar sunuyor. Hizmet alımı zorunlu değildir.
+            Bilgi almak için numaranızı bırakabilirsiniz:.
+          </div>
+        </div>
     </div>
     <!--begin::Heading-->
 
-    <!-- begin::Alert error-->
     <ng-container *ngIf="error">
       <div class="mb-lg-15 alert alert-danger">
         <div class="alert-text font-weight-bold">
@@ -53,15 +41,16 @@ alt="" />
         </div>
       </div>
     </ng-container>
-    <!-- end::Alert error-->
 
-    <!--begin::Form group-->
+    <div class="fw-semibold fs-6">
+      Ücretsiz Bilgi Formu
+    </div>
+
+
     <div class="fv-row mb-8">
       <input class="form-control" type="text" name="name" formControlName="name"
         placeholder="Adınız Soyadınız" autocomplete="off" />
-
     </div>
-    <!--end::Form group-->
 
     <div class="fv-row mb-8">
       <input class="form-control" type="tel" id="phoneNumber" name="phoneNumber">

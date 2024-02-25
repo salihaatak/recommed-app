@@ -28,7 +28,7 @@
 <div class="card-body py-3">
   <div class="text-muted mt-1 fw-bold fs-7 mt-9 mb-9" *ngIf="!this.recommendations?.length">
     <ng-container *ngIf="this.appService.role === 'r'">
-      Henüz hiç tavsiyeniz yok. Tavsiye Et Kazan düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek gelir fırsatı demek :)
+      Henüz hiç tavsiyeniz yok. Tavsiye Et düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek gelir fırsatı demek :)
     </ng-container>
     <ng-container *ngIf="this.appService.role !== 'r'">
       Henüz hiç gelen bir tavsiye müşteri yok. Sizden memnun olan eski müşterilerinizi Marka Elçisi Davet Et düğmesiyle davet edin.
@@ -387,7 +387,7 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi geri çektiğinizde artık işletme telefon numarasını Recommed üzerinde göremez.
+              Tavsiyeyi geri çektiğinizde artık işletme telefon numarasını göremez.
               İleride bu telefon numarasını tekrar tavsiye etmeniz mümkün olmaz.
               Yaptığınız işlemden işletme özel bildirimle anında haberdar edilir.
             </div>

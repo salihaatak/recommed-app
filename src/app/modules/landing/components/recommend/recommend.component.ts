@@ -16,7 +16,16 @@ import { HttpClient } from '@angular/common/http';
 export class RecommendComponent implements OnInit, OnDestroy {
   form1: FormGroup;
   error: any;
-  recommenderName: string;
+  promotions: string[] | undefined;
+  recommender: {
+    name: string,
+    account: {
+      name: string,
+      logo: string,
+      serviceImage: string,
+      promotions: string
+    }
+  } | null;
   recommenderUid: string;
   phoneNumber: intlTelInput.Plugin;
 
@@ -39,7 +48,8 @@ export class RecommendComponent implements OnInit, OnDestroy {
       .post("user/get-recommender", {uid: this.recommenderUid}, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
-          this.recommenderName = result.data.name;
+          this.recommender = result.data;
+          this.promotions = this.recommender?.account.promotions.split(';');
         } else {
           this.error = result?.message;
         }
