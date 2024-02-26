@@ -12,9 +12,18 @@
       {{this.account?.name}}
       <i class="fa-solid fa-certificate text-primary"></i>
     </p>
+    <div *ngIf="this.account?.team">
+      <img [src]="this.account?.team" class="h-75px mb-10">
+    </div>
     <p class="pacifico-header" style="font-size: 24px !important;">
       Tavsiyeyle yayılan mutluluk!
     </p>
+    <div class="fw-semibold fs-6 mb-10 mt-10" *ngIf="!this.phoneVerified">
+      Tavsiye Teşvik Programımıza hoşgeldiniz! Sizin tavsiyenizle bize
+      ulaşan tanıdıklarınız özel avantajlara sahip olurken siz her işlem için
+      teşvik ödemesi alabilirsiniz!
+    </div>
+
       <div class="text-gray-500 fw-semibold fs-6 mb-5">
         Tavsiye Ettiğiniz Kişilere Sunulacak Avantajlar:
       </div>
@@ -24,11 +33,15 @@
         </div>
       </div>
 
-      <div class="fw-semibold fs-6 mb-10 mt-10" *ngIf="!this.phoneVerified">
-        {{this.account?.name}} ile yaşadığınız dönüşümü çevrenize tavsiye ederek mutluluğu kolayca yayabilirsiniz.
-        Sizin yaptığınız tavsiye sayesinde çevrenizdeki herkes özel avantajlara sahip olacaklar.
-        Üstelik her tavsiyede sizi cazip ödüller bekliyor!
+      <div class="text-gray-500 fw-semibold fs-6 mb-5 mt-5">
+        Size Sunulan Fırsatlar:
       </div>
+      <div *ngFor="let item of rewards">
+        <div>
+          <div class="promotion"><i class="fa-solid fa-star"></i> {{item}}</div>
+        </div>
+      </div>
+
     </div>
 
     <!-- begin::Alert error-->
@@ -54,9 +67,9 @@
             </div>
           </div>
 
-          <div class="text-center mb-11" *ngIf="!this.phoneEntered">
+          <div class="text-center mt-10 mb-11" *ngIf="!this.phoneEntered">
             <b class="text-dark fw-bolder mb-3">
-              İncelemek İçin Formu Doldurun:
+              Bilgi İçin Formu Doldurun:
             </b>
           </div>
 
@@ -139,7 +152,6 @@
     <span style="color: green; font-weight: bold;" *ngIf="this.copied">Link kopyalandı!</span>
   </div>
   <a (click)="copy();" href="javascript:;" class="btn btn-primary"><b>Kopyala</b></a>
-  <a (click)="share();" href="javascript:;" class="btn btn-primary"><b>Paylaş</b></a>
 
 
   <div *ngIf="false">

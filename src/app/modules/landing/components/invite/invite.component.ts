@@ -17,10 +17,13 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   error: any;
   returnUrl: string;
   promotions: string[] | undefined;
+  rewards: string[] | undefined;
   account: {
     name: string,
     logo: string,
     serviceImage: string,
+    team: string,
+    rewards: string,
     promotions: string
   } | null;
   invitationCode: string | null;
@@ -29,7 +32,6 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   phoneVerified: boolean = false;
   phoneNumber: intlTelInput.Plugin;
   copied: boolean = false;
-  sharable: boolean = false;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -61,9 +63,6 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.renderPhoneNumber();
-    if (typeof navigator.share === 'function') {
-      this.sharable = true;
-    }
   }
 
   ngOnInit(): void {;
@@ -76,6 +75,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
         if (result?.success) {
           this.account = result.data;
           this.promotions = this.account?.promotions.split(';');
+          this.rewards = this.account?.rewards.split(';');
           this.cdr.detectChanges();
         } else {
           this.error = result?.message;
@@ -128,21 +128,6 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
     document.execCommand('copy');
     document.body.removeChild(inputElement);
     this.copied = true;
-  }
-
-  share() {
-    if (navigator.share) {
-      navigator.share({
-        title: this.account?.name,
-        text: "Çok memnun kaldım. Size de tavsiye ediyorum. Bu linkle başvuranlara cazip avantajlar var.",
-        url: this.recommendationUrl,
-      })
-      .then(() => console.log('Successfully shared'))
-      .catch((error) => console.log('Error sharing:', error));
-    } else {
-      console.log('Web Share API not supported.');
-      // Fallback behavior
-    }
   }
 
   submit() {

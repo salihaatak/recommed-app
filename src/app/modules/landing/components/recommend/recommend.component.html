@@ -13,6 +13,9 @@ alt="" />
       <p class="text-dark fw-bolder mb-5 fs-3">
         {{this.recommender?.name}}
       </p>
+      <div *ngIf="this.recommender?.account?.team">
+        <img [src]="this.recommender?.account?.team" class="h-75px mb-10">
+      </div>
 
         <div class="text-gray-500 fw-semibold fs-6 mb-5">
           Tavsiye Sayesinde Elde Edeceğiniz Özel Avantajlar:

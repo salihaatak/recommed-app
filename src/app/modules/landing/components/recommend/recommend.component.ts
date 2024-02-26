@@ -23,6 +23,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
       name: string,
       logo: string,
       serviceImage: string,
+      team: string,
       promotions: string
     }
   } | null;
