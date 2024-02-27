@@ -21,18 +21,7 @@ alt="" />
         Bilgi almak için numaranızı bırakabilirsiniz.
       </div>
 
-      <div class="fw-semibold fs-6 abc">
-        Tavsiye Eden:
-      </div>
-      <p class="text-dark fw-bolder mb-5 fs-3">
-        {{this.recommender?.name}}
-      </p>
-
       <ng-container *ngIf="promotions">
-        <div class="fw-semibold fs-6 mb-5">
-          Elde Edeceğiniz Özel Avantajlar:
-        </div>
-
         <div class="text-center fw-semibold fs-4 mb-10 ">
           <div *ngFor="let item of promotions">
             <div>
@@ -41,6 +30,14 @@ alt="" />
           </div>
         </div>
       </ng-container>
+
+      <div class="fw-semibold fs-6 abc">
+        Tavsiye Eden:
+      </div>
+      <p class="text-dark fw-bolder mb-5 fs-3">
+        {{this.recommender?.name}}
+      </p>
+
     </div>
     <!--begin::Heading-->
 
