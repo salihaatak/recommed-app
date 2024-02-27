@@ -24,7 +24,7 @@
       teşvik ödemesi alabilirsiniz!
     </div>
 
-      <div class="text-gray-500 fw-semibold fs-6 mb-5">
+      <div class=" fw-semibold fs-6 mb-5">
         Tavsiye Ettiğiniz Kişilere Sunulacak Avantajlar:
       </div>
       <div *ngFor="let item of promotions">
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div class="text-gray-500 fw-semibold fs-6 mb-5 mt-5">
+      <div class=" fw-semibold fs-6 mb-5 mt-5">
         Size Sunulan Fırsatlar:
       </div>
       <div *ngFor="let item of rewards">
@@ -60,7 +60,7 @@
 
 
           <div *ngIf="this.phoneEntered">
-            <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+            <div class=" text-center fw-semibold fs-6 mb-20">
               <a [href]="'l/i/' + this.invitationCode" class="link-primary">
                 {{'T.BACK' | translate}}
               </a>

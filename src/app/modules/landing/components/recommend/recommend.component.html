@@ -6,19 +6,31 @@ alt="" />
   <form class="form w-100" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="form1"
   (ngSubmit)="submit()">
   <!--begin::Heading-->
-    <div class="text-center mb-11">
-      <div class="text-gray-500 fw-semibold fs-6 abc">
+    <div class="text-center mb-4">
+      <p class="fw-bolder mb-5 fs-3">
+        {{this.recommender?.account?.name}}
+        <i class="fa-solid fa-certificate text-primary"></i>
+      </p>
+      <ng-container *ngIf="this.recommender?.account?.team">
+          <img [src]="this.recommender?.account?.team" class="h-75px mt-2 mb-5">
+      </ng-container>
+
+      <div class="fs-5 mb-7">
+        Yüksek müşteri memnuniyetine sahip kliniğimiz,
+        bu link ile ulaşan hastalarımıza özel avantajlar sunuyor.
+        Bilgi almak için numaranızı bırakabilirsiniz.
+      </div>
+
+      <div class="fw-semibold fs-6 abc">
         Tavsiye Eden:
       </div>
       <p class="text-dark fw-bolder mb-5 fs-3">
         {{this.recommender?.name}}
       </p>
-      <div *ngIf="this.recommender?.account?.team">
-        <img [src]="this.recommender?.account?.team" class="h-75px mb-10">
-      </div>
 
-        <div class="text-gray-500 fw-semibold fs-6 mb-5">
-          Tavsiye Sayesinde Elde Edeceğiniz Özel Avantajlar:
+      <ng-container *ngIf="promotions">
+        <div class="fw-semibold fs-6 mb-5">
+          Elde Edeceğiniz Özel Avantajlar:
         </div>
 
         <div class="text-center fw-semibold fs-4 mb-10 ">
@@ -27,13 +39,8 @@ alt="" />
               <div class="promotion"><i class="fa-solid fa-star"></i> {{item}}</div>
             </div>
           </div>
-
-          <div style="margin-top: 10px;">
-            Yüksek müşteri memnuniyetine sahip kliniğimiz,
-            tavsiyeyle ulaşan hastalarımıza özel avantajlar sunuyor. Hizmet alımı zorunlu değildir.
-            Bilgi almak için numaranızı bırakabilirsiniz:.
-          </div>
         </div>
+      </ng-container>
     </div>
     <!--begin::Heading-->
 
@@ -46,9 +53,8 @@ alt="" />
     </ng-container>
 
     <div class="fw-semibold fs-6">
-      Ücretsiz Bilgi Formu
+      Kampanya Bilgi Formunu Doldurun:
     </div>
-
 
     <div class="fv-row mb-8">
       <input class="form-control" type="text" name="name" formControlName="name"
