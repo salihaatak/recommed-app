@@ -7,6 +7,8 @@ import { AppService } from 'src/app/modules/auth';
 import * as CryptoJS from 'crypto-js';
 import * as intlTelInput from 'intl-tel-input';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import { title } from 'process';
 
 @Component({
   selector: 'app-recommend',
@@ -37,7 +39,8 @@ export class RecommendComponent implements OnInit, OnDestroy {
     public appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
-    private httpService: HttpClient
+    private httpService: HttpClient,
+    private titleService: Title
   ) {
   }
 
@@ -51,6 +54,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
         if (result?.success) {
           this.recommender = result.data;
           this.promotions = this.recommender?.account.promotions.split(';');
+          this.titleService.setTitle(this.recommender?.account?.name ?? 'Tavsiye Kampanyası');
         } else {
           this.error = result?.message;
         }

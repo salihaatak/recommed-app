@@ -6,6 +6,7 @@ import { ApiResultModel } from '../../models/api-result.mode';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as intlTelInput from 'intl-tel-input';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-invite',
@@ -43,7 +44,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
     public cdr: ChangeDetectorRef,
     public httpService: HttpClient,
     public router: Router,
-
+    private titleService: Title
   ) {
   }
 
@@ -76,6 +77,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
           this.account = result.data;
           this.promotions = this.account?.promotions.split(';');
           this.rewards = this.account?.rewards.split(';');
+          this.titleService.setTitle(this.account?.name ?? 'Tavsiye Teşvik Programı');
           this.cdr.detectChanges();
         } else {
           this.error = result?.message;
