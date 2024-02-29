@@ -5,7 +5,7 @@
 
       >
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bolder fs-3 mb-1">Marka Elçileriniz</span>
+          <span class="card-label fw-bolder fs-3 mb-1">Network</span>
 
         </h3>
         <div
@@ -31,7 +31,7 @@
           <!-- begin::Table head -->
           <thead>
             <tr class="fw-bolder text-muted">
-              <th class="min-w-150px">İsim</th>
+              <th class="min-w-150px">Marka Elçiniz</th>
               <th class="min-w-120px">Tavsiye</th>
               <th class="min-w-120px">Skor</th>
             </tr>
@@ -41,6 +41,7 @@
           <tbody>
             <tr
               *ngFor="let item of this.recommenders"
+              (click)="openRecommenderEditModal(item.uid)"
             >
               <td>
                 <div class="d-flex align-items-center">
@@ -50,6 +51,8 @@
                   <div class="d-flex justify-content-start flex-column">
                     <span class="text-dark fw-bolder fs-6">
                       {{ item.name }}
+                      <i class="fa-solid fa-crown" *ngIf="item.role === 'o'" style="color: burlywood;"></i>
+                      <span class="badge badge-light-primary" *ngIf="this.appService.currentUserValue?.role === 'o' && item.salesRewardPercentage">%{{item.salesRewardPercentage}}</span>
                     </span>
                   </div>
                 </div>
@@ -73,3 +76,101 @@
   </div>
 </div>
 
+
+<app-modal #modalUserEdit [modalConfig]="modalConfigUserEdit">
+  <form novalidate="" class="form" id="frmUserEdit" [formGroup]="frmUserEdit">
+    <div class="card-body p-3">
+      <ng-container *ngIf="error">
+        <div class="mb-lg-15 alert alert-danger">
+          <div class="alert-text font-weight-bold">
+            İşlem yapılamadı. Lütfen formu tamamlayın.
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fw-bold fs-6"
+          ><span class="required">Marka Elçisi Türü</span></label
+        >
+        <div class="col-lg-8 fv-row">
+          <label class="form-check form-check-inline form-check-solid">
+            <input
+              class="form-check-input mb-3"
+              formControlName="role"
+              type="radio"
+              value="o"
+            />
+            <span class="fw-bold ps-2 fs-6">Hesap Yöneticisi</span>
+          </label>
+          <br/>
+          <label class="form-check form-check-inline form-check-solid">
+            <input
+              class="form-check-input mb-3"
+              formControlName="role"
+              type="radio"
+              value="u"
+            />
+            <span class="fw-bold ps-2 fs-6">İşletme İçi</span>
+          </label>
+          <br/>
+          <label class="form-check form-check-inline form-check-solid">
+            <input
+              class="form-check-input mb-3"
+              formControlName="role"
+              type="radio"
+              value="r"
+            />
+            <span class="fw-bold ps-2 fs-6">İşletme Dışı</span>
+          </label>
+
+          <div class="form-text">
+            Herkes bir Marka Elçisidir. Türüne göre herkesin uygulamada yetkileri farklıdır. Hesap Yöneticileri tüm
+            işletmenin gelirlerini görür. İşletme içi marka elçileri başka marka elçilerine davet gönderebilir.
+            İşletme dışı olanlar ise başkalarına tavsiye göndererek size müşteri kazandırıp kazanç elde ederler.
+          </div>
+        </div>
+      </div>
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fw-bold fs-6"
+          >Hakediş Oranı</label
+        >
+        <div class="col-lg-8 fv-row">
+          <input
+            type="number"
+            class="form-control form-control-lg form-control-solid"
+            formControlName="salesRewardPercentage"
+          />
+          <div class="form-text">
+            Marka Elçisi'nin tavsiyesiyle gelen müşterilerden yaptığınız tahsilatların
+            yüzde (%) ne kadarı Marka Elçisine hakediş olarak verilecek?
+            Boş bırakırsanız İşletme Ayarlarından girdiğiniz genel oran geçerli olur.
+          </div>
+        </div>
+      </div>
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fw-bold fs-6"
+          ><span class="required">Adı</span></label
+        >
+        <div class="col-lg-8 fv-row">
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid"
+            formControlName="firstName"
+          />
+        </div>
+      </div>
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fw-bold fs-6"
+          ><span class="required">Soyadı</span></label
+        >
+        <div class="col-lg-8 fv-row">
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid"
+            formControlName="lastName"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</app-modal>

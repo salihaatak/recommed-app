@@ -3,15 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { AccountRegistrationComponent } from './components/account-registration/account-registration.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { AccountRegistrationEmailVerificationComponent } from './components/account-registration-email-verification/account-email-verification.component';
 import { AccountRegistrationPhoneVerificationComponent } from './components/account-registration-phone-verification/account-registration-phone-verification.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { IntroComponent } from './components/intro/intro.component';
 import { InvitationComponent } from './components/invitation/invitation.component';
-import { RecommenderRegistrationComponent } from './components/recommender-registration/recommender-registration.component';
-import { RecommenderPhoneVerificationComponent } from './components/recommender-phone-verification/recommender-phone-verification.component';
 
 const routes: Routes = [
   {
@@ -29,14 +24,6 @@ const routes: Routes = [
         data: { returnUrl: window.location.pathname },
       },
       {
-        path: 'forgot-password',
-        component: ForgotPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: ResetPasswordComponent,
-      },
-      {
         path: 'logout',
         component: LogoutComponent,
       },
@@ -45,20 +32,8 @@ const routes: Routes = [
         component: InvitationComponent,
       },
       {
-        path: 'recommender/registration/:invitationCode',
-        component: RecommenderRegistrationComponent,
-      },
-      {
-        path: 'recommender/phone-verification',
-        component: RecommenderPhoneVerificationComponent,
-      },
-      {
         path: 'account/registration',
         component: AccountRegistrationComponent,
-      },
-      {
-        path: 'account/registration-email-verification',
-        component: AccountRegistrationEmailVerificationComponent,
       },
       {
         path: 'account/registration-phone-verification',

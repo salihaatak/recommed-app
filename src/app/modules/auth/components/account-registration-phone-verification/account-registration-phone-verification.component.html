@@ -10,13 +10,13 @@
   <div class="text-center mb-11">
     <!--begin::Title-->
     <h1 class="text-dark fw-bolder mb-3">
-      Cep Telefonu Doğrulama
+      Cep Telefonu Kontrolü
     </h1>
     <!--end::Title-->
 
     <!--begin::Subtitle-->
     <div class="text-gray-500 fw-semibold fs-6">
-      Telefonunuza gönderdiğimiz kodu giriniz:
+      Telefonunuza gönderdiğimiz tek kullanımlık şifreyi giriniz:
     </div>
     <!--end::Subtitle--->
   </div>
@@ -34,7 +34,7 @@
   <ng-container *ngIf="hasError">
     <div class="mb-lg-15 alert alert-danger">
       <div class="alert-text font-weight-bold">
-        Kod geçerli değil
+        Tek kullanımlık şifre geçerli değil
       </div>
     </div>
   </ng-container>
@@ -42,20 +42,20 @@
 
   <!--begin::Form group-->
   <div class="fv-row mb-8">
-    <label class="form-label fw-bolder text-dark fs-6">Doğrulama Kodu</label>
+    <label class="form-label fw-bolder text-dark fs-6">Tek Kullanımlık SMS Şifre</label>
     <input class="form-control bg-transparent" type="text" name="phoneVerificationCode" formControlName="phoneVerificationCode"
-      placeholder="Cep Telefonu Doğrulama Kodu" autocomplete="off" [ngClass]="{
+      placeholder="Tek Kullanımlık SMS Şifre" autocomplete="off" [ngClass]="{
         'is-invalid': form1.controls['phoneVerificationCode'].invalid,
         'is-valid': form1.controls['phoneVerificationCode'].valid
       }" />
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'required',
-        message: 'Doğrulama kodu gerekli',
+        message: 'Gerekli',
         control: form1.controls['phoneVerificationCode']
       }"></ng-container>
     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
         validation: 'minlength',
-        message: 'Doğrulama kodu 4 hane olmalı',
+        message: 'En az 4 hane olmalı',
         control: form1.controls['phoneVerificationCode']
       }"></ng-container>
   </div>

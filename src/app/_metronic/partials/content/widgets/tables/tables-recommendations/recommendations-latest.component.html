@@ -8,7 +8,7 @@
       <span class="card-label fw-bolder fs-3 mb-1">{{
         this.appService.role === "r"
           ? "Yaptığınız Tavsiyeler"
-          : "Gelen Tavsiyeler"
+          : "Marka Elçilerinin Tavsiyeleri"
       }}</span>
 
     </h3>
@@ -28,10 +28,10 @@
 <div class="card-body py-3">
   <div class="text-muted mt-1 fw-bold fs-7 mt-9 mb-9" *ngIf="!this.recommendations?.length">
     <ng-container *ngIf="this.appService.role === 'r'">
-      Henüz hiç tavsiyeniz yok. Tavsiye Et düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek gelir fırsatı demek :)
+      Henüz hiç tavsiyeniz yok. Tavsiye Et düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek kazanç fırsatı demek :)
     </ng-container>
     <ng-container *ngIf="this.appService.role !== 'r'">
-      Henüz hiç gelen bir tavsiye müşteri yok. Sizden memnun olan eski müşterilerinizi Marka Elçisi Davet Et düğmesiyle davet edin.
+      Henüz gelen bir tavsiye yok. Sizden memnun olan eski müşterilerinizi Marka Elçisi Davet Et düğmesiyle davet edin.
     </ng-container>
   </div>
 
@@ -167,7 +167,7 @@
           </div>
         </div>
         <div class="fw-normal fs-8 text-muted" *ngIf="recommendation?.phoneNumberHidden">
-          Telefon numarası tamamı, tavsiye kabul edildiğinde görünür
+          Telefon numarasının tamamı, tavsiye kabul edildiğinde görünür
         </div>
       </div>
     </div>

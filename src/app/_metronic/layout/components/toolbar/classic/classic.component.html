@@ -1,4 +1,4 @@
-<ng-container *ngIf="showToolbar">
+<ng-container id="sssss" *ngIf="showToolbar">
 
   <ng-container *ngIf="appToolbarFilterButton">
     <!--begin::Filter menu-->
@@ -16,6 +16,7 @@
     <!--end::Filter menu-->
   </ng-container>
 
+
   <ng-container *ngIf="appToolbarDaterangepickerButton">
     <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left"
       class="btn btn-sm fw-bold  d-flex align-items-center px-4" [ngClass]="daterangepickerButtonClass">
@@ -30,84 +31,133 @@
 
   <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
     data-bs-target="#kt_modal_create_app"
-    *ngIf="this.appService.role === 'r'" (click)="openModalRecommender()">
+
+    (click)="openModalRecommender()">
     <i class="fa-solid fa-share-nodes"></i>
     Tavsiye Et
   </a>
 
-  <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
+  <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal" *ngIf="false"
     data-bs-target="#kt_modal_create_app"
-    *ngIf="this.appService.role === 'o' || this.appService.role === 'u'" (click)="openModalProvider()">
+    (click)="openModalProvider()">
     <i class="fa-solid fa-user-plus fs-3"></i>
     Marka Elçisi Davet
   </a>
 
   <app-modal #modalRecommender [modalConfig]="modalConfigRecommender">
+
+
+
+
+
+    <div class="row g-3 mb-9 flex-center">
+      <div class="col-md-12">
+        <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
+          <span class="fs-4 fw-bold badge badge-light-success">Tavsiye Et Kazan</span>
+        </span>
+        <div class="text-muted mt-5">
+          İşletmeyi çevrenize tavsiye edip cazip ödüllerden yararlanmak için bu seçeneği kullanın
+        </div>
+      </div>
+    </div>
+
     <div class="row g-3 mb-9 flex-center">
       <div class="col-md-3">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareRecommenderClick()">
+        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareRecommenderClick()">
           <span class="fs-1x">Link Paylaş</span>
           <i class="fa-solid fa-share-nodes fs-3"></i>
         </a>
       </div>
 
       <div class="col-md-3" *ngIf="false">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappRecommenderClick()">
+        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappRecommenderClick()">
           <span class="fs-1x">Whatsapp ile Link Gönder</span>
           <i class="fa-brands fa-whatsapp fs-3"></i>
         </a>
       </div>
 
       <div class="col-md-3">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRRecommendClick()">
+        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRRecommendClick()">
           <span class="fs-1x">Kare Kod Göster</span>
           <i class="fa-solid fa-qrcode fs-3"></i>
         </a>
       </div>
 
       <div class="col-md-3">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnSelectContactsClick()">
+        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnSelectContactsClick()">
           <span class="fs-1x">Telefon Rehberim'den Numara Gönder</span>
           <i class="fa-solid fa-address-book fs-3"></i>
         </a>
       </div>
     </div>
+
+    <ng-container *ngIf="this.appService.currentUserValue?.role === 'o' || this.appService.currentUserValue?.role === 'u'">
+
+        <div class="row g-3 mb-9 flex-center">
+          <div class="col-md-12">
+            <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
+              <span class="fs-4 fw-bold mt-10 badge badge-light-primary">Marka Elçiliğine Davet Et</span>
+            </span>
+            <div class="text-muted mt-5">
+              Memnun müşterilerinizin çevresine tavsiye etmesi için bu seçeneği kullanın.
+              Bu kişiler işletmenin Marka Elçisi olurlar.
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-9 flex-center">
+          <div class="col-md-4">
+            <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareProviderClick()">
+              <span class="fs-1x">Link Paylaş</span>
+              <i class="fa-solid fa-share-nodes fs-3"></i>
+            </a>
+          </div>
+
+          <div class="col-md-4" *ngIf="false">
+            <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappProviderClick()">
+              <span class="fs-1x">Whatsapp</span>
+              <i class="fa-brands fa-whatsapp fs-3"></i>
+            </a>
+          </div>
+
+          <div class="col-md-3">
+            <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRInviteClick()">
+              <span class="fs-1x">Kare Kod Göster</span>
+              <i class="fa-solid fa-qrcode fs-3"></i>
+            </a>
+          </div>
+
+        </div>
+
+
+
+
+        <div class="row g-3 mb-9 flex-center">
+          <div class="col-md-12">
+            <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
+              <span class="fs-4 fw-bold mt-10 badge badge-light">Doğrudan Mobil Uygulamayı İndirenler</span>
+            </span>
+            <div class="text-muted mt-5">
+              Memnun müşterileriniz mobil uygulamayı AppStore veya Google Play'den indirip bu kodu
+              onları girdiklerinde işletmenizle işleştirmeniz gerekir.
+              Böylece sizin Marka Elçiniz olurlar. Yaptıkları tüm tavsiyeler size akar! Onlara kayıt esnasında aşağıdaki kodu girmelerini söyledin:
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
+            <span class="fs-5 fw-bold">İşletme Kodunuz: {{this.invitationCode}}</span>
+          </span>
+          <div class="text-muted mt-5">
+          </div>
+        </div>
+    </ng-container>
+
   </app-modal>
 
   <app-modal #modalProvider [modalConfig]="modalConfigProvider">
-    <div class="row g-3 mb-9 flex-center">
-      <div class="col-md-4">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareProviderClick()">
-          <span class="fs-1x">Link Paylaş</span>
-          <i class="fa-solid fa-share-nodes fs-3"></i>
-        </a>
-      </div>
 
-      <div class="col-md-4" *ngIf="false">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappProviderClick()">
-          <span class="fs-1x">Whatsapp</span>
-          <i class="fa-brands fa-whatsapp fs-3"></i>
-        </a>
-      </div>
-
-      <div class="col-md-3">
-        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRInviteClick()">
-          <span class="fs-1x">Kare Kod Göster</span>
-          <i class="fa-solid fa-qrcode fs-3"></i>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
-          <span class="fs-1x fw-bold mt-10">İşletmenizin Doğrulama Kodu: {{this.invitationCode}}</span>
-        </span>
-        <div class="text-muted mt-5">
-          Daha önce sizden hizmet almış olan müşterileriniz Recommed mobil uygulamasını AppStore veya Google Play'den indirip bu doğrulama kodunu girebilirler.
-          Böylece sizin Marka Elçiniz olurlar. Yaptıkları tüm tavsiyeler size akar!
-        </div>
-
-      </div>
-    </div>
 
   </app-modal>
 
