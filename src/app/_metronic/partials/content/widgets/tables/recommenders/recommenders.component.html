@@ -1,12 +1,8 @@
 <div class="row gy-5 gx-xl-8" *ngIf="this.recommenders?.length">
   <div class="col-xl-8">
-      <div
-      class="card-header border-0 pt-5"
-
-      >
+      <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bolder fs-3 mb-1">Network</span>
-
+          <span class="card-label fw-bolder fs-5 mb-1">Network ({{this.recommenders.length}})</span>
         </h3>
         <div
           class="card-toolbar"
@@ -52,6 +48,7 @@
                     <span class="text-dark fw-bolder fs-6">
                       {{ item.name }}
                       <i class="fa-solid fa-crown" *ngIf="item.role === 'o'" style="color: burlywood;"></i>
+                      <i class="fa-solid fa-id-card-clip" *ngIf="item.role === 'u'" style="color: cornflowerblue;"></i>
                       <span class="badge badge-light-primary" *ngIf="this.appService.currentUserValue?.role === 'o' && item.salesRewardPercentage">%{{item.salesRewardPercentage}}</span>
                     </span>
                   </div>

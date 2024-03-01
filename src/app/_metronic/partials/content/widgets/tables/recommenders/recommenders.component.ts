@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './recommenders.component.html',
 })
 export class RecommendersComponent implements OnInit {
+  loading: boolean = false;
   recommenders: Array<{
     uid: string,
     joinedAt: Date,
@@ -63,11 +64,15 @@ export class RecommendersComponent implements OnInit {
 
 
   openRecommenderEditModal(userUid: string) {
+    if (this.loading) return null;
+    this.loading = true;
+    setTimeout(() => {this.loading = false;}, 5000);
     if (this.appService.currentUserValue?.role == 'o') {
       const s = this.appService.post('user/get-recommender', {
         uid: userUid,
       })
       .subscribe((result: ApiResultModel | undefined) => {
+        this.loading = false;
         this.currentRecommenderUid = userUid;
 
         this.frmUserEdit.setValue({

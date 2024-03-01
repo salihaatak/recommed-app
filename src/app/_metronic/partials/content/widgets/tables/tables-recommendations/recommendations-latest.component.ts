@@ -17,6 +17,7 @@ export class RecommendationsLatestComponent implements OnInit {
   recommendation: Recommendation = new Recommendation();
   hasError: boolean = false;
   currentRecommendationUid: string;
+  loading: boolean = false;
 
   @ViewChild('modalRecommendation') private modalRecommendation: ModalComponent;
   modalConfigRecommendation: ModalConfig = {
@@ -195,13 +196,17 @@ export class RecommendationsLatestComponent implements OnInit {
 
   openRecommendationActivitiesModal(recommendationUid: string) {
     this.currentRecommendationUid = recommendationUid;
-    this.loadRecommendation().add(() => {
+    this.loadRecommendation()?.add(() => {
       this.modalRecommendation.open();
     });
   }
 
   loadRecommendation () {
-    return this.appService.post("recommendation/get", {uid: this.currentRecommendationUid}).subscribe((result: ApiResultModel | undefined) => {
+    if (this.loading) return null;
+    this.loading = true;
+    setTimeout(() => {this.loading = false;}, 5000);
+    const r = this.appService.post("recommendation/get", {uid: this.currentRecommendationUid}).subscribe((result: ApiResultModel | undefined) => {
+      this.loading = false;
       this.recommendation = result?.data.recommendation;
 
       this.recommendation.phoneNumber = this.recommendation.phoneNumber;
@@ -287,6 +292,8 @@ export class RecommendationsLatestComponent implements OnInit {
 
       this.cdr.detectChanges();
     });
+
+    return r;
   }
 
   phoneCall(tel: string){
@@ -294,7 +301,7 @@ export class RecommendationsLatestComponent implements OnInit {
   }
 
   openSalesModal(recommendationUid: string) {
-    this.loadRecommendation().add(() => {
+    this.loadRecommendation()?.add(() => {
       this.hasError = false;
       this.modalSale.open();
 
@@ -327,7 +334,7 @@ export class RecommendationsLatestComponent implements OnInit {
   }
 
   openAcceptModal(recommendationUid: string) {
-    this.loadRecommendation().add(() => {
+    this.loadRecommendation()?.add(() => {
       this.hasError = false;
       this.modalAccept.open();
 
@@ -447,7 +454,7 @@ export class RecommendationsLatestComponent implements OnInit {
 
   public loadRecommendations(){
     const s = this.appService
-    .post(this.appService.role == 'r' ? 'user/recommender-recommendations' : 'user/provider-recommendations')
+    .post(this.appService.role == 'o' ? 'user/provider-recommendations' : 'user/recommender-recommendations')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.recommendations = result?.data;

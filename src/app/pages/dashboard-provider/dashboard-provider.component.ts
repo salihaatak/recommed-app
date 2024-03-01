@@ -8,7 +8,7 @@ import { AppService } from 'src/app/modules/auth';
 })
 export class DashboardProviderComponent implements OnInit {
 
-  constructor(private appService: AppService) {
+  constructor(public appService: AppService) {
   }
 
 

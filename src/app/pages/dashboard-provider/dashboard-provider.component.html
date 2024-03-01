@@ -22,5 +22,5 @@
 <!-- end::Row -->
 
 
-<app-recommenders class="card card-xxl-stretch mb-5 mb-xl-8"></app-recommenders>
+<app-recommenders class="card card-xxl-stretch mb-5 mb-xl-8" *ngIf="this.appService.currentUserValue?.role === 'o'"></app-recommenders>
 

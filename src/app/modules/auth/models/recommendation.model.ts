@@ -2,6 +2,7 @@ import { RecommendationActivityTypeModel } from "src/app/models/recommendation-a
 
 export class Recommendation {
   uid: string;
+  source: 'co' | 'la';
   name: string;
   phoneNumber: string;
   phoneNumberHidden: boolean = true;

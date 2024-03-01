@@ -5,12 +5,11 @@
   *ngIf="this.recommendations?.length"
   >
     <h3 class="card-title align-items-start flex-column">
-      <span class="card-label fw-bolder fs-3 mb-1">{{
-        this.appService.role === "r"
-          ? "Yaptığınız Tavsiyeler"
-          : "Marka Elçilerinin Tavsiyeleri"
-      }}</span>
-
+      <span class="card-label fw-bolder fs-5 mb-1">{{
+        this.appService.role === "o"
+        ? "Potansiyel Müşteri Havuzu"
+        : "Tavsiye Ettikleriniz"
+      }} ({{this.recommendations.length}})</span>
     </h3>
     <div
       class="card-toolbar"
@@ -25,13 +24,13 @@
 </div>
 <!-- end::Header -->
 <!-- begin::Body -->
-<div class="card-body py-3">
+<div class="card-body py-0">
   <div class="text-muted mt-1 fw-bold fs-7 mt-9 mb-9" *ngIf="!this.recommendations?.length">
     <ng-container *ngIf="this.appService.role === 'r'">
       Henüz hiç tavsiyeniz yok. Tavsiye Et düğmesine dokunarak çevrenizdekilere tavsiye göndermeye başlayın. Her tavsiye ek kazanç fırsatı demek :)
     </ng-container>
-    <ng-container *ngIf="this.appService.role !== 'r'">
-      Henüz gelen bir tavsiye yok. Sizden memnun olan eski müşterilerinizi Marka Elçisi Davet Et düğmesiyle davet edin.
+    <ng-container *ngIf="this.appService.role === 'u' || this.appService.role === 'o'">
+      Henüz gelen bir tavsiye yok. Sizden memnun olan eski müşterilerinizi Tavsiye Et düğmesiyle marka elçisi olmaya davet edin
     </ng-container>
   </div>
 
@@ -43,10 +42,7 @@
     >
       <!-- begin::Table head -->
       <thead>
-        <tr class="fw-bolder text-muted">
-          <th class="min-w-150px">Tavsiye</th>
-          <th class="min-w-120px">Aşama</th>
-        </tr>
+
       </thead>
       <!-- end::Table head -->
       <!-- begin::Table body -->
@@ -64,68 +60,76 @@
                 <span class="text-dark fw-bolder fs-6">
                   {{ item.name }}
                 </span>
+                <div>
+                  <ng-container [ngSwitch]="item.status">
+                    <span
+                      *ngSwitchCase="'ne'"
+                      class="badge badge-light-warning fs-8 fw-bolder"
+                      >Yeni</span
+                    >
+                    <span
+                      *ngSwitchCase="'ac'"
+                      class="badge badge-light-primary fs-8 fw-bolder"
+                      >Kabul Edildi</span
+                    >
+                    <span
+                      *ngSwitchCase="'de'"
+                      class="badge badge-light-danger fs-8 fw-bolder"
+                      >Kabul Edilmedi</span
+                    >
+                    <span
+                      *ngSwitchCase="'re'"
+                      class="badge badge-light-danger fs-8 fw-bolder"
+                      >Reddetti</span
+                    >
+                    <span
+                      *ngSwitchCase="'ca'"
+                      class="badge badge-light-primary fs-8 fw-bolder"
+                      >Arandı</span
+                    >
+                    <span
+                      *ngSwitchCase="'ta'"
+                      class="badge badge-light-danger fs-8 fw-bolder"
+                      >Görüşüldü</span
+                    >
+                    <span
+                      *ngSwitchCase="'va'"
+                      class="badge badge-light-primary fs-8 fw-bolder"
+                      >Doğrulandı</span
+                    >
+                    <span
+                      *ngSwitchCase="'in'"
+                      class="badge badge-light-danger fs-8 fw-bolder"
+                      >Geçersiz</span
+                    >
+                    <span
+                      *ngSwitchCase="'wi'"
+                      class="badge badge-light-danger fs-8 fw-bolder"
+                      >Geri Çekildi</span
+                    >
+                    <span
+                      *ngSwitchCase="'so'"
+                      class="badge badge-light-success fs-8 fw-bolder"
+                      >Yararlandı</span
+                    >
+                  </ng-container>
+
+                </div>
                 <span class="text-muted fw-bold text-muted d-block fs-7">
-                  {{ item.createdAtFormatted }}
-                  <ng-container *ngIf="this.appService.role !== 'r'">
-                    tarihinde {{item.by?.createdBy?.name}} isimli Marka Elçisi tarafından
+                  Geldiği Tarih: {{ item.createdAtFormatted }}
+                  <ng-container *ngIf="this.appService.role === 'o'">
+                  , Marka Elçisi: {{item.by?.createdBy?.name}}
+                  </ng-container>
+                  , Yöntem:
+                  <ng-container *ngIf="item.source === 'la'">
+                    Link
+                  </ng-container>
+                  <ng-container *ngIf="item.source === 'co'">
+                    Telefon rehberi
                   </ng-container>
                 </span>
               </div>
             </div>
-          </td>
-          <td>
-            <ng-container [ngSwitch]="item.status">
-              <span
-                *ngSwitchCase="'ne'"
-                class="badge badge-light-warning fs-8 fw-bolder"
-                >Yeni</span
-              >
-              <span
-                *ngSwitchCase="'ac'"
-                class="badge badge-light-primary fs-8 fw-bolder"
-                >Kabul Edildi</span
-              >
-              <span
-                *ngSwitchCase="'de'"
-                class="badge badge-light-danger fs-8 fw-bolder"
-                >Kabul Edilmedi</span
-              >
-              <span
-                *ngSwitchCase="'re'"
-                class="badge badge-light-danger fs-8 fw-bolder"
-                >Reddetti</span
-              >
-              <span
-                *ngSwitchCase="'ca'"
-                class="badge badge-light-primary fs-8 fw-bolder"
-                >Arandı</span
-              >
-              <span
-                *ngSwitchCase="'ta'"
-                class="badge badge-light-danger fs-8 fw-bolder"
-                >Görüşüldü</span
-              >
-              <span
-                *ngSwitchCase="'va'"
-                class="badge badge-light-primary fs-8 fw-bolder"
-                >Doğrulandı</span
-              >
-              <span
-                *ngSwitchCase="'in'"
-                class="badge badge-light-danger fs-8 fw-bolder"
-                >Geçersiz</span
-              >
-              <span
-                *ngSwitchCase="'wi'"
-                class="badge badge-light-danger fs-8 fw-bolder"
-                >Geri Çekildi</span
-              >
-              <span
-                *ngSwitchCase="'so'"
-                class="badge badge-light-success fs-8 fw-bolder"
-                >Yararlandı</span
-              >
-            </ng-container>
           </td>
         </tr>
       </tbody>
