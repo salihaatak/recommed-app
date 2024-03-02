@@ -11,6 +11,10 @@ const routes: Routes = [
     component: LandingComponent,
     children: [
       {
+        path: 'i/:invitationCode/:parentUserUid',
+        component: InviteComponent,
+      },
+      {
         path: 'i/:invitationCode',
         component: InviteComponent,
       },

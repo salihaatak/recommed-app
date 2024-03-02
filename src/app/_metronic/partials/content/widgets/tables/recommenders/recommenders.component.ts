@@ -11,15 +11,27 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class RecommendersComponent implements OnInit {
   loading: boolean = false;
+/*
+                u.uid,
+                u.name,
+                u.role,
+                u.salesRewardPercentage,
+                COUNT(childUser.uid) as childUserCount,
+                COUNT(r.uid) as recommendationCount,
+                COUNT(CASE WHEN r.status = 'so' THEN r.uid END) as soldRecommendationCount,
+                MAX(r.createdAt) as lastRecommendationAt,
+                parentUser.name parentUserName
+*/
   recommenders: Array<{
     uid: string,
-    joinedAt: Date,
     name: string,
-    total: number,
-    sold: number,
-    last: Date,
     role: 'o' | 'u' | 'r',
     salesRewardPercentage: number
+    childUserCount: number,
+    recommendationCount: number,
+    soldRecommendationCount: number,
+    lastRecommendationAt: Date,
+    parentUserName: string
   }>;
   error: any;
   currentRecommenderUid: string;

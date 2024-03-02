@@ -28,6 +28,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
     promotions: string
   } | null;
   invitationCode: string | null;
+  parentUserUid: string | null;
   recommendationUrl: string;
   phoneEntered: boolean = false;
   phoneVerified: boolean = false;
@@ -60,17 +61,19 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
         this.phoneNumber.setCountry(result.country_code);
       });
     }
-
   }
+
   ngAfterViewInit(): void {
     this.renderPhoneNumber();
   }
 
   ngOnInit(): void {;
     this.invitationCode = this.route.snapshot.paramMap.get('invitationCode');
+    this.parentUserUid = this.route.snapshot.paramMap.get('parentUserUid');
+
     this.unsubscribe.push(this.appService
       .post("account/get-by-invitation-code", {
-        invitationCode: this.route.snapshot.paramMap.get('invitationCode')
+        invitationCode: this.route.snapshot.paramMap.get('invitationCode'),
       }, false)
       .subscribe((result: ApiResultModel | undefined) => {
         if (result?.success) {
@@ -95,8 +98,6 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
           null
         ],
       });
-
-
   }
 
   sendVerificationCode(){
@@ -108,6 +109,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
           invitationCode: this.invitationCode,
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
+          parentUserUid: this.parentUserUid,
         },
         false
       )

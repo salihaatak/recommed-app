@@ -45,12 +45,6 @@ export class ClassicComponent implements OnInit, OnDestroy {
     hideCloseButton: false,
   };
 
-  @ViewChild('modalProvider') private modalProvider: ModalComponent;
-  modalConfigProvider: ModalConfig = {
-    title: 'Nasıl davet etmek istersiniz?',
-    hideCloseButton: false,
-  };
-
   @ViewChild('modalQrRecommend') private modalQrRecommend: ModalComponent;
   modalConfigQrRecommend: ModalConfig = {
     title: 'Kare Kodu Kameranıza Gösterin',
@@ -112,9 +106,6 @@ export class ClassicComponent implements OnInit, OnDestroy {
     return await this.modalRecommender.open();
   }
 
-  async openModalProvider() {
-    return await this.modalProvider.open();
-  }
 
   btnSelectContactsClick(){
     window.WebView.postMessage(JSON.stringify({
@@ -127,7 +118,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnShareRecommenderClick(){
-    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}`;
+    this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -137,7 +128,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnShareProviderClick(){
-    this.urlInvite = environment.appUrl + 'l/i/' +  this.appService.currentUserValue?.account.invitationCode;
+    this.urlInvite = `${environment.appUrl}l/i/${this.appService.currentUserValue?.account.invitationCode}/${this.appService.currentUserValue?.uid}`;
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: `Merhaba! Tavsiye Teşvik Programımımıza katılarak düzenli gelir elde etmek ister misiniz? Bilgi için linke dokunun.`,
@@ -147,7 +138,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnWhatsappRecommenderClick(){
-    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}`;
+    this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -157,7 +148,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnWhatsappProviderClick(){
-    this.urlInvite = environment.appUrl + 'l/i/' +  this.appService.currentUserValue?.account.invitationCode;
+    this.urlInvite = `${environment.appUrl}l/i/${this.appService.currentUserValue?.account.invitationCode}/${this.appService.currentUserValue?.uid}`;
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -167,12 +158,12 @@ export class ClassicComponent implements OnInit, OnDestroy {
   }
 
   btnQRRecommendClick(){
-    this.urlRecommend = environment.appUrl + `l/r/${this.appService.currentUserValue?.uid}`;
+    this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
     return this.modalQrRecommend.open();
   }
 
   btnQRInviteClick(){
-    this.urlInvite = environment.appUrl + 'l/i/' +  this.appService.currentUserValue?.account.invitationCode;
+    this.urlInvite = `${environment.appUrl}l/i/${this.appService.currentUserValue?.account.invitationCode}/${this.appService.currentUserValue?.uid}`;
     return this.modalQrInvite.open();
   }
 

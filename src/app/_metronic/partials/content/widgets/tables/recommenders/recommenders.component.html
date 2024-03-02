@@ -28,8 +28,8 @@
           <thead>
             <tr class="fw-bolder text-muted">
               <th class="min-w-150px">Marka Elçiniz</th>
-              <th class="min-w-120px">Tavsiye</th>
-              <th class="min-w-120px">Skor</th>
+              <th class="min-w-100px text-center">Alt</th>
+              <th class="min-w-120px text-center">Skor</th>
             </tr>
           </thead>
           <!-- end::Table head -->
@@ -41,24 +41,20 @@
             >
               <td>
                 <div class="d-flex align-items-center">
-                  <div class="symbol symbol-25px me-5">
-                    <img src="./assets/media/avatars/blank.png" alt="" />
-                  </div>
-                  <div class="d-flex justify-content-start flex-column">
-                    <span class="text-dark fw-bolder fs-6">
+                    <span class="text-dark fs-6">
                       {{ item.name }}
+                      <div class="text-muted fs-8" *ngIf="item.parentUserName">Üst: {{item.parentUserName}}</div>
                       <i class="fa-solid fa-crown" *ngIf="item.role === 'o'" style="color: burlywood;"></i>
                       <i class="fa-solid fa-id-card-clip" *ngIf="item.role === 'u'" style="color: cornflowerblue;"></i>
                       <span class="badge badge-light-primary" *ngIf="this.appService.currentUserValue?.role === 'o' && item.salesRewardPercentage">%{{item.salesRewardPercentage}}</span>
                     </span>
-                  </div>
                 </div>
               </td>
               <td class="text-center">
-                {{item.total}}
+                {{item.childUserCount}}
               </td>
               <td class="text-center">
-                {{item.sold}}
+                {{item.recommendationCount}}/{{item.soldRecommendationCount}}
               </td>
             </tr>
           </tbody>

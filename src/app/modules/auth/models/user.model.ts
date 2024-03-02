@@ -8,10 +8,12 @@ export class UserModel extends AuthModel {
   lastName: string;
   email: string;
   phoneNumber: string;
+  salesRewardPercentage: number;
   account: {
     uid: string;
     name: string;
     invitationCode: string;
     logo: string;
+    salesRewardPercentage: number;
   };
 }
