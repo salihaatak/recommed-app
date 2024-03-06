@@ -137,39 +137,41 @@
   </div>
 
     <h2 class="text-dark text-center fw-bolder mb-3">
-      Aşağıdaki linki çevrenizle paylaşmanız yeterli!
+      Uygulamayı indirerek kazanmaya başlayabilirsiniz!
     </h2>
 
+
   <div class="fw-semibold fs-6 mb-10 text-center">
-    Bu link size özeldir. Önce kopyalayıp sonra arkadaş gruplarınız, aile gruplarınız veya iş gruplarınızda toplu olarak gönderebilirsiniz.
-    Linki kullanan her kişi için size SMS ile bilgi gelecek ve size cazip ödüllerimiz olacak!
+    Son bir aşama kaldı. Mobil uygulamayı indirip yönlendirmelere uyarak kolayca kazanmaya başlayabilirsiniz:
   </div>
 
-  <div>
-    <input class="form-control bg-transparent mb-5" readonly="readonly" [value]="this.recommendationUrl">
+  <div *ngIf="false">
+    <div>
+      <input class="form-control bg-transparent mb-5" readonly="readonly" [value]="this.recommendationUrl">
+    </div>
+    <div>
+      <span style="color: green; font-weight: bold;" *ngIf="this.copied">Link kopyalandı!</span>
+    </div>
+    <a (click)="copy();" href="javascript:;" class="btn btn-primary mb-10"><b>Kopyala</b></a>
   </div>
-  <div>
-    <span style="color: green; font-weight: bold;" *ngIf="this.copied">Link kopyalandı!</span>
-  </div>
-  <a (click)="copy();" href="javascript:;" class="btn btn-primary mb-10"><b>Kopyala</b></a>
 
 
   <div>
-      <div class="col-md-6 mb-6">
-        <a href="https://play.google.com/store/apps/details?id=com.hk.recommed"
-        class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
-          <i class="fa-brands fa-google-play fa-solid fs-1"></i>
-          Google Play
-        </a>
-      </div>
+    <div class="col-md-6 mb-6" *ngIf="this.appService.mobile === 'android' || this.appService.mobile === null">
+      <a href="https://play.google.com/store/apps/details?id=com.hk.recommed"
+      class="btn btn-flex btn-primary flex-center text-nowrap w-100 fs-5">
+        <i class="fa-brands fa-google-play fa-solid fs-1"></i>
+        Uygulamayı İndir
+      </a>
+    </div>
 
-      <div class="col-md-6">
-        <a href="https://apps.apple.com/tr/app/recommed/id6468917213"
-        class="btn btn-flex btn-primary bg-state-light flex-center text-nowrap w-100 fs-5">
-          <i class="fa-brands fa-app-store-ios fa-solid fs-1"></i>
-          AppStore
-        </a>
-      </div>
+    <div class="col-md-6" *ngIf="this.appService.mobile === 'ios' || this.appService.mobile === null">
+      <a href="https://apps.apple.com/tr/app/recommed/id6468917213"
+      class="btn btn-flex btn-primary flex-center text-nowrap w-100 fs-5">
+        <i class="fa-brands fa-app-store-ios fa-solid fs-1"></i>
+        Uygulamayı İndir
+      </a>
+    </div>
 
   </div>
 </div>

@@ -38,10 +38,6 @@ export class AppService implements OnDestroy {
   socketConnectedBefore: boolean = false;
   public logo: string = 'https://recommed.co/media/recommed/web-logo-colored-text.svg';
 
-  get IsAndroid(): boolean {
-    return navigator.userAgent.toLowerCase().indexOf("android") > -1;
-  }
-
   get currentUserValue(): UserType {
     return this.currentUserSubject.value;
   }
@@ -53,9 +49,20 @@ export class AppService implements OnDestroy {
   constructor(
     private httpService: HTTPService,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {
 
+  }
+
+  get mobile(): string | null {
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (/android/.test(userAgent)) {
+      return 'android';
+    } else if (/iphone|ipad|ipod/.test(userAgent)) {
+      return 'ios';
+    } else {
+      return null;
+    }
   }
 
   socketConnect(uid: string) {
@@ -185,18 +192,6 @@ export class AppService implements OnDestroy {
         this.isLoadingSubject.next(false)
       })
     );
-  }
-
-  generateRandomString(length: number = 10): string {
-    const characters = 'abcdefhkmnprstuvyz23456789';
-    let result = '';
-
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      result += characters.charAt(randomIndex);
-    }
-
-    return result;
   }
 
   mask(text: string, maskDigits = 2): string {
