@@ -19,11 +19,11 @@ import { environment } from 'src/environments/environment';
 
 function appInitializer(appService: AppService) {
 
-
+console.log("Çalıştııııı");
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore
-      appService.me().subscribe().add(resolve);
+     appService.me().subscribe().add(resolve);
 
     });
   };

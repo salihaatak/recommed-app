@@ -5,10 +5,7 @@ import { ModalConfig, ModalComponent } from '../../../../../_metronic/partials';
 import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import * as CryptoJS from 'crypto-js';
-
 
 declare global {
   interface Window { WebView: any; }
@@ -38,6 +35,22 @@ export class ClassicComponent implements OnInit, OnDestroy {
   daterangepickerButtonClass: string = '';
 
   showToolbar: boolean = true;;
+
+  @ViewChild('modalRecommenderVideo') private modalRecommenderVideo: ModalComponent;
+  modalConfigRecommenderVideo: ModalConfig = {
+    title: 'Tüm İpuçları Bu Videoda',
+    hideCloseButton: false,
+    actions: [
+      {
+        title: "Kapat: Videoyu İzledim",
+        buttonClass: 'success',
+        event: async (): Promise<boolean> => {
+          this.recommenderVideoWatchedClick();
+          return true;
+        }
+      }
+    ]
+  };
 
   @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
   modalConfigRecommender: ModalConfig = {
@@ -102,8 +115,23 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }
   }
 
+  async openModalRecommenderVideo() {
+    return await this.modalRecommenderVideo.open();
+  }
+
   async openModalRecommender() {
     return await this.modalRecommender.open();
+  }
+
+  async recommenderVideoWatchedClick(){
+    const s = this.appService
+    .post('action/recommender-watched-video')
+    .subscribe((result: ApiResultModel | undefined) => {
+      if (result?.success) {
+        this.modalRecommenderVideo.close();
+      } else {
+      }
+    });
   }
 
 
@@ -119,6 +147,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   btnShareRecommenderClick(){
     this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
+    console.log(this.urlRecommend);
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
@@ -129,6 +158,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   btnShareProviderClick(){
     this.urlInvite = `${environment.appUrl}l/i/${this.appService.currentUserValue?.account.invitationCode}/${this.appService.currentUserValue?.uid}`;
+    console.log(this.urlInvite);
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
       text: `Merhaba! Tavsiye Teşvik Programımımıza katılarak düzenli gelir elde etmek ister misiniz? Bilgi için linke dokunun.`,

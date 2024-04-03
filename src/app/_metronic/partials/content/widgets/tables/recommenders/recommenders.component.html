@@ -2,7 +2,7 @@
   <div class="col-xl-8">
       <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bolder fs-5 mb-1">Çemberiniz ({{this.recommenders.length}})</span>
+          <span class="card-label fw-bolder fs-6 mb-1">Çemberiniz ({{this.recommenders.length}})</span>
         </h3>
         <div
           class="card-toolbar"
@@ -161,6 +161,19 @@
             type="text"
             class="form-control form-control-lg form-control-solid"
             formControlName="lastName"
+          />
+        </div>
+      </div>
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fw-bold fs-6"
+          ><span class="required">Telefon</span></label
+        >
+        <div class="col-lg-8 fv-row">
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid"
+            readonly="readonly"
+            formControlName="phoneNumber"
           />
         </div>
       </div>

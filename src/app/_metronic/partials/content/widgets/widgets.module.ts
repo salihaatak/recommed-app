@@ -98,6 +98,7 @@ import { ComparePeriodComponent } from './_new/cards/compare-period/compare-peri
 import { ModalsModule } from '../../layout/modals/modals.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslationModule } from 'src/app/modules/i18n';
+import { RecommenderJourneyComponent } from './_new/cards/recommender-journey/recommender-journey.component';
 
 
 @NgModule({
@@ -188,6 +189,7 @@ import { TranslationModule } from 'src/app/modules/i18n';
     ProviderSummaryComponent,
     RecommenderCountComponent,
     ComparePeriodComponent,
+    RecommenderJourneyComponent
   ],
   imports: [
     CommonModule,
@@ -290,6 +292,7 @@ import { TranslationModule } from 'src/app/modules/i18n';
     ProviderSummaryComponent,
     RecommenderCountComponent,
     ComparePeriodComponent,
+    RecommenderJourneyComponent
   ],
 })
 export class WidgetsModule {}

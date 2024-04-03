@@ -70,6 +70,7 @@ export class RecommendersComponent implements OnInit {
         role: [],
         firstName: [],
         lastName: [],
+        phoneNumber: []
       },
     );
   }
@@ -92,6 +93,7 @@ export class RecommendersComponent implements OnInit {
           salesRewardPercentage: result?.data?.salesRewardPercentage,
           firstName: result?.data?.firstName,
           lastName: result?.data?.lastName,
+          phoneNumber: result?.data?.phoneNumber,
         });
         this.modalUserEdit.open();
 

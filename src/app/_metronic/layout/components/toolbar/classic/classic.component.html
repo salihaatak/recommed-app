@@ -30,12 +30,31 @@
   </ng-container>
 
   <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
+    data-bs-target="#kt_modal_create_app" *ngIf="this.appService.role === 'r' && this.appService.recommenderJourneyStep === 1"
+
+    (click)="openModalRecommenderVideo()">
+    <i class="fa-solid fa-circle-play"></i>
+    Videoyu İzle
+  </a>
+
+
+  <a class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
+    *ngIf="this.appService.role !== 'r' || this.appService.recommenderJourneyStep >= 2"
     data-bs-target="#kt_modal_create_app"
 
     (click)="openModalRecommender()">
     <i class="fa-solid fa-share-nodes"></i>
     Tavsiye Et
   </a>
+
+  <app-modal #modalRecommenderVideo [modalConfig]="modalConfigRecommenderVideo">
+    <div class="row g-3 mb-9 flex-center">
+      <div class="col-md-4">
+
+        <iframe width="100%" height="300" src="https://www.youtube.com/embed/bLS5jgL3Pw4?si=1l0MICH2fy4agbHp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </app-modal>
 
   <app-modal #modalRecommender [modalConfig]="modalConfigRecommender">
     <div class="row g-3 mb-9 flex-center">
