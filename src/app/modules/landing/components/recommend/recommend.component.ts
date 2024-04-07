@@ -95,7 +95,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
     this.error = null;
     const s = this.appService
       .post(
-        "user/recommend-via-landing",
+        "recommendation/add-via-landing",
         {
           recommenderUid: this.recommenderUid,
           name: this.form1.controls["name"].value,

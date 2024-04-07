@@ -38,7 +38,7 @@ export class DashboardRecommenderComponent implements OnInit {
       if (result?.success) {
         this.appService.recommenderJourney = result?.data;
 
-        if (this.appService.recommenderJourney.filter(x=>x.action == 'video').length == 0){
+        if (this.appService.recommenderJourney.filter(x=>x.action == 'recommender-video').length == 0){
           this.appService.recommenderJourneyStep = 1;
           this.appService.recommenderJourneyInstruction = "Kazanmak için şimdi yapman gereken: tüyoları öğreneceğin kısa videoyu izle";
         } else if (this.appService.recommenderJourney.filter(x=>x.action == 'recommendation').length == 0){

@@ -454,7 +454,7 @@ export class RecommendationsLatestComponent implements OnInit {
 
   public loadRecommendations(){
     const s = this.appService
-    .post(this.appService.role == 'o' ? 'user/provider-recommendations' : 'user/recommender-recommendations')
+    .post(this.appService.role == 'o' ? 'recommendation/provider-recommendations' : 'recommendation/recommender-recommendations')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.recommendations = result?.data;

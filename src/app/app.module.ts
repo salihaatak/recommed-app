@@ -18,8 +18,6 @@ import { environment } from 'src/environments/environment';
 // #fake-end#
 
 function appInitializer(appService: AppService) {
-
-console.log("Çalıştııııı");
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore

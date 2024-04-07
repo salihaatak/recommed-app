@@ -105,7 +105,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
       componentFn: (val: any) => {
         this.modalRecommender.close();
         if (val && val.length) {
-          this.appService.post("user/recommend", val).subscribe((result: ApiResultModel | undefined) => {
+          this.appService.post("recommendation/add-bulk", val).subscribe((result: ApiResultModel | undefined) => {
             this.appService.eventEmitter.emit({type: 'recommendation'});
           })
           this.cdr.detectChanges();

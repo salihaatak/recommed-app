@@ -35,7 +35,7 @@ export class ProviderSummaryComponent implements OnInit {
 
   public reload (){
     const s = this.appService
-    .post('user/provider-summary')
+    .post('recommendation/provider-summary')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.summary = result?.data;

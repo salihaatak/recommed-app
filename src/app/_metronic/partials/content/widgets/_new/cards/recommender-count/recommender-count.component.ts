@@ -41,7 +41,7 @@ export class RecommenderCountComponent implements OnInit {
 
   public reload (){
     const s = this.appService
-    .post('user/recommenders-summary')
+    .post('recommendation/recommenders-summary')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.items = result?.data.items;
