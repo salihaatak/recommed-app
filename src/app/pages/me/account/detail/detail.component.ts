@@ -52,13 +52,6 @@ export class AccountDetailComponent implements OnInit, OnDestroy {
             Validators.maxLength(20),
           ]),
         ],
-        recommendationRewardGranted: [false, Validators.compose([Validators.required])],
-        recommendationRewardAmount: [
-          '0',
-          Validators.compose([
-            Validators.required,
-          ]),
-        ],
         salesRewardGranted: [false, Validators.compose([Validators.required])],
         salesRewardModel: ['pe', Validators.compose([Validators.required])],
         salesRewardPercentage: [
@@ -89,8 +82,6 @@ export class AccountDetailComponent implements OnInit, OnDestroy {
           name: this.account.name,
           phoneNumber: this.account.phoneNumber,
           email: this.account.email,
-          recommendationRewardGranted: this.account.recommendationRewardGranted,
-          recommendationRewardAmount: this.account.recommendationRewardAmount,
           salesRewardGranted: this.account.salesRewardGranted,
           salesRewardModel: this.account.salesRewardModel,
           salesRewardAmount: this.account.salesRewardAmount,
@@ -110,8 +101,6 @@ export class AccountDetailComponent implements OnInit, OnDestroy {
           name: this.form1.controls["name"].value,
           phoneNumber: this.form1.controls["phoneNumber"].value,
           email: this.form1.controls["email"].value,
-          recommendationRewardGranted: this.form1.controls["recommendationRewardGranted"].value,
-          recommendationRewardAmount: this.form1.controls["recommendationRewardAmount"].value,
           salesRewardGranted: this.form1.controls["salesRewardGranted"].value,
           salesRewardModel: this.form1.controls["salesRewardModel"].value,
           salesRewardPercentage: this.form1.controls["salesRewardPercentage"].value,

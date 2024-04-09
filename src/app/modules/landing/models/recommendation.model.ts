@@ -1,4 +1,4 @@
-import { RecommendationActivityTypeModel } from "src/app/models/recommendation-activity.model";
+import { Action } from "src/app/models/recommendation-activity.model";
 
 export class Recommendation {
   uid: string;
@@ -17,6 +17,6 @@ export class Recommendation {
   cancelledAt: string;
   soldAt: string;
   rejectedAt: string;
-  status: RecommendationActivityTypeModel;
+  status: Action;
   by: any;
 }

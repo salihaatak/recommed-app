@@ -49,7 +49,7 @@
       <tbody>
         <tr
           *ngFor="let item of recommendations"
-          (click)="openRecommendationActivitiesModal(item.uid)"
+          (click)="openRecommendationActionsModal(item.uid)"
         >
           <td>
             <div class="d-flex align-items-center">
@@ -63,52 +63,42 @@
                 <div>
                   <ng-container [ngSwitch]="item.status">
                     <span
-                      *ngSwitchCase="'ne'"
+                      *ngSwitchCase="'recommendation'"
                       class="badge badge-light-warning fs-8 fw-bolder"
                       >Yeni</span
                     >
                     <span
-                      *ngSwitchCase="'ac'"
+                      *ngSwitchCase="'recommendation-accept'"
                       class="badge badge-light-primary fs-8 fw-bolder"
                       >Kabul Edildi</span
                     >
                     <span
-                      *ngSwitchCase="'de'"
+                      *ngSwitchCase="'recommendation-decline'"
                       class="badge badge-light-danger fs-8 fw-bolder"
-                      >Kabul Edilmedi</span
+                      >İptal Edildi</span
                     >
                     <span
-                      *ngSwitchCase="'re'"
+                      *ngSwitchCase="'recommendation-reject'"
                       class="badge badge-light-danger fs-8 fw-bolder"
                       >Reddetti</span
                     >
                     <span
-                      *ngSwitchCase="'ca'"
-                      class="badge badge-light-primary fs-8 fw-bolder"
-                      >Arandı</span
-                    >
-                    <span
-                      *ngSwitchCase="'ta'"
-                      class="badge badge-light-danger fs-8 fw-bolder"
-                      >Görüşüldü</span
-                    >
-                    <span
-                      *ngSwitchCase="'va'"
+                      *ngSwitchCase="'recommendation-validate'"
                       class="badge badge-light-primary fs-8 fw-bolder"
                       >Doğrulandı</span
                     >
                     <span
-                      *ngSwitchCase="'in'"
+                      *ngSwitchCase="'recommendation-invalidate'"
                       class="badge badge-light-danger fs-8 fw-bolder"
                       >Geçersiz</span
                     >
                     <span
-                      *ngSwitchCase="'wi'"
+                      *ngSwitchCase="'recommendation-withdraw'"
                       class="badge badge-light-danger fs-8 fw-bolder"
                       >Geri Çekildi</span
                     >
                     <span
-                      *ngSwitchCase="'so'"
+                      *ngSwitchCase="'sale'"
                       class="badge badge-light-success fs-8 fw-bolder"
                       >Yararlandı</span
                     >
@@ -189,7 +179,7 @@
     <!-- begin::Timeline-->
     <div class="timeline-label">
       <!-- begin::Item-->
-      <div class="timeline-item" *ngFor="let item of activities">
+      <div class="timeline-item" *ngFor="let item of actions">
         <!-- begin::Label-->
         <div class="timeline-label fw-bolder text-gray-800 fs-6">
           {{ item.date }}
@@ -202,21 +192,15 @@
         <div class="timeline-badge">
           <i
             class="fa fa-genderless text-warning fs-1"
-            *ngIf="item.type === 'ne'"
-          ></i>
-          <i
-            class="fa fa-genderless text-primary fs-1"
-            *ngIf="
-              item.type === 'ca' || item.type === 'va' || item.type === 'ta' || item.type === 'ac'
-            "
+            *ngIf="item.action === 'recommendation' || item.action === 'first-recommendation'"
           ></i>
           <i
             class="fa fa-genderless text-danger fs-1"
-            *ngIf="item.type === 'in' || item.type === 're' || item.type === 'de' || item.type === 'wi'"
+            *ngIf="item.action === 'recommendation-invalidate' || item.action === 'recommendation-reject' || item.action === 'recommendation-decline' || item.action === 'recommendation-withdraw'"
           ></i>
           <i
             class="fa fa-genderless text-success fs-1"
-            *ngIf="item.type === 'so'"
+            *ngIf="item.action === 'sale'"
           ></i>
         </div>
         <!-- end::Badge-->
@@ -261,31 +245,6 @@
             KDV Hariç, TL
           </div>
         </div>
-      </div>
-      <div
-        class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6"
-      >
-        <div class="d-flex flex-stack flex-grow-1">
-          <div class="fw-bold">
-            <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
-            <div class="fs-6 text-gray-600">
-              Marka Elçisine ödül hakedişi kayıt altına alınacak ve mesajla
-              haber verilecektir. Tutarı doğru girdiğinizden emin olun.
-              Müşteriye bir mesaj gönderilmeyecektir.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-check form-check-solid fv-row">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          formControlName="approve"
-          value="false"
-          id="approve"
-        /><label class="form-check-label fw-bold ps-2 fs-6 required" for="approve"
-          >Okudum onaylıyorum</label
-        >
       </div>
     </div>
   </form>
@@ -350,23 +309,12 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız. İleride bu numaranın başkası tarafından tavsiye edilmesi mümkün olmayacaktır.
+              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız.
               Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
 
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-check form-check-solid fv-row">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          formControlName="approve"
-          value="false"
-          id="approve"
-        /><label class="form-check-label fw-bold ps-2 fs-6 required" for="approve"
-          >Okudum onaylıyorum</label
-        >
       </div>
     </div>
   </form>
@@ -474,7 +422,7 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız. İleride bu numaranın başkası tarafından tavsiye edilmesi mümkün olmayacaktır.
+              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız.
               Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
 
             </div>

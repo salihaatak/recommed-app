@@ -3,7 +3,7 @@ import { AppService } from 'src/app/modules/auth';
 import { ApiResultModel } from 'src/app/modules/auth/models/api-result.mode';
 import { Recommendation } from 'src/app/modules/auth/models/recommendation.model';
 import { ModalConfig, ModalComponent } from '../../../../../../_metronic/partials';
-import { RecommendationActivityModel} from '../../../../../../models/recommendation-activity.model'
+import { RecommendationActionModel} from '../../../../../../models/recommendation-activity.model'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
 
@@ -13,7 +13,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class RecommendationsLatestComponent implements OnInit {
   recommendations: Array<Recommendation>;
-  activities: Array<RecommendationActivityModel>;
+  actions: Array<RecommendationActionModel>;
   recommendation: Recommendation = new Recommendation();
   hasError: boolean = false;
   currentRecommendationUid: string;
@@ -64,7 +64,7 @@ export class RecommendationsLatestComponent implements OnInit {
     hideCloseButton: false,
     actions: [
       {
-        title: "Reddet",
+        title: "İptal Et",
         buttonClass: 'danger',
         event: async (): Promise<boolean> => {
           this.declineClick();
@@ -159,7 +159,6 @@ export class RecommendationsLatestComponent implements OnInit {
             Validators.maxLength(100),
           ]),
         ],
-        approve: [false, Validators.compose([Validators.required])],
       },
     );
 
@@ -171,7 +170,6 @@ export class RecommendationsLatestComponent implements OnInit {
 
     this.frmDecline = this.fbDecline.group(
       {
-        approve: [false, Validators.compose([Validators.required])],
       },
     );
 
@@ -194,7 +192,7 @@ export class RecommendationsLatestComponent implements OnInit {
     );
   }
 
-  openRecommendationActivitiesModal(recommendationUid: string) {
+  openRecommendationActionsModal(recommendationUid: string) {
     this.currentRecommendationUid = recommendationUid;
     this.loadRecommendation()?.add(() => {
       this.modalRecommendation.open();
@@ -215,79 +213,35 @@ export class RecommendationsLatestComponent implements OnInit {
         this.recommendation.phoneNumber = this.appService.mask(this.recommendation.phoneNumber);
       }
 
-      this.activities = result?.data.activities;
+      this.actions = result?.data.actions;
       this.modalConfigRecommendation.title = `Tavsiye Detayı`;
 
       this.modalConfigRecommendation.actions = [];
 
       if (this.appService.role == 'o' || this.appService.role == 'u') {
-        if (this.recommendation.status == 'ac'){
+        if (this.actions.filter(x=>x.action == 'recommendation-decline').length == 0 && this.actions.filter(x=>x.action == 'sale').length == 0) {
           this.modalConfigRecommendation.actions.push({
-              title: "Doğrula",
-              buttonClass: 'success',
-              event: async (): Promise<boolean> => {
-                this.modalValidate.open();
-
-                return true;
-              }
-          });
-
-          this.modalConfigRecommendation.actions.push({
-              title: "Geçersiz",
-              buttonClass: 'danger',
-              event: async (): Promise<boolean> => {
-                this.modalInvalidate.open();
-
-                return true;
-              }
-          });
-        }
-
-        if (!this.recommendation.withdrawnAt && !this.recommendation.acceptedAt && !this.recommendation.cancelledAt && !this.recommendation.declinedAt){
-          this.modalConfigRecommendation.actions.push({
-              title: "Kabul Et",
-              buttonClass: 'success',
-              event: async (): Promise<boolean> => {
-                this.modalAccept.open();
-
-                return true;
-              }
-          });
-
-          this.modalConfigRecommendation.actions.push({
-              title: "Reddet",
+              title: "İptal Et",
               buttonClass: 'danger',
               event: async (): Promise<boolean> => {
                 this.modalDecline.open();
-
                 return true;
               }
           });
+
+          if (this.actions.filter(x=>x.action == 'sale').length == 0){
+            this.modalConfigRecommendation.actions?.push({
+                title: "Satış Bildir",
+                buttonClass: 'success',
+                event: async (): Promise<boolean> => {
+                  this.modalSale.open();
+
+                  return true;
+                }
+            });
+          }
         }
 
-        if (!this.recommendation.soldAt && this.recommendation.validatedAt){
-          this.modalConfigRecommendation.actions?.push({
-              title: "Satış Bildir",
-              buttonClass: 'success',
-              event: async (): Promise<boolean> => {
-                this.modalSale.open();
-
-                return true;
-              }
-          });
-        }
-      }
-
-      if (['ne', 'ac', 'de', 'ca', 'ta', 'va', 'in', 're'].includes(this.recommendation.status) && this.appService.role == 'r') {
-        this.modalConfigRecommendation.actions.push({
-            title: "Tavsiyeyi Geri Çek",
-            buttonClass: 'danger',
-            event: async (): Promise<boolean> => {
-              this.modalWithdraw.open();
-
-              return true;
-            }
-        });
       }
 
       this.cdr.detectChanges();
@@ -311,7 +265,7 @@ export class RecommendationsLatestComponent implements OnInit {
 
   saleClick() {
     this.hasError = false;
-    if (this.frmSales.controls["salesAmount"].value && this.frmSales.controls["approve"].value) {
+    if (this.frmSales.controls["salesAmount"].value) {
       this.hasError = false;
 
       const s = this.appService
@@ -366,24 +320,19 @@ export class RecommendationsLatestComponent implements OnInit {
 
   declineClick() {
     this.hasError = false;
-    if (this.frmDecline.controls["approve"].value) {
-      this.hasError = false;
 
-      const s = this.appService
-        .post('recommendation/decline', {
-          uid: this.currentRecommendationUid
-        })
-        .subscribe((result: ApiResultModel | undefined) => {
-          if (result){
-            this.appService.eventEmitter.emit({type: 'recommendation'});
-            this.modalDecline.close();
-          } else {
-            this.hasError = true;
-          }
-        });
-    } else {
-      this.hasError = true;
-    }
+    const s = this.appService
+      .post('recommendation/decline', {
+        uid: this.currentRecommendationUid
+      })
+      .subscribe((result: ApiResultModel | undefined) => {
+        if (result){
+          this.appService.eventEmitter.emit({type: 'recommendation'});
+          this.modalDecline.close();
+        } else {
+          this.hasError = true;
+        }
+      });
   }
 
   validateClick() {

@@ -22,7 +22,9 @@ export class RecommenderSummaryComponent implements OnInit {
   ) {
     appService.eventEmitter.subscribe((x)=>{
       if (x.type == 'recommendation'){
-        this.reload();
+        setTimeout(() => {
+          this.reload();
+        }, 1000)
       }
     });
 
@@ -34,7 +36,7 @@ export class RecommenderSummaryComponent implements OnInit {
 
   public reload (){
     const s = this.appService
-    .post('recommendation/recommendations-summary')
+    .post('recommendation/recommender-summary')
     .subscribe((result: ApiResultModel | undefined) => {
       if (result?.success) {
         this.summary = result?.data;

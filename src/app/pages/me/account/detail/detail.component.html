@@ -50,36 +50,6 @@
             />
           </div>
         </div>
-        <div class="row mb-0 border-top pb-5">
-          <label class="col-lg-4 col-form-label fw-bold fs-6"
-            >Tavsiyeleri ödüllendir</label
-          >
-          <div class="col-lg-8 d-flex align-items-center">
-            <div class="form-check form-check-solid form-switch fv-row">
-              <input
-                class="form-check-input w-45px h-30px"
-                type="checkbox"
-                formControlName="recommendationRewardGranted"
-              /><label class="form-check-label"></label>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-6" *ngIf="this.form1.controls['recommendationRewardGranted'].value">
-          <label class="col-lg-4 col-form-label fw-bold fs-6"
-            ><span class="required">Ödül Meblağı (TL)</span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="number"
-              class="form-control form-control-lg form-control-solid"
-              formControlName="recommendationRewardAmount"
-              value="0"
-            />
-            <div class="text-muted mt-5">Marka Elçisi'nden gelen bir tavsiye ile görüşüp geçerli bir tavsiye olduğunu doğruladığınızda
-              satış yapılmasını beklemeden Marka Elçisine ödül hakedişi yansıtabilirsiniz. Bu sayede markanız daha fazla kişiye tavsiye edilir, marka bilinirliğiniz artar.
-              Tavsiye başına net hakediş tutarını giriniz.</div>
-          </div>
-        </div>
         <div class="row mb-0 border-top">
           <label class="col-lg-4 col-form-label fw-bold fs-6"
             >Satışları ödüllendir</label
