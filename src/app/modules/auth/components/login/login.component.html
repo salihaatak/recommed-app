@@ -82,26 +82,8 @@
         <input class="form-control mb-10" placeholder="Soyadınız" type="text" name="lastName" autocomplete="off"
         formControlName="lastName" />
 
-
-        <div class="fv-row mb-10">
-          <label class="form-check form-check-inline">
-            <input id="kt_login_optin_agree" type="radio" formControlName="sex" value="m" class="form-check-input" />
-            <span for="kt_login_optin_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-              Erkek
-            </span>
-          </label>
-          <label class="form-check form-check-inline">
-            <input id="kt_login_optin_agree" type="radio" formControlName="sex" value="f" class="form-check-input" />
-            <span for="kt_login_optin_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-              Kadın
-            </span>
-          </label>
-        </div>
-
-
-
         <div class="d-grid">
-          <button type="button" (click)="loginWithInvitationCode();" class="btn btn-primary" [disabled]="form1.invalid">
+          <button type="button" (click)="join();" class="btn btn-primary" [disabled]="form1.invalid">
             {{'T.LOGIN' | translate}}
             <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
           </button>

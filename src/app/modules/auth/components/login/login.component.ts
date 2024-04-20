@@ -97,9 +97,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       lastName: [
         null
       ],
-      sex: [
-        null
-      ],
     });
   }
 
@@ -144,7 +141,13 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           } else {
             this.loginVerificationCodeEntered = true;
             this.invitationCode = result.data.invitationCode;
-            this.form1.get('invitationCode')?.setValue(result.data.invitationCode)
+            this.form1.get('invitationCode')?.setValue(result.data.invitationCode);
+
+            if (result.data && result.data.firstName && result.data.lastName) {
+              this.form1.get('firstName')?.setValue(result.data.firstName);
+              this.form1.get('lastName')?.setValue(result.data.lastName);
+              this.join();
+            }
           }
         } else {
           this.error = result?.message;
@@ -153,18 +156,17 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe.push(s);
   }
 
-  loginWithInvitationCode() {
+  join() {
     this.error = null;
     const s = this.appService
       .post(
-        "user/login-with-invitation-code",
+        "user/join",
         {
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
           loginVerificationCode: this.form1.controls["loginVerificationCode"].value,
           invitationCode: this.form1.controls["invitationCode"].value,
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
-          sex: this.form1.controls["sex"].value,
         },
         false
       )
