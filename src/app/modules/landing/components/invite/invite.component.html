@@ -55,7 +55,7 @@
     <!-- end::Alert error-->
 
     <!--begin::Form-->
-    <form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" id="kt_login_signin_form" *ngIf="!phoneVerified">
+    <form class="form" class="text-start" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" id="kt_login_signin_form" *ngIf="!phoneVerified">
 
 
 
@@ -67,8 +67,8 @@
             </div>
           </div>
 
-          <div class="text-center mt-10 mb-11" *ngIf="!this.phoneEntered">
-            <b class="text-dark fw-bolder mb-3">
+          <div class=" mt-10 mb-11" *ngIf="!this.phoneEntered">
+            <b class="text-dark text-center mb-3 fs-3">
               Bilgi İçin Formu Doldurun:
             </b>
           </div>
@@ -86,6 +86,22 @@
             <input class="form-control" type="text" name="lastName" formControlName="lastName"
               placeholder="Soyadınız" autocomplete="off" />
           </div>
+
+          <div class="fv-row mb-8" *ngIf="!this.phoneEntered">
+            <label class="form-check form-check-inline">
+              <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input"/>
+              <span for="kt_login_toc_agree" class="form-check-label text-gray-700">
+              Kullanım Koşulları, açık rıza metni ve KVKK kurallarını okudum kabul ediyorum
+              </span>
+              <ng-container [ngTemplateOutlet]="error" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Lütfen onaylayın',
+                control: form1.controls['agree']
+              }"></ng-container>
+            </label>          </div>
+
+
+
 
           <div class="d-grid mb-10" *ngIf="!this.phoneEntered">
             <button type="button" (click)="sendVerificationCode()" id="kt_sign_in_submit" class="btn btn-primary" [disabled]="form1.invalid">

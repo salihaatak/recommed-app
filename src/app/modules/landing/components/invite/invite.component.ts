@@ -13,6 +13,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './invite.component.html',
   styleUrls: ['./invite.component.scss'],
 })
+
 export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   form1: FormGroup;
   error: any;
@@ -45,7 +46,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
     public cdr: ChangeDetectorRef,
     public httpService: HttpClient,
     public router: Router,
-    private titleService: Title
+    private titleService: Title,
   ) {
   }
 
@@ -97,10 +98,15 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
         lastName: [
           null
         ],
+        agree: null,
       });
   }
 
   sendVerificationCode(){
+    if (!this.form1.controls["agree"].value) {
+      this.error = "Lütfen sözleşmeyi onaylayınız";
+      return false;
+    }
     const s = this.appService
       .post(
         "user/accept-invitation-save",
@@ -165,3 +171,4 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 }
+
