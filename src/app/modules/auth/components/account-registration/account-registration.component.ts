@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -16,10 +16,11 @@ import { AccountRegistrationService } from '../../services/account-registration.
   templateUrl: './account-registration.component.html',
   styleUrls: ['./account-registration.component.scss'],
 })
-export class AccountRegistrationComponent implements OnInit, OnDestroy {
+export class AccountRegistrationComponent implements OnInit, OnDestroy, AfterViewInit {
   form1: FormGroup;
   hasError: boolean;
   phoneNumber: intlTelInput.Plugin;
+  state: string = 'form';
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -84,6 +85,9 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  ngAfterViewInit(): void {
     const tel = document.querySelector("#phoneNumber");
     if (tel) {
       this.phoneNumber = intlTelInput(tel, {
@@ -95,6 +99,14 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy {
         this.phoneNumber.setCountry(result.country_code);
       });
     }
+  }
+
+  switchState(state: string) {
+    this.state = state;
+    window.scrollTo(0, 0);
+    setTimeout(()=>{
+      this.ngAfterViewInit();
+    }, 1000)
   }
 
   submit() {

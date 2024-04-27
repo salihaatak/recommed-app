@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, retry } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResultModel } from '../../models/api-result.mode';
 import { AppService } from 'src/app/modules/auth';
@@ -75,6 +75,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
             Validators.maxLength(100),
           ]),
         ],
+        agree: [],
       }
     );
 
@@ -93,6 +94,10 @@ export class RecommendComponent implements OnInit, OnDestroy {
 
   submit() {
     this.error = null;
+    if (!this.form1.controls["agree"].value) {
+      this.error = 'Lütfen Kişisel Verileri Koruma Kanunu (KVKK) aydınlatma metnini onaylayınız';
+      return false;
+    }
     const s = this.appService
       .post(
         "recommendation/add-via-landing",

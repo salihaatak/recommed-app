@@ -91,14 +91,17 @@
             <label class="form-check form-check-inline">
               <input id="kt_login_toc_agree" type="checkbox" formControlName="agree" name="agree" class="form-check-input"/>
               <span for="kt_login_toc_agree" class="form-check-label text-gray-700">
-              Kullanım Koşulları, açık rıza metni ve KVKK kurallarını okudum kabul ediyorum
+              Yasalar olarak zorunlu olan <a  href="https://recommed.co/privacy.php?webview" target="_blank">Kişisel Verilerin Korunması Kanunu (KVKK)</a> aydınlatma
+              metnini ve <a href="https://recommed.co/terms.php?webview" target="_blank">Kurallar ve Koşullar</a> metnini okudum ve kabul ediyorum
+
               </span>
               <ng-container [ngTemplateOutlet]="error" [ngTemplateOutletContext]="{
                 validation: 'required',
                 message: 'Lütfen onaylayın',
                 control: form1.controls['agree']
               }"></ng-container>
-            </label>          </div>
+            </label>
+          </div>
 
 
 
