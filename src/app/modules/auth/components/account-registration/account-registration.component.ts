@@ -106,7 +106,7 @@ export class AccountRegistrationComponent implements OnInit, OnDestroy, AfterVie
     window.scrollTo(0, 0);
     setTimeout(()=>{
       this.ngAfterViewInit();
-    }, 1000)
+    }, 3000)
   }
 
   submit() {
