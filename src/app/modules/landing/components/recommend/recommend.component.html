@@ -7,7 +7,7 @@ alt="" />
   (ngSubmit)="submit()">
   <!--begin::Heading-->
     <div class="text-center mb-4">
-      <p class="fw-bolder mb-5 fs-3">
+      <p class="fw-bolder mb-5 fs-2">
         {{this.recommender?.account?.name}}
         <i class="fa-solid fa-certificate text-primary"></i>
       </p>
@@ -15,12 +15,22 @@ alt="" />
           <img [src]="this.recommender?.account?.team" class="h-75px mt-2 mb-5">
       </ng-container>
 
+      <div class="fw-semibold fs-6 abc">
+        Tavsiye Eden:
+      </div>
+      <p class="text-dark fw-bolder mb-5 fs-3">
+        {{this.recommender?.name}}
+      </p>
+
       <div class="fs-5 mb-7">
-        Yüksek müşteri memnuniyetine sahip kliniğimiz,
-        bu link ile bize ulaşanlara özel avantajlar sunuyor.
-        Bilgi almak için numaranızı bırakabilirsiniz.
+        {{this.recommender?.name}} bizden hizmet aldı ve size de tavsiye ediyor.
+        Bu link ile bize ulaşırsanız özel bir kampanyadan yararlanma fırsatı elde edersiniz.
+        Ücretsiz bilgi almak için hemen numaranızı bırakabilirsiniz:
       </div>
 
+      <div class="fw-semibold fs-6 mb-4 abc">
+        Bu Linke Özel Kampanya İçeriği:
+      </div>
       <ng-container *ngIf="promotions">
         <div class="text-center fw-semibold fs-4 mb-10 ">
           <div *ngFor="let item of promotions">
@@ -30,13 +40,6 @@ alt="" />
           </div>
         </div>
       </ng-container>
-
-      <div class="fw-semibold fs-6 abc">
-        Tavsiye Eden:
-      </div>
-      <p class="text-dark fw-bolder mb-5 fs-3">
-        {{this.recommender?.name}}
-      </p>
 
     </div>
     <!--begin::Heading-->
