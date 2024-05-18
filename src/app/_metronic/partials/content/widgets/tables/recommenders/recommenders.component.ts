@@ -39,7 +39,7 @@ export class RecommendersComponent implements OnInit {
   frmUserEdit: FormGroup;
   @ViewChild('modalUserEdit') private modalUserEdit: ModalComponent;
   modalConfigUserEdit: ModalConfig = {
-    title: 'Marka Elçisi Ayarları',
+    title: 'Kişi Ayarları',
     hideCloseButton: false,
     actions: [ {
         title: "Kaydet",

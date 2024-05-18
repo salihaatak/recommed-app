@@ -81,7 +81,7 @@ export class InviteComponent implements OnInit, OnDestroy, AfterViewInit {
           this.account = result.data;
           this.promotions = this.account?.promotions.split(';');
           this.rewards = this.account?.rewards.split(';');
-          this.titleService.setTitle(this.account?.name ?? 'Tavsiye Teşvik Programı');
+          this.titleService.setTitle(this.account?.name ?? 'Referans Programı');
           this.cdr.detectChanges();
         } else {
           this.error = result?.message;

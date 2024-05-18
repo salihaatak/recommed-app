@@ -74,10 +74,10 @@
               class="form-control form-control-lg form-control-solid"
               formControlName="salesRewardPeriod"
             />
-            <div class="text-muted mt-5">Marka Elçisi tavsiyeyi gönderdiğinde hemen satış yapılmayabilir.
-              Ne kadar süre içerisinde satış yapılırsa Marka Elçisi'ne hakediş yansıtılacağını belirtin.
-              Çok kısa süre girerseniz Marka Elçisinde hak kaybı olabilir.
-              180 günden (6 ay) az olmaması önerilir.
+            <div class="text-muted mt-5">Referans yoluyla bir başvuru gönderdiğinde hemen satış yapılmayabilir.
+              Ne kadar süre içerisinde satış yapılırsa referans olan müşterinize hakediş yansıtılacağını belirtin.
+              Çok kısa süre girerseniz referans olan müşteride hak kaybı olabilir.
+              En az 180 gün (6 ay) olmasını öneriyoruz.
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
                   type="radio"
                   value="pe"
                 />
-                <span class="fw-bold ps-2 fs-6">Satıştan yüzde (%)</span>
+                <span class="fw-bold ps-2 fs-6">Tahsilattan yüzde (%)</span>
               </label>
               <label class="form-check form-check-inline form-check-solid">
                 <input
@@ -119,8 +119,8 @@
               formControlName="salesRewardAmount"
               value="0"
             />
-            <div class="text-muted mt-5">Satış gerçekleştiğinde ne kadarlık satış yapıldığından bağımsız olarak Marka Elçisine
-              sabit meblağ ödül hakedişi yansıtabilirsiniz.</div>
+            <div class="text-muted mt-5">Satış gerçekleştiğinde ne kadarlık satış yapılırsa yapılsın Referans Sağlayıcıya
+              sabit bir tutarda ödül hakedişi yansıtabilirsiniz.</div>
           </div>
         </div>
         <div class="row mb-6" *ngIf="this.form1.controls['salesRewardGranted'].value && this.form1.controls['salesRewardModel'].value === 'pe'">
@@ -134,9 +134,9 @@
               formControlName="salesRewardPercentage"
               value="0"
             />
-            <div class="text-muted mt-5">Tavsiyeye satış yapıldığında Recommed size ne kadarlık bir satış yapıldığını sorar.
-              KDV hariç satış rakamınız üzerinden Marka Elçisine yüzdesel oranda hakediş yansıtır. Yüzdesel ödüllendirme,
-              Marka Elçisi'ni kazan-kazan modeline motive eder ve daha fazla kişiye tavsiye etmesine dolayısıyla cironuzun artmasına yardımcı olur.
+            <div class="text-muted mt-5">Referansla gelen başvurulara satış yapıldığında Recommed size ne kadarlık bir satış yapıldığını sorar.
+              KDV hariç satış rakamınız üzerinden referans olan müşteriye yüzdesel oranda hakediş yansıtır. Yüzdesel ödüllendirme,
+              onları kazan-kazan modeline motive eder ve daha fazla kişiye referans olmalarını cironuzun artmasını sağlar.
             </div>
           </div>
         </div>

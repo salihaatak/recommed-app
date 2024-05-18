@@ -2,7 +2,7 @@
   <div class="col-xl-8">
       <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bolder fs-6 mb-1">Partner Çemberiniz ({{this.recommenders.length}})</span>
+          <span class="card-label fw-bolder fs-6 mb-1">Referans Sağlayıcı Müşteriler ({{this.recommenders.length}})</span>
         </h3>
         <div
           class="card-toolbar"
@@ -83,7 +83,7 @@
 
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-bold fs-6"
-          ><span class="required">Marka Elçisi Türü</span></label
+          ><span class="required">Kişi Türü</span></label
         >
         <div class="col-lg-8 fv-row">
           <label class="form-check form-check-inline form-check-solid">
@@ -103,7 +103,7 @@
               type="radio"
               value="u"
             />
-            <span class="fw-bold ps-2 fs-6">İşletme İçi</span>
+            <span class="fw-bold ps-2 fs-6">Personel</span>
           </label>
           <br/>
           <label class="form-check form-check-inline form-check-solid">
@@ -113,19 +113,18 @@
               type="radio"
               value="r"
             />
-            <span class="fw-bold ps-2 fs-6">İşletme Dışı</span>
+            <span class="fw-bold ps-2 fs-6">Müşteri</span>
           </label>
-
           <div class="form-text">
-            Herkes bir Marka Elçisidir. Türüne göre herkesin uygulamada yetkileri farklıdır. Hesap Yöneticileri tüm
-            işletmenin gelirlerini görür. İşletme içi marka elçileri başka marka elçilerine davet gönderebilir.
-            İşletme dışı olanlar ise başkalarına tavsiye göndererek size müşteri kazandırıp kazanç elde ederler.
+            Hesap Yöneticisi: İşletmeyle ilgili tüm bilgileri görür ve ayarları yapar.
+            Personel: Kendisi işletmeden hizmet almıştır. Hem çevresine referans olup ek gelir elde edebilir hem de müşterileri referans programına davet eder.
+            Müşteri: İşletmeden hizmet almıştır. Referans programı ile çevresine referans olup ek gelir elde eder.
           </div>
         </div>
       </div>
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-bold fs-6"
-          >Hakediş Oranı</label
+          >Bu Kişiye Özel Pay Oranı</label
         >
         <div class="col-lg-8 fv-row">
           <input
@@ -134,8 +133,7 @@
             formControlName="salesRewardPercentage"
           />
           <div class="form-text">
-            Marka Elçisi'nin tavsiyesiyle gelen müşterilerden yaptığınız tahsilatların
-            yüzde (%) ne kadarı Marka Elçisine hakediş olarak verilecek?
+            Bir müşteri ödeme yaptığında % (yüzde) ne kadarını ona referans olan kişiye vermek istiyorsunuz?
             Boş bırakırsanız İşletme Ayarlarından girdiğiniz genel oran geçerli olur.
           </div>
         </div>

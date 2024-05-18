@@ -44,14 +44,15 @@
 
     (click)="openModalRecommender()">
     <i class="fa-solid fa-share-nodes"></i>
-    Tavsiye Et
+    Paylaş
   </a>
 
   <app-modal #modalRecommenderVideo [modalConfig]="modalConfigRecommenderVideo">
     <div class="row g-3 mb-9 flex-center">
       <div class="col-md-4">
-
-        <iframe width="100%" height="300" src="https://www.youtube.com/embed/bLS5jgL3Pw4?si=1l0MICH2fy4agbHp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="100%" height="300" src="https://www.youtube.com/embed/ZO4eb5qrNYg?si=5PvliO8dbZaE_NAV" title="Referans Programımıza Hoşgeldiniz" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
   </app-modal>
@@ -63,11 +64,10 @@
       <div class="row g-3 mb-5 flex-center">
         <div class="col-md-12">
           <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
-            <span class="fs-4 fw-bold badge badge-light-primary">Marka Elçiliğine Davet Et</span>
+            <span class="fs-4 fw-bold badge badge-light-primary">Referans Olması İçin Davet Et</span>
           </span>
           <div class="text-muted mt-5">
-            Memnun müşterilerinizin çevresine tavsiye etmesi için bu seçeneği kullanın.
-            Bu kişiler işletmenin Marka Elçisi olurlar.
+            Ek gelir elde etmek isteyen müşterinizi Referans Programı'na davet edin.
           </div>
         </div>
       </div>
@@ -99,9 +99,8 @@
       <div class="row g-3 mb-9 flex-center">
         <div class="col-md-12">
           <div class="text-muted">
-            Memnun müşterileriniz mobil uygulamayı AppStore veya Google Play'den indirip işletme kodunuzu
-            girdiklerinde işletmenizle işleşmiş olurlar.
-            Böylece sizin Marka Elçiniz olurlar. Yaptıkları tüm tavsiyeler size akar! Onlara kayıt esnasında aşağıdaki kodu girmelerini söyledin:
+            Eğer bir müşteriniz link üzerinden değil doğrudan AppStore veya Google Play üzerinden uygulamayı kurarsa kaydolurken
+            aşağıdaki işletme kodunu girmelerini isteyin. Bu sayede sizin işletmenizle eşleşirler:
           </div>
         </div>
       </div>
@@ -116,11 +115,11 @@
   <div class="row g-3 flex-center">
       <div class="col-md-12">
         <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
-          <span class="fs-4 fw-bold badge badge-light-success">Tavsiye Et Kazan: <span class="badge badge-light-success fs-4 fw-bold">%{{this.appService.currentUserValue?.salesRewardPercentage ?? this.appService.currentUserValue?.account?.salesRewardPercentage}}</span></span>
+          <span class="fs-4 fw-bold badge badge-light-success">Referans Ol Kazan: <span class="badge badge-light-success fs-4 fw-bold">%{{this.appService.currentUserValue?.salesRewardPercentage ?? this.appService.currentUserValue?.account?.salesRewardPercentage}}</span></span>
         </span>
         <div class="text-muted mt-5">
-          Hizmet almaları için çevrenize tavsiye edin.
-          Aşağıdaki yöntemlerden istediğinizi kullanabilirsiniz. Sizin tavsiyenizle yapılan
+          Hizmet almaları için çevrenize referans olun.
+          Aşağıdaki yöntemlerden istediğinizi kullanabilirsiniz. Sizin referansınızla yapılan
           işlemlerde her tahsilattan size anlaşılan oranda ödeme yapılır.
           <div class="mt-4">
 

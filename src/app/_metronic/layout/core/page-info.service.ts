@@ -63,8 +63,17 @@ export class PageInfoService {
   public calculateTitle() {
     const asideTitle = this.calculateTitleInMenu('kt_app_sidebar');
     const headerTitle = this.calculateTitleInMenu('kt_app_header_wrapper');
-    const title = this.appService.role == 'r' ? 'Marka Elçisi Hesabı' : 'İşletme Hesabı';
-    this.setTitle(title);
+    switch (this.appService.role) {
+      case "o":
+        this.setTitle("İşletme Hesabı");
+        break;
+      case "u":
+        this.setTitle("Personel Hesabı");
+        break;
+      case "r":
+        this.setTitle("Hoşgeldin!");
+        break;
+    }
   }
 
   public calculateTitleInMenu(menuId: string): string | undefined {

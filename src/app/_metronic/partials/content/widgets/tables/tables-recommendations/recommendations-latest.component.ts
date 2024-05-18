@@ -21,7 +21,7 @@ export class RecommendationsLatestComponent implements OnInit {
 
   @ViewChild('modalRecommendation') private modalRecommendation: ModalComponent;
   modalConfigRecommendation: ModalConfig = {
-    title: 'Tavsiyenin Aşamaları',
+    title: 'Başvurunun Aşamaları',
     hideCloseButton: false,
     actions: []
   };
@@ -43,7 +43,7 @@ export class RecommendationsLatestComponent implements OnInit {
   frmAccept: FormGroup;
   @ViewChild('modalAccept') private modalAccept: ModalComponent;
   modalConfigAccept: ModalConfig = {
-    title: 'Tavsiye Kabul',
+    title: 'Başvuru Kabul',
     hideCloseButton: false,
     actions: [
       {
@@ -60,7 +60,7 @@ export class RecommendationsLatestComponent implements OnInit {
   frmDecline: FormGroup;
   @ViewChild('modalDecline') private modalDecline: ModalComponent;
   modalConfigDecline: ModalConfig = {
-    title: 'Tavsiyeyi Reddet',
+    title: 'Başvuruyu Reddet',
     hideCloseButton: false,
     actions: [
       {
@@ -78,7 +78,7 @@ export class RecommendationsLatestComponent implements OnInit {
   frmValidate: FormGroup;
   @ViewChild('modalValidate') private modalValidate: ModalComponent;
   modalConfigValidate: ModalConfig = {
-    title: 'Tavsiye Geçerlidir',
+    title: 'Başvuru Geçerlidir',
     hideCloseButton: false,
     actions: [
       {
@@ -95,7 +95,7 @@ export class RecommendationsLatestComponent implements OnInit {
   frmInvalidate: FormGroup;
   @ViewChild('modalInvalidate') private modalInvalidate: ModalComponent;
   modalConfigInvalidate: ModalConfig = {
-    title: 'Tavsiye Geçersiz',
+    title: 'Başvuru Geçersiz',
     hideCloseButton: false,
     actions: [
       {
@@ -112,7 +112,7 @@ export class RecommendationsLatestComponent implements OnInit {
   frmWithdraw: FormGroup;
   @ViewChild('modalWithdraw') private modalWithdraw: ModalComponent;
   modalConfigWithdraw: ModalConfig = {
-    title: 'Tavsiyeyi Geri Çek',
+    title: 'Başvuruyu Geri Çek',
     hideCloseButton: false,
     actions: [
       {
@@ -214,7 +214,7 @@ export class RecommendationsLatestComponent implements OnInit {
       }
 
       this.actions = result?.data.actions;
-      this.modalConfigRecommendation.title = `Tavsiye Detayı`;
+      this.modalConfigRecommendation.title = `Başvuru Detayı`;
 
       this.modalConfigRecommendation.actions = [];
 

@@ -54,7 +54,7 @@ export class RecommendComponent implements OnInit, OnDestroy {
         if (result?.success) {
           this.recommender = result.data;
           this.promotions = this.recommender?.account.promotions.split(';');
-          this.titleService.setTitle(this.recommender?.account?.name ?? 'Tavsiye Kampanyası');
+          this.titleService.setTitle(this.recommender?.account?.name ?? 'Referans Kampanyası');
         } else {
           this.error = result?.message;
         }

@@ -54,7 +54,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalRecommender') private modalRecommender: ModalComponent;
   modalConfigRecommender: ModalConfig = {
-    title: 'Tavsiye',
+    title: 'Paylaş',
     hideCloseButton: false,
   };
 
@@ -161,7 +161,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     console.log(this.urlInvite);
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
-      text: `Merhaba! Tavsiye Teşvik Programımımıza katılarak düzenli gelir elde etmek ister misiniz? Bilgi için linke dokunun.`,
+      text: `Merhaba! Referans Programımımıza katılarak düzenli gelir elde etmek ister misiniz? Bilgi için linke dokunun.`,
       link: this.urlInvite,
       image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))

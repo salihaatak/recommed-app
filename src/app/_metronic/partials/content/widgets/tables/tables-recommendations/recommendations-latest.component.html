@@ -8,7 +8,7 @@
       <span class="card-label fw-bolder fs-6 mb-1">{{
         this.appService.role === "o"
         ? "Potansiyel Müşteri Havuzunuz"
-        : "Tavsiyenle Başvuranlar"
+        : "Referansınla Başvuranlar"
       }} ({{this.recommendations.length}})</span>
     </h3>
     <div
@@ -30,7 +30,7 @@
 
     </ng-container>
     <ng-container *ngIf="this.appService.role === 'u' || this.appService.role === 'o'">
-      Henüz gelen bir tavsiye yok. Sizden memnun olan eski müşterilerinizi Tavsiye Et düğmesiyle marka elçisi olmaya davet edin
+      Henüz referans programıyla başvuran yok. Sizden memnun olan eski müşterilerinizi Paylaş düğmesiyle programa davet edebilirsiniz!
     </ng-container>
   </div>
 
@@ -108,9 +108,9 @@
                 <span class="text-muted fw-bold text-muted d-block fs-7">
                   Geldiği Tarih: {{ item.createdAtFormatted }}
                   <ng-container *ngIf="this.appService.role === 'o'">
-                  , Marka Elçisi: {{item.by?.createdBy?.name}}
+                  , Referans Olan: {{item.by?.createdBy?.name}}
                   </ng-container>
-                  , Yöntem:
+                  , Yol:
                   <ng-container *ngIf="item.source === 'la'">
                     Link
                   </ng-container>
@@ -161,13 +161,13 @@
           </div>
         </div>
         <div class="fw-normal fs-8 text-muted" *ngIf="recommendation?.phoneNumberHidden">
-          Telefon numarasının tamamı, tavsiye kabul edildiğinde görünür
+          Telefon numarasının tamamı, başvuru kabul edildiğinde görünür
         </div>
       </div>
     </div>
 
     <div class="row mb-4">
-      <label class="col-3 fw-bold text-muted">Marka Elçisi</label>
+      <label class="col-3 fw-bold text-muted">Referans Olan</label>
 
       <div class="col-9 fv-row">
         <span class="fw-bold fs-6">{{recommendation ? recommendation.by?.createdBy.name : ''}}</span>
@@ -268,9 +268,9 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Marka Elçisi bir hakediş elde eder.
+              Başvuruyu kabul ettiğinizde bu başvuruya eğer satış yapılırsa referans olan müşteriye hakediş hesaplanır.
               Lütfen telefon numarasını ve ismi kendi kayıtlarınızda kontrol edin. Aktif görüştüğünüz bir kişiyse kabul etmeyin.
-              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
+              Referans olan kişi yaptığınız işlemden bildirimle haberdar edilir.
 
             </div>
           </div>
@@ -309,9 +309,8 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız.
-              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
-
+              Başvuruyu reddettiğinizde artık bu başvuruya ulaşamazsınız.
+              Referans eden kişi yaptığınız işlemden özel bildirimle haberdar edilir.
             </div>
           </div>
         </div>
@@ -339,8 +338,8 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi geri çektiğinizde artık işletme telefon numarasını göremez.
-              İleride bu telefon numarasını tekrar tavsiye etmeniz mümkün olmaz.
+              Başvuruyu geri çektiğinizde artık işletme telefon numarasını göremez.
+              İleride bu telefon numarasını tekrar eklenmesi mümkün olmaz.
               Yaptığınız işlemden işletme özel bildirimle anında haberdar edilir.
             </div>
           </div>
@@ -381,9 +380,9 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi kabul ettiğinizde bu tavsiyeye eğer satış yapılırsa Marka Elçisi bir hakediş elde eder.
+              Başvuruyu kabul ettiğinizde bu başvuruya satış yapılırsa referans olan müşteri bir hakediş elde eder.
               Lütfen telefon numarasını ve ismi kendi kayıtlarınızda kontrol edin. Aktif görüştüğünüz bir kişiyse kabul etmeyin.
-              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
+              Referans eden kişi yaptığınız işlemden özel bildirimle haberdar edilir.
 
             </div>
           </div>
@@ -422,8 +421,8 @@
           <div class="fw-bold">
             <h4 class="text-gray-800 fw-bolder">Önemli Bilgilendirme</h4>
             <div class="fs-6 text-gray-600">
-              Tavsiyeyi reddettiğinizde artık bu tavsiyeye ulaşamazsınız.
-              Yaptığınız işlemden Marka Elçisi özel bildirimle haberdar edilir.
+              Başvuruyu reddettiğinizde artık bu başvuruya ulaşamazsınız.
+              Referans eden kişi yaptığınız işlemden özel bildirimle haberdar edilir.
 
             </div>
           </div>
