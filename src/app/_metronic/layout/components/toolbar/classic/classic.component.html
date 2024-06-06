@@ -64,7 +64,7 @@
       <div class="row g-3 mb-5 flex-center">
         <div class="col-md-12">
           <span class="d-flex justify-content-between align-items-center text-nowrap w-100">
-            <span class="fs-4 fw-bold badge badge-light-primary">Referans Olması İçin Davet Et</span>
+            <span class="fs-4 fw-bold badge badge-light-primary">Referans Olması İçin Davet Et Linki</span>
           </span>
           <div class="text-muted mt-5">
             Ek gelir elde etmek isteyen müşterinizi Referans Programı'na davet edin.
@@ -74,22 +74,46 @@
 
       <div class="row g-3 mb-9 flex-center">
         <div class="col-md-4">
-          <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareProviderClick()">
-            <span class="fs-1x">Link Paylaş</span>
+          <div class="fs-6 rounded d-flex justify-content-between align-items-center text-nowrap w-100 text-success fw-bold"
+          [ngStyle]="{ visibility: this.copiedProvider ? 'visible' : 'hidden' }">
+            Kopyalandı!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-4 fs-6 rounded d-flex justify-content-between align-items-center text-nowrap w-100"
+          style=" white-space: nowrap;
+          overflow: hidden;
+          background: #f0f0f0;
+          text-overflow: ellipsis;"
+          (click)="btnCopyProviderClick()">
+            <span class="fs-1x">{{this.urlInvite}}</span>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnCopyProviderClick()">
+            <span class="fs-1x">Linki Kopyala</span>
+            <i class="fa-solid fa-copy fs-3"></i>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareProviderClick()">
+            <span class="fs-1x">Linki Paylaş</span>
             <i class="fa-solid fa-share-nodes fs-3"></i>
           </a>
         </div>
 
         <div class="col-md-4" *ngIf="false">
-          <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappProviderClick()">
+          <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappProviderClick()">
             <span class="fs-1x">Whatsapp</span>
             <i class="fa-brands fa-whatsapp fs-3"></i>
           </a>
         </div>
 
         <div class="col-md-3">
-          <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRInviteClick()">
-            <span class="fs-1x">Kare Kod Göster</span>
+          <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRInviteClick()">
+            <span class="fs-1x">Kare Kod Olarak Göster</span>
             <i class="fa-solid fa-qrcode fs-3"></i>
           </a>
         </div>
@@ -129,23 +153,49 @@
     </div>
 
     <div class="row g-3 mb-9 flex-center">
+      <div class="col-md-4">
+        <div class="fs-6 rounded d-flex justify-content-between align-items-center text-nowrap w-100 text-success fw-bold"
+        [ngStyle]="{ visibility: this.copiedRecommender ? 'visible' : 'hidden' }">
+          Kopyalandı!
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 fs-6 rounded d-flex justify-content-between align-items-center text-nowrap w-100"
+        style=" white-space: nowrap;
+        overflow: hidden;
+        background: #f0f0f0;
+        text-overflow: ellipsis;"
+        (click)="btnCopyRecommenderClick()">
+          <span class="fs-1x">{{this.urlRecommend}}</span>
+        </div>
+      </div>
+
+
       <div class="col-md-3">
-        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareRecommenderClick()">
-          <span class="fs-1x">Link Paylaş</span>
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnCopyRecommenderClick()">
+          <span class="fs-1x">Linki Kopyala</span>
+          <i class="fa-solid fa-copy fs-3"></i>
+        </a>
+      </div>
+
+
+      <div class="col-md-3">
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnShareRecommenderClick()">
+          <span class="fs-1x">Linki Paylaş</span>
           <i class="fa-solid fa-share-nodes fs-3"></i>
         </a>
       </div>
 
       <div class="col-md-3" *ngIf="false">
-        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappRecommenderClick()">
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnWhatsappRecommenderClick()">
           <span class="fs-1x">Whatsapp ile Link Gönder</span>
           <i class="fa-brands fa-whatsapp fs-3"></i>
         </a>
       </div>
 
       <div class="col-md-3">
-        <a class="btn btn-secondary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRRecommendClick()">
-          <span class="fs-1x">Kare Kod Göster</span>
+        <a class="btn btn-primary d-flex justify-content-between align-items-center text-nowrap w-100" (click)="btnQRRecommendClick()">
+          <span class="fs-1x">Kare Kod Olarak Göster</span>
           <i class="fa-solid fa-qrcode fs-3"></i>
         </a>
       </div>

@@ -34,7 +34,10 @@ export class ClassicComponent implements OnInit, OnDestroy {
   filterButtonClass: string = '';
   daterangepickerButtonClass: string = '';
 
-  showToolbar: boolean = true;;
+  showToolbar: boolean = true;
+
+  copiedProvider: boolean = false;
+  copiedRecommender: boolean = false;
 
   @ViewChild('modalRecommenderVideo') private modalRecommenderVideo: ModalComponent;
   modalConfigRecommenderVideo: ModalConfig = {
@@ -83,6 +86,10 @@ export class ClassicComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.invitationCode = this.appService.currentUserValue?.account.invitationCode;
+
+    this.urlInvite = `${environment.appUrl}l/i/${this.appService.currentUserValue?.account.invitationCode}/${this.appService.currentUserValue?.uid}`;
+    this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
+
 
     //eğer kullanıcı hesabım bölümündeyse toolbar'ı gizle
     this.router.events.subscribe((event) => {
@@ -145,6 +152,28 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }))
   }
 
+  btnCopyProviderClick(){
+    this.urlInvite = `${environment.appUrl}l/i/${this.appService.currentUserValue?.account.invitationCode}/${this.appService.currentUserValue?.uid}`;
+    const inputElement = document.createElement('input');
+    inputElement.value = this.urlInvite;
+    document.body.appendChild(inputElement);
+    inputElement.select();
+    document.execCommand('copy');
+    document.body.removeChild(inputElement);
+    this.copiedProvider = true;
+  }
+
+  btnCopyRecommenderClick(){
+    this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
+    const inputElement = document.createElement('input');
+    inputElement.value = this.urlRecommend;
+    document.body.appendChild(inputElement);
+    inputElement.select();
+    document.execCommand('copy');
+    document.body.removeChild(inputElement);
+    this.copiedRecommender = true;
+  }
+
   btnShareRecommenderClick(){
     this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
     console.log(this.urlRecommend);
@@ -161,7 +190,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     console.log(this.urlInvite);
     window.WebView.postMessage(JSON.stringify({
       type: "nativeShare",
-      text: `Merhaba! Referans Programımımıza katılarak düzenli gelir elde etmek ister misiniz? Bilgi için linke dokunun.`,
+      text: ``,
       link: this.urlInvite,
       image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))
@@ -171,7 +200,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     this.urlRecommend = `${environment.appUrl}l/r/${this.appService.currentUserValue?.uid}`;
     window.WebView.postMessage(JSON.stringify({
       type: "whatsappShare",
-      text: "Bu işletmeden hizmet aldım ve çok memnun kaldım. İncelemek için linke dokunabilirsin.",
+      text: "",
       link: this.urlRecommend,
       image: "https://recommed.co/app/assets/media/misc/intro.webp"
     }))
