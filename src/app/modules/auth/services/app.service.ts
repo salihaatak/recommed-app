@@ -39,6 +39,7 @@ export class AppService implements OnDestroy {
   public logo: string = 'https://recommed.co/media/recommed/web-logo-colored-text.svg';
   public recommenderJourney: [{channel: string, action: string, lastActionAt: string}];
   public recommenderJourneyStep: number = 1;
+  public recommenderJourneyTitle: string;
   public recommenderJourneyInstruction: string;
 
   get currentUserValue(): UserType {

@@ -40,10 +40,12 @@ export class DashboardRecommenderComponent implements OnInit {
 
         if (this.appService.recommenderJourney.filter(x=>x.action == 'recommender-video').length == 0){
           this.appService.recommenderJourneyStep = 1;
-          this.appService.recommenderJourneyInstruction = "Şimdi yapman gereken: Tüyoları öğreneceğin kısa videoyu izle.";
+          this.appService.recommenderJourneyTitle = "Adım adım kazanca doğru ilerle";
+          this.appService.recommenderJourneyInstruction = "Uygulamayı kurarak ilk puanını kazandın. Şimdi yapman gereken: Tüyoları öğreneceğin kısa videoyu izle.";
         } else if (this.appService.recommenderJourney.filter(x=>x.action == 'recommendation').length == 0){
+          this.appService.recommenderJourneyTitle = "Şimdi yapman gereken";
           this.appService.recommenderJourneyStep = 2;
-          this.appService.recommenderJourneyInstruction = "Şimdi yapman gereken: Paylaş düğmesine dokun. Linki çevrene ulaştır. Linkteki formu doldurmalarını öner. Numarasını bırakanları arayacağız ve ücretsiz olan muayeneye gelmeleri için randevu vereceğiz.";
+          this.appService.recommenderJourneyInstruction = "Paylaş düğmesine dokun. Linki çevrene ulaştır. Linkteki formu doldurmalarını öner. Numarasını bırakanları arayacağız ve ücretsiz olan muayeneye gelmeleri için randevu vereceğiz.";
         } else {
           this.appService.recommenderJourneyStep = 3;
         }
