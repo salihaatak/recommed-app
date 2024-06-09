@@ -11,7 +11,7 @@
 <form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" >
       <div *ngIf="!this.phoneEntered">
             <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-              <a routerLink="/" class="link-primary">
+              <a routerLink="/auth" class="link-primary">
                 {{'T.BACK' | translate}}
               </a>
             </div>
@@ -37,7 +37,7 @@
 
       <div *ngIf="this.phoneEntered && !this.loginVerificationCodeEntered">
             <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-              <a href="/" class="link-primary">
+              <a routerLink="/auth" class="link-primary">
                 {{'T.BACK' | translate}}
               </a>
             </div>
@@ -91,7 +91,7 @@
         <div *ngIf="this.state === 'form'">
 
               <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-                <a href="/" class="link-primary">
+                <a routerLink="/auth" class="link-primary">
                   {{'T.BACK' | translate}}
                 </a>
               </div>
