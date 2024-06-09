@@ -7,7 +7,6 @@ import { LandingComponent } from './landing.component';
 import { TranslationModule } from '../i18n/translation.module';
 import { InviteComponent } from './components/invite/invite.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { RecommendThanksComponent } from './components/recommend-thanks/recommend-thanks.component';
 
 @NgModule({

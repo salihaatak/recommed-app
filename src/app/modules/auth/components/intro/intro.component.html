@@ -3,8 +3,7 @@
 <div class="mb-11">
   <p class="pacifico-header text-center">
     Yeni Görüntünle
-    Avantajlar Dünyasına Katıl:<br/>
-    Paylaş-Kazan!
+    Avantajlar Dünyasına Katıl!
   </p>
   <!--begin::Subtitle-->
   <div class="text-center fw-semibold fs-4 mb-10 ">
@@ -29,25 +28,27 @@
 </div>
 <!--end::Heading-->
 
-<div class="d-grid mb-5">
-    <a routerLink="/auth/login" class="btn btn-primary">
-      Başla
-      <i class="ki-duotone ki-arrow-right fs-3 ms-1 me-0"><span class="path1"></span><span class="path2"></span></i>
+<div class="p-10">
+  <div class="d-grid mb-5">
+      <a routerLink="/auth/login" class="btn btn-primary">
+        Başla
+        <i class="ki-duotone ki-arrow-right fs-3 ms-1 me-0"><span class="path1"></span><span class="path2"></span></i>
+      </a>
+  </div>
+
+
+  <div class="d-grid mb-10">
+    <a (click)="providerLogin()" class="btn btn-secondary">
+      İşletme Kaydı
     </a>
+  </div>
+
+  <div class="text-center mt-10">
+    Daha önce kaydoldun mu?
+    <a class="fw-bold" routerLink="/auth/login">
+      Giriş yap
+    </a>
+  </div>
 </div>
 
-
-<div class="d-grid mb-10">
-  <a routerLink="account/registration" class="btn btn-secondary">
-    İşletme Kaydı
-    <i class="ki-duotone ki-arrow-right fs-3 ms-1 me-0"><span class="path1"></span><span class="path2"></span></i>
-  </a>
-</div>
-
-<div class="text-center mt-10">
-  Daha önce kaydoldun mu?
-  <a class="fw-bold" routerLink="/auth/login">
-    Giriş yapın
-  </a>
-</div>
 

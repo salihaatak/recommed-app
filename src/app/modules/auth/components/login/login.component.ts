@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   phoneEntered: boolean = false;
   loginVerificationCodeEntered: boolean = false;
   invitationCode: string;
+  accountName: string;
+  state: string = 'form';
 
   public contacts: string;
   public location: string;
@@ -65,6 +67,14 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  switchState(state: string) {
+    this.state = state;
+    window.scrollTo(0, 0);
+    setTimeout(()=>{
+      this.ngAfterViewInit();
+    }, 3000)
+  }
+
   renderPhoneNumberInput() {
     const tel = document.querySelector("#phoneNumberLogin");
     if (tel) {
@@ -97,6 +107,11 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       lastName: [
         null
       ],
+      accountName: [
+        null
+      ],
+      providerAgree: [false],
+      optin: [false]
     });
   }
 
@@ -157,16 +172,25 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   join() {
+    if (this.appService.role == "o") {
+      if (!this.form1.controls["providerAgree"].value) {
+        this.error = "Lütfen sözleşmeyi onaylayın"
+        return;
+      }
+    }
+
     this.error = null;
     const s = this.appService
       .post(
         "user/join",
         {
+          role: this.appService.role,
           phoneNumber: this.phoneNumber.getNumber(intlTelInputUtils.numberFormat.E164),
           loginVerificationCode: this.form1.controls["loginVerificationCode"].value,
           invitationCode: this.form1.controls["invitationCode"].value,
           firstName: this.form1.controls["firstName"].value,
           lastName: this.form1.controls["lastName"].value,
+          accountName: this.form1.controls["accountName"].value,
         },
         false
       )

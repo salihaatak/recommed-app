@@ -23,7 +23,6 @@ export class IntroComponent implements OnInit, OnDestroy {
     private router: Router,
     private fb: FormBuilder,
   ) {
-
     if (localStorage.getItem("token")){
       this.appService.me().subscribe(()=>{
         if (this.route.snapshot.queryParams['returnUrl']){
@@ -36,6 +35,12 @@ export class IntroComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.appService.role = 'u';
+  }
+
+  providerLogin(){
+    this.appService.role = 'o';
+    this.router.navigate(['/auth/login']);
   }
 
   ngOnDestroy() {

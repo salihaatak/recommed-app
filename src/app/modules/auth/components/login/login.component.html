@@ -11,7 +11,7 @@
 <form class="form" style="min-width: 250px;" [formGroup]="form1" novalidate="novalidate" >
       <div *ngIf="!this.phoneEntered">
             <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-              <a routerLink="/auth" class="link-primary">
+              <a routerLink="/" class="link-primary">
                 {{'T.BACK' | translate}}
               </a>
             </div>
@@ -37,7 +37,7 @@
 
       <div *ngIf="this.phoneEntered && !this.loginVerificationCodeEntered">
             <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-              <a href="auth/login" class="link-primary">
+              <a href="/" class="link-primary">
                 {{'T.BACK' | translate}}
               </a>
             </div>
@@ -61,32 +61,89 @@
       </div>
 
       <div *ngIf="this.loginVerificationCodeEntered">
-        <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
-          <a href="auth/login" class="link-primary">
-            {{'T.BACK' | translate}}
-          </a>
+
+
+        <div *ngIf="this.state === 'providerAgreement'">
+                <span style="padding-bottom: 40px; position: fixed; top: 20px; right: 20px; cursor: pointer;" (click)="switchState('form')">
+                  <i class="fa-solid fa-xmark fw-bolder" style="font-size: 30px;"></i>
+                </span>
+                <h4>Kişisel Verilerin Korunması Kanunu (KVKK) Hakkında Aydınlatma Metni</h4>
+
+                <p>Son Güncelleme: 27.04.2024</p>
+
+                <p>Agiletech London Ltd olarak şirketimiz&nbsp;i&ccedil;in muhataplarımızın (anlaşmalı işletmelerimiz, bu işletmelerden hizmet alan müşteriler ve müşterilerin referansıyla bilgi formunu dolduran potansiyel m&uuml;şteriler) &ouml;zel hayatlarına ilişkin gizliliğin korunması, bilgi g&uuml;venliğinin sağlanması ve korunması &ouml;ncelikli prensiplerimiz arasında yer almaktadır. Şirketimiz adına, siz değerli m&uuml;şterilerimizin g&uuml;venliğini g&ouml;z &ouml;n&uuml;nde bulundurarak, başta &ouml;zel hayatın gizliliği olmak &uuml;zere, temel hak ve &ouml;zg&uuml;rl&uuml;klerin korunması amacıyla, kişisel verilerle ilgili d&uuml;zenlenen "6698 sayılı Kişisel Verilerin Korunması Kanunu" hususunda sizi bilgilendirmek istiyoruz. Amacımız; sizlerin memnuniyeti doğrultusunda, kişisel verilerinizin alınma şekilleri, işlenme ama&ccedil;ları, hukuki nedenleri ve haklarınız konularında sizi en şeffaf şekilde bilgilendirmektir.</p>
+                <p><strong>Kişisel Verilerin Toplanmasındaki Yasal Dayanak Nedir?&nbsp;</strong><br />7 Nisan 2016 tarihinde y&uuml;r&uuml;rl&uuml;ğe giren 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) gereğince,&nbsp;muhataplarımızın&nbsp;hizmetlerimizden faydalanabilmesi amacıyla, kişisel verilerini tarafımızla paylaşması halinde, şirketimiz; Veri Sorumlusu sıfatıyla, kişisel bilgileri kanunda a&ccedil;ıklandığı &ccedil;er&ccedil;evede; elde edebilecek, kaydedebilecek, muhafaza edebilecek,&nbsp;muhataplarla iletişime ge&ccedil;ebilecek,&nbsp;hizmetlerini devam ettirebilmek amacıyla bilgileri g&uuml;ncelleyebilecek, yeniden d&uuml;zenleyebilecek, mevzuatın izin verdiği durumlarda ve &ouml;l&ccedil;&uuml;de &uuml;&ccedil;&uuml;nc&uuml; kişilere a&ccedil;ıklayabilecek, devredebilecek, aktarabilecek, paylaşabilecek ve kanunda sayılan diğer şekillerde işleyebilecektir.</p>
+                <p>Kişisel verilerinizin işlenme ama&ccedil;ları ve hukuki sebepleri; her t&uuml;rl&uuml; &uuml;r&uuml;n ve hizmetlerimizi sunabilmek ve kesintisiz olarak s&uuml;rd&uuml;rebilmek; işlem sahibinin bilgilerinin tespiti i&ccedil;in kimlik, adres ve diğer gerekli bilgilerini kaydetmek; elektronik veya k&acirc;ğıt ortamında işleme dayanak olacak t&uuml;m kayıt ve belgeleri d&uuml;zenlemek; yerel ve uluslararası mevzuat ve t&uuml;m otoritelerce &ouml;ng&ouml;r&uuml;len bilgi saklama, raporlama, bilgilendirme y&uuml;k&uuml;ml&uuml;l&uuml;klerine uymak, sizinle paylaşmamız gereken &ouml;nemli bilgileri iletişim bilgileriniz &uuml;zerinden iletmek; size &ouml;zel &uuml;r&uuml;n, hizmet, teklif faaliyetlerini planlamak ve hayata ge&ccedil;irmektir.</p>
+                <p><strong>Kişisel Verileriniz Hangi Kanallardan Toplanır?&nbsp;</strong><br />Kişisel verileriniz mobil uygulamamız, internet sitemiz, &ccedil;ağrı merkezimiz ve benzeri diğer kanalları aracılığı ile otomatik ya da otomatik olmayan yollarla, yazılı, s&ouml;zl&uuml; ya da elektronik ortamda toplanabilmektedir.</p>
+                <p><strong>Kişisel Verilerinizin Saklanması</strong></p>
+                <p>Muhataplarımıza&nbsp;ait kişisel verilerin &uuml;&ccedil;&uuml;nc&uuml; kişiler ile paylaşımı,&nbsp;muhataplarımızın izni &ccedil;er&ccedil;evesinde ger&ccedil;ekleşmekte ve kural olarak&nbsp;muhatabımızın onayı olmaksızın kişisel verileri &uuml;&ccedil;&uuml;nc&uuml; kişilere aktarılmamaktadır.</p>
+                <p>Bununla birlikte kişisel verileriniz, Kanun ve mevzuat h&uuml;k&uuml;mlerinin izin verdiği kişi, kurum ve kuruluşlar ve bunlarla sınırlı olmamak &uuml;zere diğer &uuml;&ccedil;&uuml;nc&uuml; kişilerle; BDDK, SPK, TCMB, MASAK, TBB, Hazine M&uuml;steşarlığı gibi otoritelerle; ortaklarımız ve doğrudan veya dolaylı yurti&ccedil;i, yurtdışı iştiraklerimiz ile t&uuml;m faaliyetlerimizi y&uuml;r&uuml;tmek amacıyla hizmet aldığımız, birlikte &ccedil;alıştığımız, işbirliği yaptığımız danışmanlar ve kuruluşlar ile paylaşılabilecektir.</p>
+                <p>&Uuml;&ccedil;&uuml;nc&uuml; kişilere veri aktarımı sırasında hak ihlallerini &ouml;nlemek i&ccedil;in gerekli teknik ve hukuki &ouml;nlemler alınmaktadır. Bununla birlikte, kişisel verileri alan &uuml;&ccedil;&uuml;nc&uuml; kişinin veri koruma politikalarından dolayı ve &uuml;&ccedil;&uuml;nc&uuml; kişinin sorumluluğundaki risk alanında meydana gelen ihlallerden&nbsp;işletmemiz sorumlu değildir.</p>
+                <p><strong>Kişisel Verilerinizin Korunması&nbsp;</strong><br />G&uuml;venlik politikalarımızda belirtildiği &uuml;zere; Şirketimiz, kişisel verilerin hukuka aykırı olarak işlenmesini &ouml;nlemek, kişisel verilere hukuka aykırı olarak erişilmesini &ouml;nlemek, kişisel verilerin muhafazasını sağlamak, amacıyla veri işleme faaliyetlerini y&uuml;r&uuml;t&uuml;rken uygun g&uuml;venlik d&uuml;zeyini temin etmeye y&ouml;nelik her t&uuml;rl&uuml; teknik ve idari tedbirleri almakla y&uuml;k&uuml;ml&uuml;d&uuml;r. Şirketimiz bu doğrultuda verilerinizin gizlilik, b&uuml;t&uuml;nl&uuml;k, erişilebilirlik ve g&uuml;venliğini sağlamak adına gerekli teknik ve idari almaktadır.</p>
+                <p><strong>Kişisel Verilerin Korunması Kanundan Doğan Haklarınız Nelerdir?&nbsp;</strong><br />KVKK&rsquo; nın &ldquo;İstisnalar&rdquo; Başlıklı 28. Maddesinde &ouml;ng&ouml;r&uuml;len haller saklı kalmak kaydıyla, Kanun&rsquo;un 11. maddesi &ccedil;er&ccedil;evesinde şirketimize başvurarak kişisel verilerinizin;<br />1. İşlenip işlenmediğini, işlenme amacını ve amacına uygun kullanıp kullanılmadığı &ouml;ğrenme ve işlenmiş ise bu konuda bilgi isteme,<br />2. Kanun&rsquo;a uygun olarak yurt i&ccedil;inde ve yurt dışında bilgilerinizin paylaşıldığı &uuml;&ccedil;&uuml;nc&uuml; kişileri &ouml;ğrenme.<br />3. Bilgilerinizin eksik ya da hatalı işlendiğini d&uuml;ş&uuml;n&uuml;yorsanız d&uuml;zeltilmesini isteme,<br />4. Kanunun 7. maddesinde &ouml;ng&ouml;r&uuml;len şartlar &ccedil;er&ccedil;evesinde bilgilerinizin silinmesini ya da yok edilmesini talep etme,<br />5. Bilgilerinizin aktarıldığı &uuml;&ccedil;&uuml;nc&uuml; kişilere (c) ve (d) bentlerinde belirtilen taleplerinizin bildirilmesini ve aynı işlemleri ger&ccedil;ekleştirmelerini isteme,<br />6. Bilgilerinizin, otomatik sistemler ile analiz edilmesi nedeniyle aleyhinize bir sonucun ortaya &ccedil;ıkmasına itiraz etme veya kanuna aykırı olarak kaydedildiğini veya kullanıldığını d&uuml;ş&uuml;n&uuml;yorsanız ve bu sebeple zarara uğramışsanız zararın giderilmesini isteme, haklarına sahip olduğunuzu bilgilerinize sunarız.</p>
+                <p>Haklarınızın, d&uuml;zenlemenin y&uuml;r&uuml;rl&uuml;k tarihi olan 07.10.2016 tarihinden itibaren kullanılması m&uuml;mk&uuml;n olup, taleplerinizin yerine getirilmesini teminen şirketimizce yapılacak masrafları, KVKK&rsquo; nın &ldquo;Veri sorumlusuna başvuru&rdquo; başlıklı 13. maddesinde belirtilen tarifeye g&ouml;re tarafınızdan talep etme hakkımız saklıdır.</p>
+                <p><strong>Kişisel Verilerinizi Ne Kadar S&uuml;reyle Saklıyoruz?&nbsp;</strong><br />Mevzuat gereğince, şirketimizin m&uuml;şterileri ile ger&ccedil;ekleştirdiği işlemlere ilişkin kayıt ve belgeleri, 10 yıl s&uuml;re ile saklamasına dair yasal zorunluluk s&ouml;z konusudur. Kişisel verilerinizin silinmesini veya yok edilmesini talep etmeniz halinde, s&ouml;z konusu 10 yıllık s&uuml;renin sonunda bu talebiniz yerine getirilecektir. Bu s&uuml;re zarfında, kişisel verileriniz şirketimiz tarafından işlenmeyecek, ulusal ve uluslararası yasa, d&uuml;zenleme ve s&ouml;zleşmelerden kaynaklı zorunluluklar haricinde &uuml;&ccedil;&uuml;nc&uuml; kişiler ile paylaşılmayacak ve tarafınızla herhangi bir &uuml;r&uuml;n tanıtımı ya da pazarlaması i&ccedil;in bağlantıya ge&ccedil;ilmeyecektir.</p>
+                <p><strong>Kişisel Verileriniz Hakkında Soru ve Talepleriniz mi Var?&nbsp;</strong><br />Kişisel Verilerinizin işlenmesi ile ilgili talep ve sorularınızı&nbsp;aşağıda belirtilen yollarla şirketimize bildirebilirsiniz. 6698 sayılı Kişisel Verilerin Korunması Kanunu 13&rsquo;&uuml;nc&uuml; maddesinin birinci fıkrası uyarınca; veri sorumlusu olan Şirketimize yapılacak başvuruların yazılı olarak veya Kişisel Verilerin Korunması Kurulu tarafından belirlenen diğer y&ouml;ntemlerle tarafımıza iletilmesi gerekmektedir. Bu &ccedil;er&ccedil;evede &ldquo;yazılı&rdquo; olarak Şirketimize yapılacak başvurular aşağıdaki y&ouml;ntemlerle yapılabilir:</p>
+                <p>1.1. Başvuru Sahibi&rsquo;nin şahsen başvurusu ile,<br />1.2. Noter vasıtasıyla,<br />1.3. Başvuru Sahibi&rsquo;nce 5070 Sayılı Elektronik İmza Kanununda tanımlı olan &ldquo;g&uuml;venli elektronik imza&rdquo; ile imzalanarak Şirket kayıtlı elektronik posta adresine g&ouml;nderilmek suretiyle,<br />1.4.&nbsp;<a href="mailto:info@agiletechlondon.com">info@agiletechlondon.com</a>&nbsp;adresinden talep&nbsp;edebileceğiniz KVKK Formu ile&nbsp;<br />1.5. Aşağıdaki e-posta adresine g&ouml;nderilecek e-posta<br />1.6. Aşağıdaki fiziki posta adresine g&ouml;nderilecek imzalı posta veya kargo ile</p>
+                <p><strong>Unvan:</strong>&nbsp;AgileTech London Ltd<br /><strong>E-posta adresi:</strong>&nbsp;info@agiletechlondon.com<br /><strong>Fiziki Posta adresi:</strong>&nbsp;1 Meridian South, Meridian Business Park, Leicester, England, LE19 1WY<br /><strong>Veri Sorumlusu:</strong> AGILETECH LONDON LTD</p>
         </div>
 
-        <div class="text-center mb-11">
-          <h1 class="text-dark fw-bolder mb-3">
-            Doğrulama
-          </h1>
-        </div>
+        <div *ngIf="this.state === 'form'">
 
-        <input class="form-control mb-10" placeholder="İşletme Kodu" type="number" pattern="\d*" name="invitationCode" autocomplete="off"
-        formControlName="invitationCode" *ngIf="!this.invitationCode" />
+              <div class="text-gray-500 text-center fw-semibold fs-6 mb-20">
+                <a href="/" class="link-primary">
+                  {{'T.BACK' | translate}}
+                </a>
+              </div>
 
-        <input class="form-control mb-10" placeholder="Adınız" type="text" name="firstName" autocomplete="off"
-        formControlName="firstName" />
+              <div class="text-center mb-11">
+                <h1 class="text-dark fw-bolder mb-3">
+                  <ng-container *ngIf="this.appService.role === 'o'">
+                    İşletme Kaydınızı Tamamlayın
+                  </ng-container>
+                  <ng-container *ngIf="this.appService.role === 'u'">
+                    Kaydınızı Tamamlayın
+                  </ng-container>
+                </h1>
+              </div>
 
-        <input class="form-control mb-10" placeholder="Soyadınız" type="text" name="lastName" autocomplete="off"
-        formControlName="lastName" />
+              <input class="form-control mb-10" placeholder="Marka / İşletme Adı" type="text" name="accountName" autocomplete="off"
+              formControlName="accountName" *ngIf="this.appService.role === 'o'" />
 
-        <div class="d-grid">
-          <button type="button" (click)="join();" class="btn btn-primary" [disabled]="form1.invalid">
-            {{'T.LOGIN' | translate}}
-            <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
-          </button>
+              <input class="form-control mb-10" placeholder="İşletme Kodu" type="number" pattern="\d*" name="invitationCode" autocomplete="off"
+              formControlName="invitationCode" *ngIf="!this.invitationCode && this.appService.role === 'u'" />
+
+              <input class="form-control mb-10" placeholder="Adınız" type="text" name="firstName" autocomplete="off"
+              formControlName="firstName" />
+
+              <input class="form-control mb-10" placeholder="Soyadınız" type="text" name="lastName" autocomplete="off"
+              formControlName="lastName" />
+
+              <label class="form-check form-check-inline" *ngIf="this.appService.role === 'o'">
+                <input id="kt_login_toc_agree" type="checkbox" formControlName="providerAgree" name="agree" class="form-check-input">
+                <span for="kt_login_toc_agree" class="form-check-label fw-semibold text-gray-700 fs-base">
+                Yasaların gerektirdiği <a (click)="switchState('gdpr')" href="javascript:;">Kişisel Verilerin Korunması Kanunu (KVKK)</a> aydınlatma metnini ve <a (click)="switchState('terms')" href="javascript:;">Kurallar ve Koşullar</a> metnini okudum ve kabul ediyorum
+                </span>
+              </label>
+            <!--end::Form group-->
+
+            <!--begin::Form group-->
+              <label class="form-check form-check-inline">
+                <input id="kt_login_optin_agree" type="checkbox" formControlName="optin" name="optin" class="form-check-input" />
+                <span for="kt_login_optin_agree" class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+                  Fırsatlardan ve gelişmelerden haberdar edilmek istiyorum
+                </span>
+              </label>
+            <!--end::Form group-->
+
+
+              <div class="d-grid mt-10">
+                <button type="button" (click)="join();" class="btn btn-primary" [disabled]="form1.invalid">
+                  {{'T.LOGIN' | translate}}
+                  <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="this.appService.isLoading$ | async"></span>
+                </button>
+
+              </div>
 
         </div>
 
